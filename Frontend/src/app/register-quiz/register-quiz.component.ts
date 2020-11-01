@@ -18,6 +18,11 @@ export class RegisterQuizComponent implements OnInit {
 
 
   message:any;
+//add() only for routing purpose
+  public add(){
+    this._router.navigate(['/addQuestions']
+    
+    );}
 
   public createQuiz(){
     

@@ -1,0 +1,51 @@
+
+<div class="container">
+  <div class="row">
+    <img class="alignleft wp-image-63595 size-medium" src="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&#038;ssl=1" alt="" width="300" height="113" srcset="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&amp;ssl=1 300w, https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?w=340&amp;ssl=1 340w" sizes="(max-width: 300px) 100vw, 300px" data-recalc-dims="1" />
+    <div class="col-md-5 offset-md-3 mt-5">
+      <div class="card">
+        <h4 class="card-header">OTP Verification</h4>
+        <div class="card-body">  
+<form [formGroup]="form" #OtpInformation (ngSubmit)="OtpForm(OtpInformation)">    
+  <div class="row">  
+    <div class=" col-md-8 col-md-offset-2">  
+        <label for="otp">Enter OTP</label> 
+         
+        <input formControlName="otp" class="form-control" type="text"> 
+        <span
+        *ngIf="!form.get('otp').valid && form.get('otp').touched && !form.get('otp').dirty"
+        class="help-block">OTP  is required !
+      </span>  
+    </div>    
+  </div> 
+  <div class="row">  
+    <div class=" col-md-8 col-md-offset-2">
+  <p *ngIf="!allowResendOTP">OTP Expires in <countdown [config]="{leftTime: 600}"></countdown>  min</p>
+  <p *ngIf="allowResendOTP">Please Generate new OTP your previous OTP is expired.</p>
+  <br>
+  <button class="btn btn-md btn-success btn-style pull-left" [disabled]="!form.valid">Submit</button>
+  <button class="btn btn-primary btn-style pull-right" (click)="onCancel()">Cancel</button>
+  <br> <br> <hr>
+  <button class="btn btn-primary btn-style pull-right" 
+         [disabled]="!allowResendOTP"
+         (click)="onResend()">Resend OTP</button>
+
+</div>
+  </div>
+  
+</form>  
+<!-- <div class="row" style="margin-top: 30px;">  
+  <div class="col-md-8 col-md-offset-2">  
+     <div class="text-center col-md-8 col-md-offset-2">
+        <button class="btn btn-primary btn-style pull-right" 
+         [disabled]="!allowResendOTP"
+         (click)="onResend()">Resend OTP</button>
+      </div>
+  </div>   -->
+  
+</div>
+</div>
+</div>
+</div>
+</div>
+

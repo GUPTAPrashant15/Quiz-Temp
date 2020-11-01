@@ -1,0 +1,45 @@
+﻿<div class="container">
+    <div class="row">
+        <img class="alignleft wp-image-63595 size-medium" src="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&#038;ssl=1" alt="" width="300" height="113" srcset="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&amp;ssl=1 300w, https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?w=340&amp;ssl=1 340w" sizes="(max-width: 300px) 100vw, 300px" data-recalc-dims="1" />
+        <div class="col-md-5 offset-md-3 mt-5">
+            <div class="card">
+                <h4 class="card-header">Welcome to SBSI Quiz Portal</h4>
+                <div class="card-body">  
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+
+                            <label for="username">Email</label>
+                            <input type="text" required formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">Email is required</div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" required formControlName="password"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password.errors.required">Password is required</div>
+                                    <div *ngIf="f.password.errors.pattern">Password is not according to pattern</div>
+                        </div>
+                </div>
+                <button class="btn btn-success">
+                    <!-- //<span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+                    Login
+                </button>
+<!-- <br>
+<br> -->
+                <button (click)="onForget()" class="btn btn-primary pull-right">
+                    Forgot Password?
+                </button>
+                <hr>
+                <a href="http://localhost:4200/registration" class="pull-right">
+                New user? Signup</a>
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>

@@ -24,7 +24,7 @@ export class OtpVerificationComponent implements OnInit {
     
     setTimeout(() => {
       this.allowResendOTP=true;
-    },6000);
+    },600000);
   }
   form = new FormGroup({    
     otp : new FormControl('' ,[Validators.required,Validators.pattern("^[0-9]{6}$")] ),      

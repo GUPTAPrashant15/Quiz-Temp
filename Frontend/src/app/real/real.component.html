@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Real Time Analysis</title>
+	<style type="text/css">
+		.topnav {
+  background-color: #87ceeb;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+
+}
+.mat_card1
+{
+	background-color: white;
+}
+
+.mat_card2
+{
+   float: center;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.divsetup
+{
+	background-color: #E1DFE4;
+	position: relative;
+	width: 100%;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  	float: center;
+	margin: auto;
+
+}
+	</style>
+
+</head>
+<body>
+
+<div class="secondnav" style="background-color: lightcyan;">
+	<table ><tr><td style="padding: 10px; "><b>Quiz:</b> {{quiz_name }}</td><td><b>Status:</b> {{quiz_status}}</td></tr></table>
+
+</div>
+
+	
+    <mat-card class="mat_card1">
+    <div class="divsetup" style=" ">
+
+
+    	<table>
+		<tr>
+			<td style="padding: 15px;"><b>Date Published: </b></td>
+			<td>{{date_published}}</td>
+		</tr>
+		<tr>
+			<td style="padding: 15px;"><b>Total Respondants: </b></td>
+			<td>{{total_respondants}}</td>
+		</tr>
+		
+		<tr>
+			<td style="padding:15px;"><b>Point vs Count Graph: </b></td>
+			<td> <button mat-raised-button color="primary" (click)="generatePCG()">Generate Graph</button></td>
+		</tr>
+		<tr>
+			<td style="padding:15px;"><b>Response vs Count Graph: </b></td>
+			<td> <button mat-raised-button color="primary" (click)="generateRCG()">Generate Graph</button></td>
+		</tr>
+		
+	</table>
+</div>
+<div >
+    <table style="width: 80%;border: solid;float: center;margin-left: auto;margin-right: auto; ">
+    	<tr  style="background-color: skyblue;padding: 10%;text-align: center;"><th colspan="5" style="border: solid;">Indiviudal Summary</th></tr>
+    	<tr></tr>
+    	<tr>
+
+ 			<td style="padding: 15px;text-align: center;">S.NO</td>
+    		<td style="padding: 15px;text-align: center;">User Name</td>
+    		
+    		<td style="padding: 15px;text-align: center;">Date Submitted</td>
+
+    		<td style="padding: 15px;text-align: center;">Score</td>
+    		<td style="padding: 15px;text-align: center;">Grade</td>
+
+    	</tr>
+    	<tr *ngFor="let person of MyArray; let i  = index">
+    		<td style="padding: 15px; text-align: center;">{{i+1}}</td>
+    		<td style="padding: 15px; text-align: center;">{{person.username}}</td>
+    		<td style="padding: 15px;text-align: center;">{{person.date}}</td>
+    		<td style="padding: 15px;text-align: center;">{{person.marks}}</td>
+    		<td *ngIf="person.marks>3" style="padding: 15px;text-align: center;">Pass</td>
+    		<td *ngIf="person.marks<3" style="padding: 15px;text-align: center;">Fail</td>
+              
+    		
+    	</tr>
+
+    </table>	
+    
+    
+    </div>    	
+       
+    </mat-card> 
+    
+
+</body>
+</html>

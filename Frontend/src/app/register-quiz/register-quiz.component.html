@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  
+    <div>
+
+      <mat-card>
+  
+          <h2 class="heading">Create Quiz</h2>
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createQuiz()" novalidate class="form" >
+  
+      <!-- <div class="form-group mt-2">
+        <label for="quizName">Name:</label>
+        <input type="text" class="form-control" id="quizName" name="name" #name="ngModel" [(ngModel)]="quiz.quizName" [ngClass] = "{'is-invalid':f.submitted && name.invalid}" required>
+        <div *ngIf="f.submitted && name.invalid" class="invalid-input">
+          <div *ngIf="name.errors?.required">Name is not valid</div>
+
+        </div> -->
+
+        <mat-form-field class="full-width">
+          <mat-label>Quiz Name</mat-label>
+          <input matInput name="name" #name="ngModel" [(ngModel)]="quiz.quizName" [ngClass] = "{'is-invalid':f.submitted && name.invalid}" required>
+          <div *ngIf="f.submitted && name.invalid" class="invalid-input">
+            <div *ngIf="name.errors?.required">Name is not valid</div>
+          </div>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Description:</mat-label>
+        <textarea matInput name="quizDesc" [(ngModel)]="quiz.description"></textarea>
+      </mat-form-field>
+
+
+      <!-- </div> -->
+      <!-- <div class="form-group">
+        <label for="quizDesc">Description:</label>
+        <input type="text" class="form-control" id="quizDesc" name="quizDesc" [(ngModel)]="quiz.description">
+      </div> -->
+    <br/>
+    <br/>
+    <!-- <button type="submit"  class="btn btn-primary">Add Questions</button> -->
+
+    <button mat-raised-button type="submit" color="primary">Add Questions</button>
+  
+    </form>
+  <hr/>
+  <br/>
+  </mat-card>
+  </div>
+   
+  <router-outlet></router-outlet>
+
+</body>
+</html>

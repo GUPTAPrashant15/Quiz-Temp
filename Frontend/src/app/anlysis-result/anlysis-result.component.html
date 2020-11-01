@@ -1,0 +1,21 @@
+<div style="text-align: center;">
+    <h1>
+      Analyse your QUIZ
+    </h1>
+</div>
+<form #form="ngForm" (ngSubmit)="saveValue(form.value)">
+    <div class="container form-group">
+       <div class="form-group">
+            <label>Select Question</label>
+                <select ngModel name="Ques" #Ques="ngModel" class="form-control">
+                    <option *ngFor="let QuesNo of graphData" [value]="QuesNo.Ques">
+                         Question {{QuesNo.Ques}}
+                    </option>
+                </select>
+        </div>
+        <button type="submit" class="btn" style="background: #673ab7; color: white;">
+            Analyse It
+        </button>
+    </div>
+</form>
+<div id="chartContainer" style="height: 370px; width: 50%; margin:0 auto;" ></div>

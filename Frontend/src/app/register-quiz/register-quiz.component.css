@@ -30,3 +30,7 @@ mat-card {
     max-width: 450px;
     width: 90%;
 }
+
+#create_quiz {
+    min-height: 60.2vh;
+}

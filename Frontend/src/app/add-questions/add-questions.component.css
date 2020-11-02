@@ -51,7 +51,7 @@ mat-card {
 }
 
 #card {
-    min-height: 21vh;
+    min-height: 20.4vh;
 }
 
 .options {
@@ -63,5 +63,7 @@ mat-card {
     list-style-type: none;
 }
 
-
+/* #add_main{
+    min-height: 59vh;
+} */
 

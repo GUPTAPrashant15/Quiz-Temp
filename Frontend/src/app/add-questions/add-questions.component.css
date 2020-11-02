@@ -54,5 +54,14 @@ mat-card {
     min-height: 21vh;
 }
 
+.options {
+    display: flex;
+    grid-template-rows: 1 1;
+}
+
+#mulCorr {
+    list-style-type: none;
+}
+
 
 

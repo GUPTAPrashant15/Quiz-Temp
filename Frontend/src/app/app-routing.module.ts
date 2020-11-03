@@ -22,7 +22,7 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetSuccessComponent } from './reset-success/reset-success.component';
 const routes: Routes = [
-  {path:"",redirectTo:"/registration",pathMatch:"full"},
+  {path:"",redirectTo:"/login",pathMatch:"full"},
   // {path:"add",redirectTo:"addQuiz",pathMatch:"full"},
   {path: "addQuiz",component:RegisterQuizComponent},
   {path:'list',component:QuizListComponent},
@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: 'anlysis-result', component: AnlysisResultComponent},
   {path: 'realtimeanalysis',component:RealComponent},
   {path:'Performance', component: PerformanceChartComponent},
-  {path:"registration",component:RegistrationComponent}
-   ,{path:"login",component:LoginComponent}
+  {path:"registration",component:RegistrationComponent},
+  {path:"login",component:LoginComponent}
    //,{path: "home", component:HomeComponent}
 
 ];

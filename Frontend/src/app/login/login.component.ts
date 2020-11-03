@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     if(data.message=="SUCCESS"){
-                        alert("LOGIN SUCCESSFULLY");
+                        // alert("LOGIN SUCCESSFULLY");
                          this.router.navigate(['/dashboard']);
                     }
                     else if(data.message=="FAILURE")

@@ -9,6 +9,7 @@ export class CreateQuizService {
   constructor(private http:HttpClient) { }
 
   public registerQuiz(quiz){
+    console.log("quiz=" ,quiz);
     return this.http.post("http://localhost:8080/addQuiz",quiz,{responseType:'text' as 'json'});
   }
 

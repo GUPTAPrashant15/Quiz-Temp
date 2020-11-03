@@ -24,7 +24,7 @@ export class OtpVerificationComponent implements OnInit {
     
     setTimeout(() => {
       this.allowResendOTP=true;
-    },600000);
+    },6000);
   }
   form = new FormGroup({    
     otp : new FormControl('' ,[Validators.required,Validators.pattern("^[0-9]{6}$")] ),      
@@ -42,7 +42,7 @@ export class OtpVerificationComponent implements OnInit {
         this.forgotPwdService.verifyOtp(this.otpDetail).subscribe(  
         response => {
                 if(response=="SUCCESS"){
-                  alert("OTP Verified SUCCESSFULLY")
+                  // alert("OTP Verified SUCCESSFULLY")
                   this.router.navigateByUrl('/reset-pwd',{ state: { email: this.emailDetail.emailId}}); 
                 } 
                 else {
@@ -63,21 +63,22 @@ export class OtpVerificationComponent implements OnInit {
     },600000);
   
     this.forgotPwdService.saveAdminDetails(this.emailDetail).subscribe(  
-    response => {  
-        let result = response.json();  
+      response => {  
+        //let result = response.json();  
 
-        if(result > 0)  
-        {  
-          this.router.navigate(['/otp-verify']);  
-        }  
-        else  
-        {  
-            alert("Email id is not registered.")  
-        }  
-    },  
-    error => {  
-      alert("error occur while checking User. please try after sometime.")  
-    }  
+        //(response) => {
+          console.log(response)
+          if(response=="SUCCESS"){
+            alert("OTP Generated SUCCESSFULLY")
+            console.log(this.emailDetail.emailId)
+            //this.router.navigate(['/login'])
+            this.router.navigateByUrl('/otp-verify',{ state: { email: this.emailDetail.emailId}}); 
+          } 
+          else {
+            alert("User does not exist!")
+          }
+          console.log('success',response)},
+         (error)=> console.log('error',error)
     
   );  
   this.router.navigate(['/otp-verify']);

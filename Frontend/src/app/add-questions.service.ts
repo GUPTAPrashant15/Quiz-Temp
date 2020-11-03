@@ -13,6 +13,7 @@ export class AddQuestionsService {
   // }
 
   public addQuestions(questions,quizId){
+    // console.log(quizId);
     return this.http.post("http://localhost:8080/addQuestions/"+quizId,questions,{responseType:'text' as 'json'});
   }
 }

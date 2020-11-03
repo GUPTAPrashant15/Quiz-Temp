@@ -20,15 +20,16 @@
   </div> 
   <div class="row">  
     <div class=" col-md-12 col-md-offset-2" style="margin-top: 15px;">
-  <p *ngIf="!allowResendOTP">OTP Expires in <countdown [config]="{leftTime: 600}"></countdown>  min</p>
+  <p *ngIf="!allowResendOTP">OTP Expires in <countdown [config]="{leftTime: 60}"></countdown>  min</p>
   <p *ngIf="allowResendOTP">Please Generate new OTP your previous OTP is expired.</p>
   <br>
   <button class="btn btn-md btn-success btn-style pull-left" [disabled]="!form.valid">Submit</button>
   <button class="btn btn-primary btn-style pull-right" (click)="onCancel()">Cancel</button>
   <br> <br> <hr>
-  <!-- <button class="btn btn-primary btn-style pull-right" 
+  
+  <button class="btn btn-primary btn-style pull-right" 
          [disabled]="!allowResendOTP"
-         (click)="onResend()">Resend OTP</button> -->
+         (click)="onResend()">Resend OTP</button>
 
 </div>
   </div>

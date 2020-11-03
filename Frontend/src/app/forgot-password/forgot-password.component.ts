@@ -45,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
               //(response) => {
                 console.log(response)
                 if(response=="SUCCESS"){
-                  alert("OTP Generated SUCCESSFULLY")
+                  // alert("OTP Generated SUCCESSFULLY")
                   console.log(this.emailDetail.emailId)
                   //this.router.navigate(['/login'])
                   this.router.navigateByUrl('/otp-verify',{ state: { email: this.emailDetail.emailId}}); 
@@ -58,18 +58,7 @@ export class ForgotPasswordComponent implements OnInit {
 
 
 
-              //if(result > 0)  
-              //{  
-                //this.router.navigateByUrl('/otp-verify',{ state: { email: this.emailDetail.emailId}}); 
-            //  }  
-              //else  
-             // {  
-               //   alert("Email id is not registered.")  
-             // }  
-        //  },  
-          //error => {  
-            //alert("error occur while checking User. please try after sometime.")  
-         // }  
+            
         );  
         //to be removed
         // this.router.navigateByUrl('/otp-verify',{ state: { email: this.emailDetail.emailId}});

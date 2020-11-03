@@ -1,6 +1,6 @@
 
 
-<div>
+<div id="add_main">
 
     <mat-card>
 
@@ -109,7 +109,7 @@
                             <mat-icon>delete</mat-icon>
                         </button>
                         <ng-container *ngIf="q.quesType =='Single Correct'">
-                            <div class="options">
+                            <div>
                                 <ol>
                                     <li>{{ q.option1 }}</li>
                                     <li>{{ q.option2 }}</li>
@@ -121,24 +121,29 @@
                         </ng-container>
                         <ng-container *ngIf="q.quesType =='Multiple Correct'">
                             <div class="options">
-                                        <ol>
-                                            <li>{{ q.option1 }} </li>
-                                            <li>{{ q.option2 }} </li>
-                                            <li>{{ q.option3 }} </li>
-                                            <li>{{ q.option4 }} </li>
-                                        </ol>
-                                        <ol>
-                                            <li>{{q.correct1}}</li>
-                                            <li>{{q.correct2}}</li>
-                                            <li>{{q.correct3}}</li>
-                                            <li>{{q.correct4}}</li>
-                                        </ol>
+                                <div>
+                                    <ol>
+                                        <li>{{ q.option1 }} </li>
+                                        <li>{{ q.option2 }} </li>
+                                        <li>{{ q.option3 }} </li>
+                                        <li>{{ q.option4 }} </li>
+                                    </ol>
+                                </div>
+
+                                <div >
+                                    <ul id="mulCorr">
+                                        <li>{{q.correct1}}</li>
+                                        <li>{{q.correct2}}</li>
+                                        <li>{{q.correct3}}</li>
+                                        <li>{{q.correct4}}</li>
+                                    </ul>
+                                </div>
                             </div>
                         </ng-container>
                         
                         <ng-container *ngIf="q.quesType =='Textual'">
                             <div>
-                                {{ q.text_answer }}
+                                {{ q.textAnswer }}
                             </div>
                         </ng-container>
                     </div>

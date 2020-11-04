@@ -11,7 +11,6 @@ import { AnlysisResultService } from './anlysis-result.service';
 import {RealComponent} from 'src/app/real/real.component';
 import { PerformanceChartComponent } from 'src/app/performance-chart.component';
 import { FormsModule } from '@angular/forms';
-//import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CreateQuizService} from 'src/app/create-quiz.service';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
@@ -27,12 +26,12 @@ import {MatCardModule} from '@angular/material/card';
 import { DisplaySuccessComponent } from './display-success/display-success.component'; 
 import {MatTableModule} from '@angular/material/table';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {MatDialogModule} from '@angular/material/dialog'; 
 
 import { RegistrationComponent } from './registration/registration.component';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 
-//import { ReactiveFormsModule } from '@angular/forms';
 import {PasswordStrengthComponent} from './password-strength/password-strength.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {CountdownModule} from 'ngx-countdown';
@@ -44,12 +43,13 @@ import { ForgotPwdService } from './services/forgot-pwd.service';
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { ResetSuccessComponent } from './reset-success/reset-success.component';
 import { RouterModule } from '@angular/router';
+import { AlertDialog } from './add-questions/add-questions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    
+    AlertDialog,
     RegisterQuizComponent,
     AddQuestionsComponent,
     DisplaySuccessComponent,
@@ -79,6 +79,7 @@ import { RouterModule } from '@angular/router';
     MatRadioModule,
     MatInputModule,
     MatCheckboxModule,
+    MatDialogModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,

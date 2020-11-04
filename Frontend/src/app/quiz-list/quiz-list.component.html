@@ -22,7 +22,7 @@
             <tr *ngFor="let quiz of quizzes |async |filter:searchValue">
                 <td>{{quiz.quizId}}</td>
                 <td>{{quiz.quizName}}</td>
-                <td><button mat-raised-button color="primary" style="margin-left: 120px" (click)="realTimeAnalysis()">Analysis</button>
+                <td><button mat-raised-button color="primary" style="margin-left: 120px" (click)="realTimeAnalysis(quiz)">Analysis</button>
                     <button mat-raised-button color="accent" style="margin-left: 120px">Download</button>
                     <button mat-raised-button color="warn" style="margin-left: 120px">Status</button>
                 </td>

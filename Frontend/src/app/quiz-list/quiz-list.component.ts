@@ -22,8 +22,8 @@ username:any;
     this.quizzes=this.service.getQuiz(this.username);
     }
 
-    realTimeAnalysis()
+     realTimeAnalysis(quiz)
     {
-       this.route.navigate(['/realtimeanalysis']);
+       this.route.navigate(['/realtimeanalysis',quiz.quizId]);
     }
 }

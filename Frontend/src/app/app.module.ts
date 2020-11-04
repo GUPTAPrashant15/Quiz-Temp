@@ -44,6 +44,7 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 import { ResetSuccessComponent } from './reset-success/reset-success.component';
 import { RouterModule } from '@angular/router';
 import { AlertDialog } from './add-questions/add-questions.component';
+import {RealtimeresultService} from 'src/app/realtimeresult.service';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,7 @@ import { AlertDialog } from './add-questions/add-questions.component';
     providers: [
       { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-      ForgotPwdService, CreateQuizService, AnlysisResultService,
+      ForgotPwdService, CreateQuizService, AnlysisResultService,RealtimeresultService,
       // provider used to create fake backend
       fakeBackendProvider
     

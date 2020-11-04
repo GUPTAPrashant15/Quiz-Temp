@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: "addQuestions",component:AddQuestionsComponent},
   {path: "success",component:DisplaySuccessComponent},
   { path: 'anlysis-result', component: AnlysisResultComponent},
-  {path: 'realtimeanalysis',component:RealComponent},
+  {path: 'realtimeanalysis/:id',component:RealComponent},
   {path:'Performance', component: PerformanceChartComponent},
   {path:"registration",component:RegistrationComponent},
   {path:"login",component:LoginComponent}

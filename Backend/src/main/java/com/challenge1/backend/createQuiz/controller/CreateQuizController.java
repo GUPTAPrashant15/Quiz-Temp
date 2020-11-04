@@ -89,6 +89,13 @@ public class CreateQuizController {
 	    List<Quiz> quiz= repository.findByUsername(userName);
 	    return quiz;
 	}
+@GetMapping("/realtimeanalysis/{quizId}")
+	public Quiz getQuizById(@PathVariable(value="quizId")Long id)
+	{
+		Quiz quiz = repository.findById((Long)id).get();
+		
+		return quiz;
+	}
 
 }
 

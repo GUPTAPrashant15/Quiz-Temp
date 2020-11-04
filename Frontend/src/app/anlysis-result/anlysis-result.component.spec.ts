@@ -4,6 +4,9 @@ import { AnlysisResultComponent } from './anlysis-result.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule} from '@angular/common/http';
 
+import { RouterModule } from '@angular/router';
+
+
 describe('AnlysisResultComponent', () => {
   let component: AnlysisResultComponent;
   let fixture: ComponentFixture<AnlysisResultComponent>;
@@ -12,7 +15,10 @@ describe('AnlysisResultComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterModule.forRoot([]),
+        FormsModule
+
       ],
       declarations: [ AnlysisResultComponent ]
     })

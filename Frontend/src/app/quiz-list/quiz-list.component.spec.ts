@@ -1,8 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 
 import { QuizListComponent } from './quiz-list.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 describe('QuizListComponent', () => {
   let component: QuizListComponent;
   let fixture: ComponentFixture<QuizListComponent>;
@@ -11,7 +13,10 @@ describe('QuizListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterModule.forRoot([]),
+        Ng2SearchPipeModule
+
       ],
       declarations: [ QuizListComponent ]
     })

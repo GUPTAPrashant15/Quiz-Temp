@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RealComponent } from './real.component';
+import { RouterModule } from '@angular/router';
+
 
 describe('RealComponent', () => {
   let component: RealComponent;
@@ -8,6 +10,9 @@ describe('RealComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        RouterModule.forRoot([])
+      ],
       declarations: [ RealComponent ]
     })
     .compileComponents();

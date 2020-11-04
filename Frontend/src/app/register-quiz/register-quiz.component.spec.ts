@@ -4,6 +4,8 @@ import { RegisterQuizComponent } from './register-quiz.component';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule} from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 describe('RegisterQuizComponent', () => {
   let component: RegisterQuizComponent;
@@ -13,7 +15,10 @@ describe('RegisterQuizComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterModule.forRoot([]),
+        FormsModule
+
       ],
       declarations: [ RegisterQuizComponent ]
     })

@@ -44,4 +44,18 @@ describe('AddQuestionsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have onDelete function', () => {
+    expect(component.onDelete).toBeTruthy();
+  });
+
+  it('should have onSubmit function', () => {
+    expect(component.onSubmit).toBeTruthy();
+  });
+
+  it('should have saveQuestions function', () => {
+    expect(component.saveQuestions).toBeTruthy();
+  });
+
+  
 });

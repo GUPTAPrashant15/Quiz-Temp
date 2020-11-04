@@ -129,7 +129,7 @@ export class AddQuestionsComponent implements OnInit {
   }
 
   saveQuestions(){
-
+    console.log("-----",this.quizId);
     let resp = this.service.addQuestions(this.questions,this.quizId);
     resp.subscribe((data)=>this.message=data);
 

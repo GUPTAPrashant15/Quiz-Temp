@@ -10,7 +10,7 @@
       <mat-card>
   
           <h2 class="heading">Create Quiz</h2>
-    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createQuiz()" novalidate class="form" >
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createQuiz() " novalidate class="form" >
   
       <!-- <div class="form-group mt-2">
         <label for="quizName">Name:</label>
@@ -43,7 +43,7 @@
     <br/>
     <!-- <button type="submit"  class="btn btn-primary">Add Questions</button> -->
 
-    <button mat-raised-button type="submit" (click)="add()" color="primary">Add Questions</button>
+    <button mat-raised-button type="submit"  color="primary">Add Questions</button>
   
     </form>
   <hr/>

@@ -25,9 +25,10 @@ export class RegisterQuizComponent implements OnInit {
     );}
 
   public createQuiz(){
-    
+    console.log("Inside Quiz Created Function ")
     this.quiz.username = "sweety.agarwal02";
     let resp = this.service.registerQuiz(this.quiz);
+    
     resp.subscribe((data)=>{this.message=data;
       this._router.navigate(['/addQuestions'],{queryParams:{quizId:this.message}});});
     

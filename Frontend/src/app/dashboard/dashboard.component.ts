@@ -24,4 +24,9 @@ export class DashboardComponent implements OnInit {
   {
     this.router.navigate(['/addQuiz'],{relativeTo:this.route});
   }
+  logOut(){
+    this.router.navigate(['/login'])
+  
+  
+  }
 }

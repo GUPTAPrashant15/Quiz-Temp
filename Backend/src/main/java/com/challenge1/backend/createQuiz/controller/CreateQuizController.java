@@ -55,6 +55,7 @@ public class CreateQuizController {
 	@PostMapping("/addQuestions/{id}")
 	public String saveQuestions(@RequestBody List<Questions> questions, @PathVariable long id) {
 		
+		System.out.println(id);
 		logger.info("Inside CreateQuizController: saveQuestions() method");
 		
 		long quesSeq = 1;

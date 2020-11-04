@@ -37,7 +37,7 @@ onSubmit(){
       this._router.navigate(['/login'])
     } 
     else {
-      alert("Registerd User")
+      alert("User Already Registerd")
     }
     console.log('success',response)},
    (error)=> console.log('error',error)

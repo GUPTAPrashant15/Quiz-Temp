@@ -12,7 +12,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   public username:any ="sweety.agarwal02";
-
+  
   constructor(private route: ActivatedRoute,
     private router: Router,private service: CreateQuizService) { }
 

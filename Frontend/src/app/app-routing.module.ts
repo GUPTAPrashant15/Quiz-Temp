@@ -33,7 +33,8 @@ const routes: Routes = [
   {path: 'realtimeanalysis/:id',component:RealComponent},
   {path:'Performance', component: PerformanceChartComponent},
   {path:"registration",component:RegistrationComponent},
-  {path:"login",component:LoginComponent}
+  {path:"login",component:LoginComponent},
+  {path:"**", component:LoginComponent}
    //,{path: "home", component:HomeComponent}
 
 ];

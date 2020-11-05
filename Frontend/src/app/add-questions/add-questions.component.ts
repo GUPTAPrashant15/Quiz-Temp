@@ -52,7 +52,6 @@ export class AddQuestionsComponent implements OnInit {
   }
 
   onDelete(q) {
-    q.deleted = true;
     this.questions = this.questions.filter(t => t.quesID != q.quesID);
   }
 
@@ -130,6 +129,10 @@ export class AddQuestionsComponent implements OnInit {
 
   saveQuestions(){
     console.log("-----",this.quizId);
+    if (this.questions.length==0){
+      this.dialog.open(AlertDialog, { data : {message : 'Questions not added!'} });
+      return;
+    }
     let resp = this.service.addQuestions(this.questions,this.quizId);
     resp.subscribe((data)=>this.message=data);
 

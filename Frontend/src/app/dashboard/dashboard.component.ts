@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CreateQuizService} from 'src/app/create-quiz.service';
 import { ViewEncapsulation } from '@angular/core';
 //import { relative } from 'path';
 @Component({

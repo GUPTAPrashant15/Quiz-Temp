@@ -19,6 +19,11 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private forgotPwdService : ForgotPwdService, private router : Router) { }
 
   ngOnInit(): void {
+  let logout = document.getElementById('logout');
+        logout.style.display = "none";
+
+        let dashboard = document.querySelector('.navButton');
+        dashboard.textContent = "";
     
   }
   form = new FormGroup({    

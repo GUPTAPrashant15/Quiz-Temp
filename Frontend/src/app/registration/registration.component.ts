@@ -27,8 +27,8 @@ export class RegistrationComponent implements OnInit {
     let logout = document.getElementById('logout');
         logout.style.display = "none";
 
-        let dashboard = document.getElementsByClassName('navButton');
-        logout.style.display = "none";
+        let dashboard = document.querySelector('.navButton');
+        dashboard.textContent = "";
   }
 
 

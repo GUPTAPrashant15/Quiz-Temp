@@ -34,8 +34,11 @@ const routes: Routes = [
   {path:'Performance', component: PerformanceChartComponent},
   {path:"registration",component:RegistrationComponent},
   {path:"login",component:LoginComponent},
-  {path:"**", component:LoginComponent}
+  {path:"forgotten-password",component:ForgotPasswordComponent},
+  {path:"**", component:LoginComponent},
+
    //,{path: "home", component:HomeComponent}
+  
 
 ];
 

@@ -48,7 +48,13 @@ describe('AddQuestionsComponent', () => {
 
   it('should have onDelete function', () => {
     let q = new Question;
-    expect(component.onDelete(q)).toBeTruthy();
+    // expect(component.onDelete(q)).toBeTruthy();
+    let len = component.questions.length;
+    // component.question_form.value.text_answer;
+    component.onDelete(q);
+    fixture.detectChanges();
+    expect(component.questions.length).toBe(len - 1);
+    len = len - 1;
   });
 
   it('should have a working onSubmit function', () => {
@@ -63,11 +69,17 @@ describe('AddQuestionsComponent', () => {
     component.question_form.value.correct2 = true;
     component.question_form.value.correct3;
     component.question_form.value.correct4;
+    let len = component.questions.length;
     // component.question_form.value.text_answer;
-    expect(component.onSubmit()).toBeTruthy();
+    component.onSubmit();
+    fixture.detectChanges();
+    expect(component.questions.length).toBe(len + 1);
+    len = len + 1;
   });
 
   it('should have saveQuestions function', () => {
+    let q = new Question;
+    component.questions.push(q);
     expect(component.saveQuestions()).toBeTruthy();
   });
 

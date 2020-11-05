@@ -15,7 +15,6 @@ export class RealtimeresultService {
 
   public getQuizById(quizId): Observable<any>
   {
-
      return this.http.get<any>('http://localhost:8080/realtimeanalysis/'+quizId);
   }
 

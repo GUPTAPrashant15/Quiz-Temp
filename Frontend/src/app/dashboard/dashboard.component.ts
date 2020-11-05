@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CreateQuizService} from 'src/app/create-quiz.service';
 import { ViewEncapsulation } from '@angular/core';
 //import { relative } from 'path';
 @Component({
@@ -13,14 +14,14 @@ export class DashboardComponent implements OnInit {
   public username:any ="sweety.agarwal02";
 
   constructor(private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,,private service: CreateQuizService) { }
 
   ngOnInit(): void {
   }
   createdQuiz()
   {
-    this.router.navigate(['/list',{foo:this.username}],{relativeTo: this.route});
-    
+    this.router.navigate(['/list'],{relativeTo: this.route});
+    this.service.passUsername(this.username);
   }
   createQuiz()
   {
@@ -28,7 +29,5 @@ export class DashboardComponent implements OnInit {
   }
   logOut(){
     this.router.navigate(['/login'])
-  
-  
   }
 }

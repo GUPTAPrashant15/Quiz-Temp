@@ -17,8 +17,8 @@ export class QuizListComponent implements OnInit {
 username:any;
 
   ngOnInit(){
-    this.username=this.router.snapshot.params['foo'];
-
+    
+    this.service.share.subscribe(x => this.username = x);
     this.quizzes=this.service.getQuiz(this.username);
     }
 

@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   public username:any ="sweety.agarwal02";
 
   constructor(private route: ActivatedRoute,
-    private router: Router,,private service: CreateQuizService) { }
+    private router: Router,private service: CreateQuizService) { }
 
   ngOnInit(): void {
   }

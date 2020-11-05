@@ -44,11 +44,5 @@ describe('QuizListComponent', () => {
       .queryAll(By.css('table'));
       expect(divcount.length).toBe(1); 
       }); 
-      
-
-      it('should be 1 table ', ()=>{
-        const divcount = fixture.debugElement
-        .queryAll(By.css('table'));
-        expect(divcount.length).toBe(1); 
-        }); 
+     
 });

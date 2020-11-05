@@ -11,7 +11,7 @@
 }
 
 #dashboard {
-    min-height: 55vh;
+    min-height: 20vh;
     padding: 6rem 0 1.7rem 0 ;
 }
 
@@ -20,5 +20,5 @@
     width: 70%;
     margin: auto;
     vertical-align: middle;
-    padding: 8rem 0;
+    padding: 5.47rem 0;
 }

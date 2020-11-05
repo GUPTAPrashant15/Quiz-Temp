@@ -17,6 +17,12 @@ export class DashboardComponent implements OnInit {
     private router: Router,private service: CreateQuizService) { }
 
   ngOnInit(): void {
+    let logout = document.getElementById('logout');
+    logout.style.display = "";
+
+    let dashboard = document.querySelector('.navButton');
+    dashboard.textContent = "Dashboard";
+
   }
   createdQuiz()
   {

@@ -39,6 +39,13 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+        let logout = document.getElementById('logout');
+        logout.style.display = "none";
+
+        let dashboard = document.querySelector('.navButton');
+        dashboard.textContent = "";
+
     }
 
     // convenience getter for easy access to form fields

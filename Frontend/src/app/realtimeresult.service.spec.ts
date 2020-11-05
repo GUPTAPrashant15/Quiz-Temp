@@ -4,6 +4,7 @@ import { Injector } from '@angular/core';
 
 
 import { RealtimeresultService } from './realtimeresult.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('RealtimeresultService', () => {
   let service: RealtimeresultService;
@@ -12,7 +13,10 @@ describe('RealtimeresultService', () => {
 
   beforeEach(() => {
    injector=  TestBed.configureTestingModule({
-     imports: [HttpClientTestingModule],
+     imports: [
+       HttpClientTestingModule,
+       HttpClientModule
+    ],
       providers: [RealtimeresultService],
 
 

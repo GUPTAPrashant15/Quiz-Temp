@@ -20,6 +20,11 @@ export class ResetPasswordComponent implements OnInit {
     form: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
+    let logout = document.getElementById('logout');
+        logout.style.display = "none";
+        
+        let dashboard = document.getElementsByClassName('navButton');
+    logout.style.display = "none";
     this.form = this.fb.group({
       password: ['', [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       confirm_password: ['', [Validators.required]]

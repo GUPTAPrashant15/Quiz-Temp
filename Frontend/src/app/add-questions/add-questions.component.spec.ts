@@ -51,7 +51,7 @@ describe('AddQuestionsComponent', () => {
     expect(component.onDelete(q)).toBeTruthy();
   });
 
-  it('should have onSubmit function', () => {
+  it('should have a working onSubmit function', () => {
     component.question_form.value.question_text = "hello";
     component.question_form.value.type = "Multiple Correct";
     component.question_form.value.option1 = "a";

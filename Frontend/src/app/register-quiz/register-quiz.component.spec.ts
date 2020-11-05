@@ -34,4 +34,8 @@ describe('RegisterQuizComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should open', () => {
+    expect(component.createQuiz()).toBeTruthy();
+  });
 });

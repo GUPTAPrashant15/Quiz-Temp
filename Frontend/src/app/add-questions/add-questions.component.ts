@@ -52,7 +52,6 @@ export class AddQuestionsComponent implements OnInit {
   }
 
   onDelete(q) {
-    q.deleted = true;
     this.questions = this.questions.filter(t => t.quesID != q.quesID);
   }
 

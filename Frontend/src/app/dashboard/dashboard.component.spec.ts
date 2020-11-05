@@ -11,6 +11,7 @@ describe('DashboardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [        
         RouterModule.forRoot([]),
+        HttpClientTestingModule,
     ],
       declarations: [ DashboardComponent ]
     })

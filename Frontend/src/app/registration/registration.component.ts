@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
   form :FormGroup
+  regErrorEmail=false;
   constructor(public fb: FormBuilder, private http:HttpClient, private _RegistrationService: RegistrationService, private _router: Router) {
     this.form = this.fb.group({
       firstName:['',Validators.required],
@@ -42,7 +43,8 @@ onSubmit(){
       this._router.navigate(['/login'])
     } 
     else {
-      alert("User Already Registerd")
+      //alert("User Already Registerd")
+      this.regErrorEmail=true;
     }
     console.log('success',response)},
    (error)=> console.log('error',error)

@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
+    loginErrorCredentials= false;
+    loginErrorEmail=false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -52,6 +54,8 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
+        this.loginErrorCredentials=false;
+        this.loginErrorEmail=false;
         this.submitted = true;
 
         // stop here if form is invalid
@@ -71,9 +75,12 @@ export class LoginComponent implements OnInit {
                          this.authenticationService.setLoggedIn(true);
                     }
                     else if(data.message=="FAILURE")
-                    alert("EMAIL NOT FOUND");
+                    this.loginErrorEmail=true;
+                    //alert("EMAIL NOT FOUND");
+                        
                     else{
-                        alert("Wrong Credentials");
+                        //alert("Wrong Credentials");
+                        this.loginErrorCredentials=true;
                     }
                    
                 },

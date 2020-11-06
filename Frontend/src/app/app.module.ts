@@ -45,6 +45,7 @@ import { ResetSuccessComponent } from './reset-success/reset-success.component';
 import { RouterModule } from '@angular/router';
 import { AlertDialog } from './add-questions/add-questions.component';
 import {RealtimeresultService} from 'src/app/realtimeresult.service';
+import { UrlComponent } from './url/url.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {RealtimeresultService} from 'src/app/realtimeresult.service';
     routingComponents,
     OtpVerificationComponent,
     ResetSuccessComponent,
+    UrlComponent,
     ForgotPasswordComponent,PasswordStrengthComponent,ResetPasswordComponent,LoginComponent,HomeComponent
   
 
@@ -77,6 +79,7 @@ import {RealtimeresultService} from 'src/app/realtimeresult.service';
     MatToolbarModule,
     MatSelectModule,
     MatIconModule,
+    MatCardModule,
     MatRadioModule,
     MatInputModule,
     MatCheckboxModule,

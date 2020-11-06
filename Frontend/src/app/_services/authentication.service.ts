@@ -12,10 +12,20 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
+    private loggedInStatus = false
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
+
+    setLoggedIn(value: boolean) {
+        this.loggedInStatus = value
+      }
+    
+      get isLoggedIn() {
+        return this.loggedInStatus
+      }
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;

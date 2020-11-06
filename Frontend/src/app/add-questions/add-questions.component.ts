@@ -136,7 +136,8 @@ export class AddQuestionsComponent implements OnInit {
     let resp = this.service.addQuestions(this.questions,this.quizId);
     resp.subscribe((data)=>this.message=data);
 
-    this._router.navigate(['/success']);
+    //this._router.navigate(['/success']);
+    this._router.navigate(['/url',this.quizId])
 
   }
 

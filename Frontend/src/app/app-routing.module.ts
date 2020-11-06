@@ -21,25 +21,27 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 // import { RegistrationComponent } from './registration/registration.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetSuccessComponent } from './reset-success/reset-success.component';
+import { AuthGuard } from './_helpers/auth.guard';
+import { UrlComponent } from './url/url.component';
 const routes: Routes = [
   {path:"",redirectTo:"/login",pathMatch:"full"},
   // {path:"add",redirectTo:"addQuiz",pathMatch:"full"},
-  {path: "addQuiz",component:RegisterQuizComponent},
-  {path:'list',component:QuizListComponent},
-  {path: "dashboard",component:DashboardComponent},
-  {path: "addQuestions",component:AddQuestionsComponent},
-  {path: "success",component:DisplaySuccessComponent},
-  { path: 'anlysis-result', component: AnlysisResultComponent},
-  {path: 'realtimeanalysis/:id',component:RealComponent},
-  {path:'Performance', component: PerformanceChartComponent},
+  {path: "addQuiz",component:RegisterQuizComponent,canActivate: [AuthGuard]},
+  {path:'list',component:QuizListComponent,canActivate: [AuthGuard]},
+  {path: "dashboard",component:DashboardComponent,canActivate: [AuthGuard]},
+  {path: "addQuestions",component:AddQuestionsComponent,canActivate: [AuthGuard]},
+  {path: "success",component:DisplaySuccessComponent,canActivate: [AuthGuard]},
+  { path: 'anlysis-result', component: AnlysisResultComponent,canActivate: [AuthGuard]},
+  {path: 'realtimeanalysis/:id',component:RealComponent,canActivate: [AuthGuard]},
+  {path:'Performance', component: PerformanceChartComponent,canActivate: [AuthGuard]},
   {path:"registration",component:RegistrationComponent},
   {path:"login",component:LoginComponent},
-  {path:"forgotten-password",component:ForgotPasswordComponent},
-  {path:"**", component:LoginComponent},
+  {path:"forgotten-password",component:ForgotPasswordComponent,canActivate: [AuthGuard]},
+  // {path:"**", component:LoginComponent},
+  { path: "url/:id", component:UrlComponent, canActivate: [AuthGuard] }
 
    //,{path: "home", component:HomeComponent}
   
-
 ];
 
 @NgModule({

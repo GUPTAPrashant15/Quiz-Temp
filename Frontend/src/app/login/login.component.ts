@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
                     if(data.message=="SUCCESS"){
                         // alert("LOGIN SUCCESSFULLY");
                          this.router.navigate(['/dashboard']);
+                         this.authenticationService.setLoggedIn(true);
                     }
                     else if(data.message=="FAILURE")
                     alert("EMAIL NOT FOUND");

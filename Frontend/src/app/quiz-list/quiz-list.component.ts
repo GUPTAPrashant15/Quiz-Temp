@@ -26,4 +26,9 @@ username:any;
     {
        this.route.navigate(['/realtimeanalysis',quiz.quizId]);
     }
+
+    share(quiz)
+    {
+      this.route.navigate(['/url',quiz.quizId])
+    }
 }

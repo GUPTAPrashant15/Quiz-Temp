@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent implements OnInit {
   private emailDetail = new EmailDetail();  
   private otpDetail = new OtpDetail();  
+  errorValidation= false;
 
   constructor(private forgotPwdService : ForgotPwdService, private router : Router) { }
 
@@ -56,7 +57,8 @@ export class ForgotPasswordComponent implements OnInit {
                   this.router.navigateByUrl('/otp-verify',{ state: { email: this.emailDetail.emailId}}); 
                 } 
                 else {
-                  alert("User does not exist!")
+                  //alert("User does not exist!")
+                  this.errorValidation=true;
                 }
                 console.log('success',response)},
                (error)=> console.log('error',error)

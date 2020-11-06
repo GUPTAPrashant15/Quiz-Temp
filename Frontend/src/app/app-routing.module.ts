@@ -31,12 +31,12 @@ const routes: Routes = [
   {path: "dashboard",component:DashboardComponent,canActivate: [AuthGuard]},
   {path: "addQuestions",component:AddQuestionsComponent,canActivate: [AuthGuard]},
   {path: "success",component:DisplaySuccessComponent,canActivate: [AuthGuard]},
-  { path: 'anlysis-result', component: AnlysisResultComponent,canActivate: [AuthGuard]},
+  {path: 'anlysis-result', component: AnlysisResultComponent,canActivate: [AuthGuard]},
   {path: 'realtimeanalysis/:id',component:RealComponent,canActivate: [AuthGuard]},
   {path:'Performance', component: PerformanceChartComponent,canActivate: [AuthGuard]},
   {path:"registration",component:RegistrationComponent},
   {path:"login",component:LoginComponent},
-  {path:"forgotten-password",component:ForgotPasswordComponent,canActivate: [AuthGuard]},
+  {path:"forgotten-password",component:ForgotPasswordComponent},
   // {path:"**", component:LoginComponent},
   { path: "url/:id", component:UrlComponent, canActivate: [AuthGuard] }
 

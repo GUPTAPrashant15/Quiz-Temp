@@ -41,3 +41,4 @@ describe('RealComponent', () => {
       .query(By.css("title"));
     expect(divcount.nativeElement.textContent).toBe("Real Time Analysis");
   });
+  });

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services';
+import {CreateQuizService} from 'src/app/create-quiz.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private service: CreateQuizService
     ) { 
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) { 
@@ -71,7 +73,9 @@ export class LoginComponent implements OnInit {
                 data => {
                     if(data.message=="SUCCESS"){
                         // alert("LOGIN SUCCESSFULLY");
+                         this.service.passUsername(this.f.username.value);
                          this.router.navigate(['/dashboard']);
+                         console.log(this.f.username.value)
                          this.authenticationService.setLoggedIn(true);
                     }
                     else if(data.message=="FAILURE")

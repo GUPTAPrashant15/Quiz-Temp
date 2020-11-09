@@ -16,7 +16,6 @@ export class AppComponent {
 
 logOut(){
   this._router.navigate(['/login'])
-  
 
 
 }}

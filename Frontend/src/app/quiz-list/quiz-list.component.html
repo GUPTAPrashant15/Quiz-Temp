@@ -14,7 +14,8 @@
         <thead>
             <tr>
                 <th width="50px">ID</th>
-                <th width="500px">Quiz Name</th>
+                <th width="350px">Quiz Name</th>
+                <th width="150px">Status</th>
                 <th></th>
             </tr>
         </thead>
@@ -22,9 +23,9 @@
             <tr *ngFor="let quiz of quizzes |async |filter:searchValue">
                 <td>{{quiz.quizId}}</td>
                 <td>{{quiz.quizName}}</td>
+                <td>Open</td>
                 <td><button mat-raised-button color="primary" style="margin-left: 80px" (click)="realTimeAnalysis(quiz)">Analysis</button>
                     <button mat-raised-button color="accent" style="margin-left: 80px">Download</button>
-                    <button mat-raised-button  style="margin-left: 80px">Open</button>
                     <button mat-raised-button color="warn" (click)="share(quiz)" style="margin-left: 80px">Share</button>
                 </td>
                 <!-- <td><button style='margin-right:16px' (click)="statusQuiz(quiz.id)" class="btn btn-success" style="margin-left: 10px">Status</button> 

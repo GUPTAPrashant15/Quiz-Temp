@@ -11,9 +11,9 @@ import { ViewEncapsulation } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  //public username:any ="sweety.agarwal02";
+  public username:any ="sweety.agarwal02";
   
- public username;
+ //public username;
   constructor(private route: ActivatedRoute,
     private router: Router,private service: CreateQuizService) { }
 
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
     dashboard.textContent = "Dashboard";
    // let logout = document.getElementById('logout');
    // logout.style.display = "";
-   this.service.share.subscribe(x => this.username = x);
+  // this.service.share.subscribe(x => this.username = x);
     //let dashboard = document.querySelector('.navButton');
     //dashboard.textContent = "Dashboard";
 

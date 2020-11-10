@@ -14,6 +14,7 @@ export class OtpVerificationComponent implements OnInit {
   private otpDetail = new OtpDetail();  
   private emailDetail = new EmailDetail();  
   allowResendOTP=false;
+  errorOTP=false;
 
   constructor(private forgotPwdService : ForgotPwdService, private router : Router) { }
 
@@ -46,7 +47,8 @@ export class OtpVerificationComponent implements OnInit {
                   this.router.navigateByUrl('/reset-pwd',{ state: { email: this.emailDetail.emailId}}); 
                 } 
                 else {
-                  alert("TRY AGAIN")
+                  //alert("TRY AGAIN")
+                  this.errorOTP=true;
                 }
                 console.log('success',response)
               },

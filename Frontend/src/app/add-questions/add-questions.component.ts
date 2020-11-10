@@ -121,6 +121,19 @@ export class AddQuestionsComponent implements OnInit {
       }
       tempObj.textAnswer = ta;
     }
+
+    if(c1== null || c1 == ""){
+      tempObj.correct1= false;
+    }
+    if(c2== null || c2 == ""){
+      tempObj.correct2= false;
+    }
+    if(c3== null || c3 == ""){
+      tempObj.correct3= false;
+    }
+    if(c4 == null || c4 ==""){
+      tempObj.correct4= false;
+    }
     
     this.questions.push(tempObj);
     this.question_form.reset();
@@ -136,7 +149,8 @@ export class AddQuestionsComponent implements OnInit {
     let resp = this.service.addQuestions(this.questions,this.quizId);
     resp.subscribe((data)=>this.message=data);
 
-    this._router.navigate(['/success']);
+    //this._router.navigate(['/success']);
+    this._router.navigate(['/url',this.quizId])
 
   }
 

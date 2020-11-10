@@ -28,11 +28,14 @@
                     <!-- //<span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
                     Login
                 </button>
+                
 <!-- <br>
 <br> -->
                 <button (click)="onForget()" class="btn btn-primary pull-right">
                     Forgot Password?
                 </button>
+                <div *ngIf="loginErrorCredentials" class="alert alert-danger mt-3 mb-0">Invalid Credentials</div>
+                <div *ngIf="loginErrorEmail" class="alert alert-danger mt-3 mb-0">Email not found</div>
                 <hr>
                 <a href="http://localhost:4200/registration" class="pull-right">
                 New user? Signup</a>

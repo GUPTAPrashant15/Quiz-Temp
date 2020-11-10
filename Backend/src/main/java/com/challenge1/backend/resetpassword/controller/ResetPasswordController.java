@@ -168,7 +168,7 @@ public class ResetPasswordController {
 
     }
 
-    private static char[] generateOTP(int length) {
+    public static char[] generateOTP(int length) {
 
         String numbers = "1234567890";
         Random random = new Random();

@@ -27,6 +27,7 @@ import { DisplaySuccessComponent } from './display-success/display-success.compo
 import {MatTableModule} from '@angular/material/table';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {MatDialogModule} from '@angular/material/dialog'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { RegistrationComponent } from './registration/registration.component';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
@@ -45,7 +46,8 @@ import { ResetSuccessComponent } from './reset-success/reset-success.component';
 import { RouterModule } from '@angular/router';
 import { AlertDialog } from './add-questions/add-questions.component';
 import {RealtimeresultService} from 'src/app/realtimeresult.service';
-
+import { UrlComponent } from './url/url.component';
+import {MatSortModule} from '@angular/material/sort';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +65,7 @@ import {RealtimeresultService} from 'src/app/realtimeresult.service';
     routingComponents,
     OtpVerificationComponent,
     ResetSuccessComponent,
+    UrlComponent,
     ForgotPasswordComponent,PasswordStrengthComponent,ResetPasswordComponent,LoginComponent,HomeComponent
   
 
@@ -77,6 +80,7 @@ import {RealtimeresultService} from 'src/app/realtimeresult.service';
     MatToolbarModule,
     MatSelectModule,
     MatIconModule,
+    MatCardModule,
     MatRadioModule,
     MatInputModule,
     MatCheckboxModule,
@@ -85,6 +89,8 @@ import {RealtimeresultService} from 'src/app/realtimeresult.service';
     MatButtonModule,
     MatCardModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     Ng2SearchPipeModule,
     RouterModule.forRoot([{
       path : 'forgotten-password',  

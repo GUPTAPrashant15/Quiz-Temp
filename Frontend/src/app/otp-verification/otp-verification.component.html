@@ -25,7 +25,9 @@
   <br>
   <button class="btn btn-md btn-success btn-style pull-left" [disabled]="!form.valid">Submit</button>
   <button class="btn btn-primary btn-style pull-right" (click)="onCancel()">Cancel</button>
-  <br> <br> <hr>
+  <br> <br> 
+  <div *ngIf="errorOTP" class="alert alert-danger mt-3 mb-0">Wrong OTP</div>
+  <hr>
   
   <button class="btn btn-primary btn-style pull-right" 
          

@@ -32,7 +32,7 @@ public class RegistrationController {
     public ResponseEntity<UserModel> signup(@RequestBody final UserModel signupUser) {
 
         String message;
-        UserModel m= new UserModel();
+        UserModel m = new UserModel();
 
         System.out.println("Testing Signup API...");
 
@@ -44,36 +44,35 @@ public class RegistrationController {
             System.out.println(tempUser);
             if (tempUser != null) {
 
-                message ="FAILURE";
-//                System.out.println(message);
+                message = "FAILURE";
+                // System.out.println(message);
                 m.setMessage(message);
 
-//                return m;
-//                return new ResponseEntity<>(m, HttpStatus.UNAUTHORIZED);
-            }
-            else {
-            tempUser = userRepo.save(signupUser);
+                // return m;
+                // return new ResponseEntity<>(m, HttpStatus.UNAUTHORIZED);
+            } else {
+                tempUser = userRepo.save(signupUser);
 
-            message ="SUCCESS";
-            System.out.println(message);
-            m.setMessage(message);
+                message = "SUCCESS";
+                System.out.println(message);
+                m.setMessage(message);
 
-//            return new ResponseEntity<>(m, HttpStatus.CREATED);
-//            return m;
+                // return new ResponseEntity<>(m, HttpStatus.CREATED);
+                // return m;
             }
         } catch (Exception exc) {
 
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
-        
+
         return new ResponseEntity<>(m, HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserModel> login(@RequestBody final UserModel loginUser) {
 
-        String message;
+        // String message;
         UserModel m = new UserModel();
         System.out.println("Testing Login API...");
 
@@ -87,7 +86,7 @@ public class RegistrationController {
             if (tempUser == null) {
 
                 m.setMessage("FAILURE");
-//                System.out.println(message);
+                // System.out.println(message);
 
                 return new ResponseEntity<>(m, HttpStatus.OK);
 
@@ -95,8 +94,8 @@ public class RegistrationController {
 
             if (!tempUser.getPassword().equals(tempPass)) {
 
-            	 m.setMessage("FAILURE1");
-            	 System.out.println("FAILURE 1");
+                m.setMessage("FAILURE1");
+                System.out.println("FAILURE 1");
 
                 return new ResponseEntity<>(m, HttpStatus.OK);
 
@@ -105,10 +104,10 @@ public class RegistrationController {
             m.setMessage("SUCCESS");
             System.out.println("SUCCESS");
 
-//            return new ResponseEntity<>(message, HttpStatus.OK);
+            // return new ResponseEntity<>(message, HttpStatus.OK);
 
         } catch (Exception exc) {
-        	System.out.println(exc);
+            System.out.println(exc);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }

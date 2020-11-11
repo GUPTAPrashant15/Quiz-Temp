@@ -37,10 +37,12 @@ export class RealComponent implements OnInit, AfterViewInit {
    {"id":"5","username":"Prakhar","date":"20 Oct 2020","marks":4},
    {"id":"6","username":"Anirudh","date":"21 Oct 2020","marks":7}
    ] ;
-     this._realtimeresult.getResults().subscribe(data=>this.MyArray = data);
+   //   this._realtimeresult.getResults().subscribe((data)=>{this.MyArray=data;
+     // this.dataSource = new MatTableDataSource(this.MyArray);});
+     //this._realtimeresult.getResults().subscribe(data=>this.MyArray = data);
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(arr);
-
+   // this.dataSource = new MatTableDataSource(arr);
+   
     console.log(this.MyArray.length+"hy");
   }
 
@@ -59,13 +61,16 @@ export class RealComponent implements OnInit, AfterViewInit {
   public quiz;
   public quizId:any;
    ngOnInit(){
-    this._realtimeresult.getResults().subscribe(data=>this.MyArray = data);
+   this._realtimeresult.getResults().subscribe((data)=>{this.MyArray=data;
+      this.dataSource = new MatTableDataSource(this.MyArray);});
+   
     
  console.log(this.MyArray.length+"HyONinit");
    let id = parseInt(this.route.snapshot.paramMap.get('id'));
    this.quizId = id;
     this._realtimeresult.getQuizById(this.quizId).subscribe(data=>this.quiz=data);
-   
+   this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
   
   

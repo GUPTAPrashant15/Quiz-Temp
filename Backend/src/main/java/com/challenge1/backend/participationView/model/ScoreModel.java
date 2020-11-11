@@ -1,5 +1,7 @@
 package com.challenge1.backend.participationView.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,26 +9,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ScoreModel {
 
     @Id
-    private String userName;
-
     private long quizId;
-    private Integer userScore;
+    private List<AnswerData> answerData;
 
     public ScoreModel() {
     }
 
-    public ScoreModel(String userName, long quizId, Integer userScore) {
-        this.userName = userName;
+    public ScoreModel(long quizId, List<AnswerData> answerData) {
         this.quizId = quizId;
-        this.userScore = userScore;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+        this.answerData = answerData;
     }
 
     public long getQuizId() {
@@ -37,17 +28,17 @@ public class ScoreModel {
         this.quizId = quizId;
     }
 
-    public Integer getUserScore() {
-        return userScore;
+    public List<AnswerData> getAnswerData() {
+        return answerData;
     }
 
-    public void setUserScore(Integer userScore) {
-        this.userScore = userScore;
+    public void setAnswerData(List<AnswerData> answerData) {
+        this.answerData = answerData;
     }
 
     @Override
     public String toString() {
-        return "AnswerModel [quizId=" + quizId + ", userName=" + userName + ", userScore=" + userScore + "]";
+        return "ScoreModel [answerData=" + answerData + ", quizId=" + quizId + "]";
     }
 
 }

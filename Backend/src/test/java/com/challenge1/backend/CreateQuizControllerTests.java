@@ -160,11 +160,11 @@ class CreateQuizControllerTests {
 		insertQuiz1.setQuizId(12);
 		Quiz quiz1 = quizRepo.save(insertQuiz);
 		Quiz quiz2 = quizRepo.save(insertQuiz1);
-		assertThat(quizRepo.findByUsername("rinku")).isNotNull();
+		assertThat(quizRepo.findByUsernameOrderByQuizIdDesc("rinku")).isNotNull();
 		ArrayList<Quiz> quizzes = new ArrayList<>();
 		quizzes.add(quiz1);
 		quizzes.add(quiz2);
-		assertThat(quizRepo.findByUsername("rinku")).size().isEqualTo(2);
+		assertThat(quizRepo.findByUsernameOrderByQuizIdDesc("rinku")).size().isEqualTo(2);
 		// assertEquals(quizzes.toString(),quizRepo.findByUsername("rinku").toString());
 	}
 

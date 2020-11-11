@@ -1,16 +1,19 @@
 package com.challenge1.backend.participationView.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.challenge1.backend.createQuiz.model.Questions;
 import com.challenge1.backend.createQuiz.model.Quiz;
 import com.challenge1.backend.createQuiz.repository.QuizRepository;
+import com.challenge1.backend.participationView.model.AnswerData;
 import com.challenge1.backend.participationView.model.GraphId;
 import com.challenge1.backend.participationView.model.GraphModel;
 import com.challenge1.backend.participationView.model.ScoreModel;
 import com.challenge1.backend.participationView.repository.GraphRepository;
 import com.challenge1.backend.participationView.repository.ScoreRepository;
+import com.challenge1.backend.participationView.service.ScoreService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +36,8 @@ public class ParticipationController {
     @Autowired
     private ScoreRepository scoreRepo;
 
+    ScoreService scoreService = new ScoreService();
+
     @GetMapping("/hello-part")
     public String helloPart() {
 
@@ -51,11 +56,9 @@ public class ParticipationController {
     }
 
     @PutMapping("/quiz-score/{userName}/{quizId}/{quesId}/{answer}")
-    public ScoreModel calcScore(
-        @PathVariable(value = "userName") String userName,
-        @PathVariable(value = "quizId") long quizId,
-        @PathVariable(value = "quesId") long quesId,
-        @PathVariable(value = "answer") String answer) {
+    public ScoreModel calcScore(@PathVariable(value = "userName") String userName,
+            @PathVariable(value = "quizId") long quizId, @PathVariable(value = "quesId") long quesId,
+            @PathVariable(value = "answer") String answer) {
 
         GraphModel graph = new GraphModel();
         GraphModel existingGraph = null;
@@ -76,71 +79,27 @@ public class ParticipationController {
 
         System.out.println(existingGraph);
 
-        ScoreModel score = scoreRepo.findByUserName(userName);
         Integer answerScore = 0;
 
         Quiz quiz = quizRepo.findByQuizId(quizId);
 
         List<Questions> questions = null;
-        if (quiz != null) questions = quiz.getQuestions();
+        if (quiz != null)
+            questions = quiz.getQuestions();
 
         for (Questions question : questions) {
 
             if (question.getQuesId() == quesId) {
-
                 if (question.getQuesType().equals("Single Correct")) {
-
                     if ((answer.charAt(0) - 64) == question.getCorrect())
                         answerScore += 1;
-                    if (answer.charAt(0) == 'A')
-                        existingGraph.setOptionA(existingGraph.getOptionA() + 1);
-                    if (answer.charAt(0) == 'B')
-                        existingGraph.setOptionB(existingGraph.getOptionB() + 1);
-                    if (answer.charAt(0) == 'C')
-                        existingGraph.setOptionC(existingGraph.getOptionC() + 1);
-                    if (answer.charAt(0) == 'D')
-                        existingGraph.setOptionD(existingGraph.getOptionD() + 1);
-
+                    existingGraph = increaseAnswerPointer(answer, existingGraph);
                 }
 
                 else if (question.getQuesType().equals("Multiple Correct")) {
-
-                    // boolean isAnswerCorrect = true;
-                    int flag=0 , flag1=0;
-
-                    if(question.isCorrect1())
-                        flag++;
-                    if(question.isCorrect2())
-                        flag++;
-                    if(question.isCorrect3())
-                        flag++;
-                    if(question.isCorrect4())
-                        flag++;
-
-                    if(answer.contains("A") && question.isCorrect1())
-                        flag1++;
-                    else flag1--;
-                    if(answer.contains("B") && question.isCorrect2())
-                        flag1++;
-                    else flag1--;
-                    if(answer.contains("C") && question.isCorrect3())
-                        flag1++;
-                    else flag1--;
-                    if(answer.contains("D") && question.isCorrect4())
-                        flag1++;
-                    else flag1--;
-
-                    if (answer.contains("A"))
-                        existingGraph.setOptionA(existingGraph.getOptionA() + 1);
-                    if (answer.contains("B"))
-                        existingGraph.setOptionB(existingGraph.getOptionB() + 1);
-                    if (answer.contains("C"))
-                        existingGraph.setOptionC(existingGraph.getOptionC() + 1);
-                    if (answer.contains("D"))
-                        existingGraph.setOptionD(existingGraph.getOptionD() + 1);
-
-                    if (flag == flag1) answerScore += 1;
-
+                    if (isMutiOptionAnswerCorrect(question, answer))
+                        answerScore += 1;
+                    existingGraph = increaseAnswerPointer(answer, existingGraph);
                 }
 
                 else if (question.getQuesType().equals("Textual")) {
@@ -154,21 +113,35 @@ public class ParticipationController {
 
         }
 
+        System.out.println(quizId + "QUIZID");
+        ScoreModel score = scoreRepo.findByQuizId(quizId);
+        System.out.println(score + "SCORE");
+
+        ScoreModel scoreModel = new ScoreModel();
         if (score == null) {
-
-            ScoreModel s = new ScoreModel();
-            s.setUserName(userName);
-            s.setQuizId(quizId);
-            s.setUserScore(answerScore);
-            scoreRepo.save(s);
-
-        } else {
-
-            score.setUserScore(score.getUserScore() + answerScore);
-            scoreRepo.save(score);
-
+            scoreModel.setQuizId(quizId);
+            scoreRepo.save(scoreModel);
         }
+        score = scoreRepo.findByQuizId(quizId);
 
+        List<AnswerData> answerData = score.getAnswerData();
+        List<AnswerData> answerData1 = new ArrayList<AnswerData>();
+        AnswerData user = scoreService.getAnswerDataModel(score, userName);
+        if (answerData == null) {
+            System.out.println("Koi bhi quiz nhi dia ab tak");
+            answerData1.add(new AnswerData(userName, answerScore));
+            scoreModel.setAnswerData(answerData1);
+            scoreRepo.save(scoreModel);
+        } else if (answerData != null && user == null) {
+            System.out.println("mai new user uhu");
+            answerData.add(new AnswerData(userName, answerScore));
+            score.setAnswerData(answerData);
+            scoreRepo.save(score);
+        } else {
+            System.out.println("mai vhi hu bas update kro mjhe");
+            user.setUserScore(user.getUserScore() + answerScore);
+            scoreRepo.save(score);
+        }
         graphRepo.save(existingGraph);
 
         return score;
@@ -176,33 +149,85 @@ public class ParticipationController {
     }
 
     @PostMapping(value = "/getGraphDataForQuesVsScore/{quizId}/{quesId}")
-    public GraphModel returnDataForGraph(
-        @PathVariable(value = "quizId") long quizId,
-        @PathVariable(value = "quesId") long quesId) {
+    public GraphModel returnDataForGraph(@PathVariable(value = "quizId") long quizId,
+            @PathVariable(value = "quesId") long quesId) {
 
         GraphModel graph = graphRepo.findByGraphId(new GraphId(quizId, quesId));
         return graph;
 
     }
 
-    @PostMapping(value="/verifyUsername/{userName}")
-    public boolean isUniqueUser(@PathVariable(value = "userName") String userName ) {
-
-        ScoreModel verifyUser = scoreRepo.findByUserName(userName);
-
-        if (verifyUser == null) return true;
+    @PostMapping(value = "/verifyUsername/{userName}/{quizId}")
+    public boolean isUniqueUser(@PathVariable(value = "userName") String userName,
+            @PathVariable(value = "quizId") long quizId) {
+        ScoreModel quizData = scoreRepo.findByQuizId(quizId);
+        AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
+        if (user == null)
+            return true;
 
         return false;
     }
 
-    @GetMapping(value="/getUserScore/{userName}")
-    public int userScore(@PathVariable(value = "userName") String userName ) {
+    @GetMapping(value = "/getUserScore/{userName}/{quizId}")
+    public int userScore(@PathVariable(value = "userName") String userName,
+            @PathVariable(value = "quizId") long quizId) {
+        ScoreModel quizData = scoreRepo.findByQuizId(quizId);
+        AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
+        if (user != null)
+            return user.getUserScore();
+        return 0;
+    }
 
-        ScoreModel user = scoreRepo.findByUserName(userName);
+    public GraphModel increaseAnswerPointer(String answer, GraphModel existingGraph) {
+        if (answer.charAt(0) == 'A')
+            existingGraph.setOptionA(existingGraph.getOptionA() + 1);
+        if (answer.charAt(0) == 'B')
+            existingGraph.setOptionB(existingGraph.getOptionB() + 1);
+        if (answer.charAt(0) == 'C')
+            existingGraph.setOptionC(existingGraph.getOptionC() + 1);
+        if (answer.charAt(0) == 'D')
+            existingGraph.setOptionD(existingGraph.getOptionD() + 1);
+        return existingGraph;
+    }
 
-        if (user != null) return user.getUserScore();
+    public boolean isMutiOptionAnswerCorrect(Questions question, String answer) {
+        int flag = 0, flag1 = 0;
+        if (question.isCorrect1())
+            flag++;
+        if (question.isCorrect2())
+            flag++;
+        if (question.isCorrect3())
+            flag++;
+        if (question.isCorrect4())
+            flag++;
 
-       return 0;
+        if (answer.contains("A")) {
+            if (question.isCorrect1())
+                flag1++;
+            else
+                flag1--;
+        }
+        if (answer.contains("B")) {
+            if (question.isCorrect2())
+                flag1++;
+            else
+                flag1--;
+        }
+        if (answer.contains("C")) {
+            if (question.isCorrect3())
+                flag1++;
+            else
+                flag1--;
+        }
+        if (answer.contains("D")) {
+            if (question.isCorrect4())
+                flag1++;
+            else
+                flag1--;
+        }
+        if (flag == flag1)
+            return true;
+        return false;
     }
 
 }

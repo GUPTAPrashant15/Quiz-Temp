@@ -1,8 +1,8 @@
 package com.challenge1.backend.participationView.controller;
 
-import java.util.List;
-
+import com.challenge1.backend.participationView.model.QuizSession;
 import com.challenge1.backend.participationView.model.ScoreModel;
+import com.challenge1.backend.participationView.repository.QuizSessionRepository;
 import com.challenge1.backend.participationView.repository.ScoreRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,41 +15,68 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserSessionController {
 
-	private static int counter;
-
 	@Autowired
 	private ScoreRepository scoreRepo;
+	@Autowired
+	private QuizSessionRepository quizSessionRepo;
 
-	@GetMapping("/start-quiz")
-	public void countLiveParticipants() {
+	@GetMapping("/start-quiz/{quizId}")
+	public boolean countLiveParticipants(@PathVariable(value = "quizId") long quizId) {
 
-		if (counter == 0) counter = 1;
-		else counter++;
+		QuizSession quizSession = quizSessionRepo.findByQuizId(quizId);
 
-		System.out.println(counter);
+		if (quizSession == null) {
+
+			QuizSession newQuizSession = new QuizSession();
+
+			newQuizSession.setQuizId(quizId);
+			newQuizSession.setNoOfUsers(0);
+
+			quizSessionRepo.save(newQuizSession);
+
+			System.out.println(newQuizSession.getNoOfUsers());
+
+		}
+
+		quizSession = quizSessionRepo.findByQuizId(quizId);
+
+		quizSession.setNoOfUsers(quizSession.getNoOfUsers() + 1);
+
+		quizSessionRepo.save(quizSession);
+
+		System.out.println(quizSession.getNoOfUsers());
+		return true;
 
 	}
 
-	@GetMapping("/submit-quiz")
-	public void uponSubmission() {
+	@GetMapping("/submit-quiz/{quizId}")
+	public boolean uponSubmission(@PathVariable(value = "quizId") long quizId) {
 
-		if (counter > 0) counter--;
+		QuizSession quizSession = quizSessionRepo.findByQuizId(quizId);
+
+		quizSession = quizSessionRepo.findByQuizId(quizId);
+
+		quizSession.setNoOfUsers(quizSession.getNoOfUsers() - 1);
+
+		quizSessionRepo.save(quizSession);
+
+		return true;
+	}
+
+	@GetMapping("/show-live/{quizId}")
+	public long countLiveUsers(@PathVariable(value = "quizId") long quizId) {
+
+		return quizSessionRepo.findByQuizId(quizId).getNoOfUsers();
 
 	}
 
-	@GetMapping("/show-live")
-	public int countLiveUsers() {
-
-		return counter;
-
-	}
-
+	
 	@GetMapping("/totalUsers/{quizId}")
     public long countTotalUsers(@PathVariable(value = "quizId") long quizId) {
 
-		List<ScoreModel> scoreModel = scoreRepo.findAllByQuizId(quizId);
+		ScoreModel scoreModel = scoreRepo.findByQuizId(quizId);
 
-		return scoreModel.size();
+		return scoreModel.getAnswerData().size();
 
 	}
 

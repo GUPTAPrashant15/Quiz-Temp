@@ -9,6 +9,8 @@ import com.challenge1.backend.resetpassword.EmailSender;
 import com.challenge1.backend.resetpassword.model.ResetPasswordModel;
 import com.challenge1.backend.resetpassword.repository.ResetPasswordRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class ResetPasswordController {
-
+    Logger logger = LoggerFactory.getLogger(ResetPasswordController.class);
     @Autowired
     private EmailSender emailSender;
 
@@ -41,23 +43,22 @@ public class ResetPasswordController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<ResetPasswordModel> sendOTP(@RequestBody final ResetPasswordModel resetUser) {
-
+        logger.info("----Inside Forget Password API----");
         String message;
 
         ResetPasswordModel resModel = new ResetPasswordModel();
-
-        System.out.println("Testing Forgot Password API..."+ resetUser);
 
         UserModel existingUser = null;
 
         // Check if the Email is valid or not
         try {
-
             existingUser = userRepo.findByEmailId(resetUser.getEmailId());
 
-            // System.out.println("Existing User : " + existingUser);
-
-        } catch (Exception exc) { exc.printStackTrace(); }
+        } catch (Exception exc) { 
+            exc.printStackTrace();
+            logger.error("Error while searching for the existing email for resetting the password : " + exc);
+        
+        }
 
         // If the User with the Email exists,
         // save the User Email and the OTP generated, and also, send the Email
@@ -75,12 +76,16 @@ public class ResetPasswordController {
 
                 resetRepo.save(otpUser);
                 emailSender.sendEmail(otpUser.getEmailId(), String.valueOf(otp));
+                logger.info("email has been sent successfully to the : " +otpUser.getEmailId());
 
-            } catch (Exception exc) { exc.printStackTrace(); }
+            } catch (Exception exc) { 
+                exc.printStackTrace(); 
+                logger.error("Error while sending the email : " + exc);
+            }
 
             message = "SUCCESS";
             resModel.setMessage(message);
-            System.out.println(message);
+        
 
             return new ResponseEntity<>(resModel, HttpStatus.OK);
 
@@ -89,7 +94,7 @@ public class ResetPasswordController {
         message = "FAILURE";
         resModel.setMessage(message);
         System.out.println(message);
-
+        logger.warn("User with the email does not exist");
         return new ResponseEntity<>(resModel, HttpStatus.OK);
 
     }
@@ -100,16 +105,19 @@ public class ResetPasswordController {
         String message;
         ResetPasswordModel resModel = new ResetPasswordModel();
 
-        System.out.println("Testing Verify OTP API...");
+        logger.info("----Testing Verify OTP API----");
 
         ResetPasswordModel existingUser = null;
-        System.out.println(resetUser.getEmailId() +"------" + resetUser.getOtp());
+        
         try {
 
             existingUser = resetRepo.findByEmailIdAndOtp(resetUser.getEmailId(), resetUser.getOtp());
-            // System.out.println("Heloooooo "+existingUser);
+            
 
-        } catch (Exception exc) { exc.printStackTrace(); }
+        } catch (Exception exc) { 
+            exc.printStackTrace(); 
+            logger.error("Error while verifying the otp : " + exc);
+        }
 
         if (existingUser != null) {
 
@@ -118,14 +126,14 @@ public class ResetPasswordController {
             System.out.println(message);
 
             resetRepo.delete(existingUser);
-
-            // return new ResponseEntity<>(resModel, HttpStatus.OK);
+            logger.info("Otp has been verified successfully for : "+existingUser.getEmailId());
 
         } else {
 
             message = "FAILURE";
             resModel.setMessage(message);
             System.out.println(message);
+            logger.info("The Email or Otp is incorrect. Please check again.");
 
         }
 
@@ -138,29 +146,24 @@ public class ResetPasswordController {
 
         String message;
         ResetPasswordModel resModel = new ResetPasswordModel();
-        System.out.println("Testing Reset Password API...");
+        logger.info("----Inside Reset Password API----");
 
         UserModel recentUser;
 
         try {
-            System.out.println(resetPasswordUser.getEmailId());
             recentUser = userRepo.findByEmailId(resetPasswordUser.getEmailId());
-            System.out.println(recentUser);
             recentUser.setPassword(resetPasswordUser.getPassword());
             userRepo.save(recentUser);
-
-            // System.out.println("Existing User : " + recentUser);
-
             message = "SUCCESS";
             resModel.setMessage(message);
-            System.out.println(message);
+            logger.info("Password has been reset successfully for : " +resetPasswordUser.getEmailId());
 
             //return new ResponseEntity<>(message, HttpStatus.OK);
 
         } catch (Exception exc) { 
             //exc.printStackTrace(); 
             message = "FAILURE";
-            System.out.println("Inside catch block");
+            logger.error("Error while resetting the password : " + exc);
             resModel.setMessage(message);
         }
         

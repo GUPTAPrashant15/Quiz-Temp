@@ -22,9 +22,14 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     let logout = document.getElementById('logout');
         logout.style.display = "none";
+
+        let dashboard = document.querySelector('.navButton');
+        dashboard.textContent = "";
+    // let logout = document.getElementById('logout');
+    //     logout.style.display = "none";
         
-        let dashboard = document.getElementsByClassName('navButton');
-    logout.style.display = "none";
+    //     let dashboard = document.getElementsByClassName('navButton');
+    // logout.style.display = "none";
     this.form = this.fb.group({
       password: ['', [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       confirm_password: ['', [Validators.required]]

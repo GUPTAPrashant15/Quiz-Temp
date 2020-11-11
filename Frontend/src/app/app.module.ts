@@ -48,6 +48,13 @@ import { AlertDialog } from './add-questions/add-questions.component';
 import {RealtimeresultService} from 'src/app/realtimeresult.service';
 import { UrlComponent } from './url/url.component';
 import {MatSortModule} from '@angular/material/sort';
+import { QuizStartPageComponent } from './quiz-start-page/quiz-start-page.component';
+import { ResultComponent } from './result/result.component';
+import { ParticipantService } from './services/participant.service';
+import { CookieService } from 'ngx-cookie-service';
+import { QuizComponent } from './quiz-start-page/quiz/quiz.component';
+import { AddParticipantToQuizComponent } from './quiz-start-page/add-participant-to-quiz/add-participant-to-quiz.component';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,11 +73,19 @@ import {MatSortModule} from '@angular/material/sort';
     OtpVerificationComponent,
     ResetSuccessComponent,
     UrlComponent,
+    QuizComponent,
+    ResultComponent,
+    AddParticipantToQuizComponent,
+    QuizStartPageComponent,
     ForgotPasswordComponent,PasswordStrengthComponent,ResetPasswordComponent,LoginComponent,HomeComponent
   
 
   ],
   imports: [
+  
+    CommonModule,
+    ReactiveFormsModule,
+    
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -84,6 +99,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatRadioModule,
     MatInputModule,
     MatCheckboxModule,
+    FormsModule,
     MatDialogModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -105,7 +121,10 @@ import {MatSortModule} from '@angular/material/sort';
     {  
       path : 'reset-success',  
       component : ResetSuccessComponent    
-    } 
+    } ,
+    {path:'quiz/:id', component:QuizStartPageComponent},
+
+  {path:'result', component: ResultComponent}
   ]),
   AppRoutingModule,FormsModule,HttpClientModule,ReactiveFormsModule,CountdownModule,HttpModule],
     providers: [
@@ -113,7 +132,7 @@ import {MatSortModule} from '@angular/material/sort';
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
       ForgotPwdService, CreateQuizService, AnlysisResultService,RealtimeresultService,
       // provider used to create fake backend
-      fakeBackendProvider
+      fakeBackendProvider,ParticipantService, CookieService
     
   ],
   //providers: [CreateQuizService, AnlysisResultService],

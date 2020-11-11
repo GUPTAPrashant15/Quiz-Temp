@@ -19,6 +19,11 @@ export class OtpVerificationComponent implements OnInit {
   constructor(private forgotPwdService : ForgotPwdService, private router : Router) { }
 
   ngOnInit(): void {
+    let logout = document.getElementById('logout');
+        logout.style.display = "none";
+
+        let dashboard = document.querySelector('.navButton');
+        dashboard.textContent = "";
     this.otpDetail.emailId = history.state.email;
     this.emailDetail.emailId=this.otpDetail.emailId;
     console.log(this.otpDetail.emailId)

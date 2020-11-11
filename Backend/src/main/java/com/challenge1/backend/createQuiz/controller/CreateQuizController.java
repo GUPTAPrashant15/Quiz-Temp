@@ -85,7 +85,7 @@ public class CreateQuizController {
 	@GetMapping("/list/{username}")
 	public List<Quiz> getQuizByUsername(@PathVariable(value="username") String userName){
 		
-	    List<Quiz> quiz= repository.findByUsername(userName);
+	    List<Quiz> quiz= repository.findByUsernameOrderByQuizIdDesc(userName);
 	    return quiz;
 	}
 	

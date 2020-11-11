@@ -70,7 +70,6 @@ public class UserSessionController {
 
 	}
 
-	
 	@GetMapping("/totalUsers/{quizId}")
     public long countTotalUsers(@PathVariable(value = "quizId") long quizId) {
 

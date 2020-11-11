@@ -10,6 +10,7 @@ public class ScoreModel {
 
     @Id
     private long quizId;
+
     private List<AnswerData> answerData;
 
     public ScoreModel() {

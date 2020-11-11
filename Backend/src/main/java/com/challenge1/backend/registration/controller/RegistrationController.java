@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 // @RequestMapping("/register")
 public class RegistrationController {
 
-    Logger logger = LoggerFactory.getLogger(RegistrationController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
+
     @Autowired
     private UserRepository userRepo;
 
@@ -33,37 +34,54 @@ public class RegistrationController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserModel> signup(@RequestBody final UserModel signupUser) {
-        logger.info("-----Inside Signup API-----");
+
+        logger.info("----- Inside Signup API -----");
+
         String message;
+
         UserModel m = new UserModel();
+
         try {
 
             String tempEmail = signupUser.getEmailId();
             UserModel tempUser = userRepo.findByEmailId(tempEmail);
+
             System.out.println(tempUser);
+
             if (tempUser != null) {
+
                 message = "FAILURE";
                 m.setMessage(message);
+
             } else {
+
                 tempUser = userRepo.save(signupUser);
                 message = "SUCCESS";
                 System.out.println(message);
                 m.setMessage(message);
+
             }
-            logger.info("Signup Status of the" +tempUser+ "is" + message) ;
+
+            logger.info("Signup Status of the" + tempUser + "is" + message);
+
         } catch (Exception exc) {
-            logger.error("Error while signing in the user" + exc);
+
+            logger.error("Error while Signing Up the User" + exc);
+
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
-        
+
         return new ResponseEntity<>(m, HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserModel> login(@RequestBody final UserModel loginUser) {
-        logger.info("-----Inside Login API-----");
+
+        logger.info("----- Inside Login API -----");
+
         UserModel m = new UserModel();
+
         try {
 
             String tempEmail = loginUser.getEmailId();
@@ -74,7 +92,9 @@ public class RegistrationController {
             if (tempUser == null) {
 
                 m.setMessage("FAILURE");
-                logger.info(tempEmail +"is not registered in the system.");
+
+                logger.info(tempEmail + "is not registered in the System");
+
                 return new ResponseEntity<>(m, HttpStatus.OK);
 
             }
@@ -82,23 +102,28 @@ public class RegistrationController {
             if (!tempUser.getPassword().equals(tempPass)) {
 
                 m.setMessage("FAILURE1");
-                logger.info("User trying to login has entered the wrong credentials");
+
+                logger.info("User trying to Login has entered the wrong credentials");
 
                 return new ResponseEntity<>(m, HttpStatus.OK);
 
             }
 
             m.setMessage("SUCCESS");
-            
+
             logger.info("User has successfully login in the system");
             // return new ResponseEntity<>(message, HttpStatus.OK);
 
         } catch (Exception exc) {
+
             logger.error("Error while logging in the user" + exc);
+
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
+
         return new ResponseEntity<>(m, HttpStatus.OK);
+
     }
 
 }

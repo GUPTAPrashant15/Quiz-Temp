@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class ResetPasswordController {
-    Logger logger = LoggerFactory.getLogger(ResetPasswordController.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(ResetPasswordController.class);
+
     @Autowired
     private EmailSender emailSender;
 
@@ -43,7 +45,9 @@ public class ResetPasswordController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<ResetPasswordModel> sendOTP(@RequestBody final ResetPasswordModel resetUser) {
+
         logger.info("----Inside Forget Password API----");
+
         String message;
 
         ResetPasswordModel resModel = new ResetPasswordModel();
@@ -54,10 +58,12 @@ public class ResetPasswordController {
         try {
             existingUser = userRepo.findByEmailId(resetUser.getEmailId());
 
-        } catch (Exception exc) { 
-            exc.printStackTrace();
-            logger.error("Error while searching for the existing email for resetting the password : " + exc);
-        
+        } catch (Exception exc) {
+
+            // exc.printStackTrace();
+
+            logger.error("Error while searching for the existing Email for Resetting the Password : " + exc);
+
         }
 
         // If the User with the Email exists,
@@ -76,16 +82,19 @@ public class ResetPasswordController {
 
                 resetRepo.save(otpUser);
                 emailSender.sendEmail(otpUser.getEmailId(), String.valueOf(otp));
-                logger.info("email has been sent successfully to the : " +otpUser.getEmailId());
 
-            } catch (Exception exc) { 
-                exc.printStackTrace(); 
-                logger.error("Error while sending the email : " + exc);
+                logger.info("Email has been sent successfully to the : " + otpUser.getEmailId());
+
+            } catch (Exception exc) {
+
+                // exc.printStackTrace();
+
+                logger.error("Error while sending the Email : " + exc);
+
             }
 
             message = "SUCCESS";
             resModel.setMessage(message);
-        
 
             return new ResponseEntity<>(resModel, HttpStatus.OK);
 
@@ -93,8 +102,11 @@ public class ResetPasswordController {
 
         message = "FAILURE";
         resModel.setMessage(message);
+
         System.out.println(message);
-        logger.warn("User with the email does not exist");
+
+        logger.warn("User with the Email does not exist in the System");
+
         return new ResponseEntity<>(resModel, HttpStatus.OK);
 
     }
@@ -105,18 +117,20 @@ public class ResetPasswordController {
         String message;
         ResetPasswordModel resModel = new ResetPasswordModel();
 
-        logger.info("----Testing Verify OTP API----");
+        logger.info("----- Inside Verify OTP API ----");
 
         ResetPasswordModel existingUser = null;
-        
+
         try {
 
             existingUser = resetRepo.findByEmailIdAndOtp(resetUser.getEmailId(), resetUser.getOtp());
-            
 
-        } catch (Exception exc) { 
-            exc.printStackTrace(); 
-            logger.error("Error while verifying the otp : " + exc);
+        } catch (Exception exc) {
+
+            // exc.printStackTrace();
+
+            logger.error("Error while Verifying the OTP : " + exc);
+
         }
 
         if (existingUser != null) {
@@ -126,14 +140,16 @@ public class ResetPasswordController {
             System.out.println(message);
 
             resetRepo.delete(existingUser);
-            logger.info("Otp has been verified successfully for : "+existingUser.getEmailId());
+            logger.info("Otp has been verified successfully for : " + existingUser.getEmailId());
 
         } else {
 
             message = "FAILURE";
             resModel.setMessage(message);
+
             System.out.println(message);
-            logger.info("The Email or Otp is incorrect. Please check again.");
+
+            logger.info("The Email or Otp is incorrect");
 
         }
 
@@ -145,33 +161,43 @@ public class ResetPasswordController {
     public ResponseEntity<ResetPasswordModel> resetPassword(@RequestBody final UserModel resetPasswordUser) {
 
         String message;
+
         ResetPasswordModel resModel = new ResetPasswordModel();
-        logger.info("----Inside Reset Password API----");
+
+        logger.info("----- Inside Reset Password API -----");
 
         UserModel recentUser;
 
         try {
+
             recentUser = userRepo.findByEmailId(resetPasswordUser.getEmailId());
             recentUser.setPassword(resetPasswordUser.getPassword());
+
             userRepo.save(recentUser);
+
             message = "SUCCESS";
             resModel.setMessage(message);
-            logger.info("Password has been reset successfully for : " +resetPasswordUser.getEmailId());
 
-            //return new ResponseEntity<>(message, HttpStatus.OK);
+            logger.info("Password has been Reset successfully for : " + resetPasswordUser.getEmailId());
 
-        } catch (Exception exc) { 
-            //exc.printStackTrace(); 
+            // return new ResponseEntity<>(message, HttpStatus.OK);
+
+        } catch (Exception exc) {
+
             message = "FAILURE";
-            logger.error("Error while resetting the password : " + exc);
             resModel.setMessage(message);
+
+            logger.error("Error while Resetting the Password : " + exc);
+
         }
-        
+
         return new ResponseEntity<>(resModel, HttpStatus.OK);
 
     }
 
     public static char[] generateOTP(int length) {
+
+        logger.info("----- Inside OTP Generator Function -----");
 
         String numbers = "1234567890";
         Random random = new Random();

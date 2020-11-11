@@ -15,6 +15,8 @@ import com.challenge1.backend.participationView.repository.GraphRepository;
 import com.challenge1.backend.participationView.repository.ScoreRepository;
 import com.challenge1.backend.participationView.service.ScoreService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,205 +31,293 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/participation-view")
 public class ParticipationController {
 
-    @Autowired
-    private QuizRepository quizRepo;
-    @Autowired
-    private GraphRepository graphRepo;
-    @Autowired
-    private ScoreRepository scoreRepo;
+	private static final Logger logger = LoggerFactory.getLogger(ParticipationController.class);
 
-    ScoreService scoreService = new ScoreService();
+	@Autowired
+	private QuizRepository quizRepo;
+	@Autowired
+	private GraphRepository graphRepo;
+	@Autowired
+	private ScoreRepository scoreRepo;
 
-    @GetMapping("/hello-part")
-    public String helloPart() {
+	ScoreService scoreService = new ScoreService();
 
-        System.out.println("Testing Participation Controller...");
-        return "Hello Participation Controller!";
+	@GetMapping("/hello-part")
+	public String helloPart() {
 
-    }
+		System.out.println("Testing Participation Controller...");
+		return "Hello Participation Controller!";
 
-    @PostMapping("/quiz-view/{quizId}")
-    public Optional<Quiz> quizView(@PathVariable(value = "quizId") long quizId) {
+	}
 
-        Optional<Quiz> quiz = quizRepo.findById(quizId);
+	@PostMapping("/quiz-view/{quizId}")
+	public Optional<Quiz> quizView(@PathVariable(value = "quizId") long quizId) {
 
-        return quiz;
+		logger.info("----- Inside Quiz View API -----");
 
-    }
+		Optional<Quiz> quiz = quizRepo.findById(quizId);
 
-    @PutMapping("/quiz-score/{userName}/{quizId}/{quesId}/{answer}")
-    public ScoreModel calcScore(@PathVariable(value = "userName") String userName,
-            @PathVariable(value = "quizId") long quizId, @PathVariable(value = "quesId") long quesId,
-            @PathVariable(value = "answer") String answer) {
+		return quiz;
 
-        GraphModel graph = new GraphModel();
-        GraphModel existingGraph = null;
+	}
 
-        GraphId graphId = new GraphId(quizId, quesId);
-        existingGraph = graphRepo.findByGraphId(graphId);
+	@PutMapping("/quiz-score/{userName}/{quizId}/{quesId}/{answer}")
+	public ScoreModel calcScore(
+		@PathVariable(value = "userName") String userName,
+		@PathVariable(value = "quizId") long quizId,
+		@PathVariable(value = "quesId") long quesId,
+		@PathVariable(value = "answer") String answer) {
 
-        if (existingGraph == null) {
-            graph.setGraphId(graphId);
-            graph.setOptionA(0);
-            graph.setOptionB(0);
-            graph.setOptionC(0);
-            graph.setOptionD(0);
-            graphRepo.save(graph);
-        }
+		logger.info("----- Inside Calculate Score API -----");
 
-        existingGraph = graphRepo.findByGraphId(graphId);
+		GraphModel graph = new GraphModel();
+		GraphModel existingGraph = null;
 
-        System.out.println(existingGraph);
+		GraphId graphId = new GraphId(quizId, quesId);
+		existingGraph = graphRepo.findByGraphId(graphId);
 
-        Integer answerScore = 0;
+		if (existingGraph == null) {
 
-        Quiz quiz = quizRepo.findByQuizId(quizId);
+			logger.info("No existing Graph Model is found in the System");
 
-        List<Questions> questions = null;
-        if (quiz != null)
-            questions = quiz.getQuestions();
+			graph.setGraphId(graphId);
 
-        for (Questions question : questions) {
+			graph.setOptionA(0);
+			graph.setOptionB(0);
+			graph.setOptionC(0);
+			graph.setOptionD(0);
 
-            if (question.getQuesId() == quesId) {
-                if (question.getQuesType().equals("Single Correct")) {
-                    if ((answer.charAt(0) - 64) == question.getCorrect())
-                        answerScore += 1;
-                    existingGraph = increaseAnswerPointer(answer, existingGraph);
-                }
+			graphRepo.save(graph);
 
-                else if (question.getQuesType().equals("Multiple Correct")) {
-                    if (isMutiOptionAnswerCorrect(question, answer))
-                        answerScore += 1;
-                    existingGraph = increaseAnswerPointer(answer, existingGraph);
-                }
+			logger.info("New Graph Model is created with Quiz ID " + graphId + " and saved in the System");
 
-                else if (question.getQuesType().equals("Textual")) {
+		}
 
-                    if (answer.equalsIgnoreCase(question.getTextAnswer()))
-                        answerScore += 1;
+		existingGraph = graphRepo.findByGraphId(graphId);
 
-                }
+		System.out.println(existingGraph);
 
-            }
+		Integer answerScore = 0;
 
-        }
+		Quiz quiz = quizRepo.findByQuizId(quizId);
 
-        System.out.println(quizId + "QUIZID");
-        ScoreModel score = scoreRepo.findByQuizId(quizId);
-        System.out.println(score + "SCORE");
+		List<Questions> questions = null;
+		if (quiz != null) questions = quiz.getQuestions();
 
-        ScoreModel scoreModel = new ScoreModel();
-        if (score == null) {
-            scoreModel.setQuizId(quizId);
-            scoreRepo.save(scoreModel);
-        }
-        score = scoreRepo.findByQuizId(quizId);
+		for (Questions question : questions) {
 
-        List<AnswerData> answerData = score.getAnswerData();
-        List<AnswerData> answerData1 = new ArrayList<AnswerData>();
-        AnswerData user = scoreService.getAnswerDataModel(score, userName);
-        if (answerData == null) {
-            System.out.println("Koi bhi quiz nhi dia ab tak");
-            answerData1.add(new AnswerData(userName, answerScore));
-            scoreModel.setAnswerData(answerData1);
-            scoreRepo.save(scoreModel);
-        } else if (answerData != null && user == null) {
-            System.out.println("mai new user uhu");
-            answerData.add(new AnswerData(userName, answerScore));
-            score.setAnswerData(answerData);
-            scoreRepo.save(score);
-        } else {
-            System.out.println("mai vhi hu bas update kro mjhe");
-            user.setUserScore(user.getUserScore() + answerScore);
-            scoreRepo.save(score);
-        }
-        graphRepo.save(existingGraph);
+			if (question.getQuesId() == quesId) {
 
-        return score;
+				if (question.getQuesType().equals("Single Correct")) {
 
-    }
+					logger.info("Question is of Single Correct category");
 
-    @PostMapping(value = "/getGraphDataForQuesVsScore/{quizId}/{quesId}")
-    public GraphModel returnDataForGraph(@PathVariable(value = "quizId") long quizId,
-            @PathVariable(value = "quesId") long quesId) {
+					if ((answer.charAt(0) - 64) == question.getCorrect())
+						answerScore += 1;
 
-        GraphModel graph = graphRepo.findByGraphId(new GraphId(quizId, quesId));
-        return graph;
+					existingGraph = increaseAnswerCounter(answer, existingGraph);
 
-    }
+				}
 
-    @PostMapping(value = "/verifyUsername/{userName}/{quizId}")
-    public boolean isUniqueUser(@PathVariable(value = "userName") String userName,
-            @PathVariable(value = "quizId") long quizId) {
-        ScoreModel quizData = scoreRepo.findByQuizId(quizId);
-        AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
-        if (user == null)
-            return true;
+				else if (question.getQuesType().equals("Multiple Correct")) {
 
-        return false;
-    }
+					logger.info("Question is of Multiple Correct category");
 
-    @GetMapping(value = "/getUserScore/{userName}/{quizId}")
-    public int userScore(@PathVariable(value = "userName") String userName,
-            @PathVariable(value = "quizId") long quizId) {
-        ScoreModel quizData = scoreRepo.findByQuizId(quizId);
-        AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
-        if (user != null)
-            return user.getUserScore();
-        return 0;
-    }
+					if (isMultiOptionsAnswerCorrect(question, answer))
+						answerScore += 1;
 
-    public GraphModel increaseAnswerPointer(String answer, GraphModel existingGraph) {
-        if (answer.charAt(0) == 'A')
-            existingGraph.setOptionA(existingGraph.getOptionA() + 1);
-        if (answer.charAt(0) == 'B')
-            existingGraph.setOptionB(existingGraph.getOptionB() + 1);
-        if (answer.charAt(0) == 'C')
-            existingGraph.setOptionC(existingGraph.getOptionC() + 1);
-        if (answer.charAt(0) == 'D')
-            existingGraph.setOptionD(existingGraph.getOptionD() + 1);
-        return existingGraph;
-    }
+					existingGraph = increaseAnswerCounter(answer, existingGraph);
 
-    public boolean isMutiOptionAnswerCorrect(Questions question, String answer) {
-        int flag = 0, flag1 = 0;
-        if (question.isCorrect1())
-            flag++;
-        if (question.isCorrect2())
-            flag++;
-        if (question.isCorrect3())
-            flag++;
-        if (question.isCorrect4())
-            flag++;
+				}
 
-        if (answer.contains("A")) {
-            if (question.isCorrect1())
-                flag1++;
-            else
-                flag1--;
-        }
-        if (answer.contains("B")) {
-            if (question.isCorrect2())
-                flag1++;
-            else
-                flag1--;
-        }
-        if (answer.contains("C")) {
-            if (question.isCorrect3())
-                flag1++;
-            else
-                flag1--;
-        }
-        if (answer.contains("D")) {
-            if (question.isCorrect4())
-                flag1++;
-            else
-                flag1--;
-        }
-        if (flag == flag1)
-            return true;
-        return false;
-    }
+				else if (question.getQuesType().equals("Textual")) {
+
+					logger.info("Question is of Textual category");
+
+					if (answer.equalsIgnoreCase(question.getTextAnswer()))
+						answerScore += 1;
+
+				}
+
+			}
+
+		}
+
+		System.out.println(quizId + "QUIZID");
+
+		ScoreModel existingScore = scoreRepo.findByQuizId(quizId);
+
+		System.out.println(existingScore + "SCORE");
+
+		ScoreModel tempScore = new ScoreModel();
+
+		if (existingScore == null) {
+
+			logger.info("No existing Score Model is found in the System");
+
+			tempScore.setQuizId(quizId);
+			scoreRepo.save(tempScore);
+
+			logger.info("New Score Model is created with Quiz ID " + quizId + " and saved in the System");
+
+			existingScore = tempScore;
+		}
+
+		// existingScore = scoreRepo.findByQuizId(quizId);
+
+		List<AnswerData> existingAnsDatas = existingScore.getAnswerData();
+		List<AnswerData> tempAnsDatas = new ArrayList<AnswerData>();
+
+		AnswerData userAnsData = scoreService.getAnswerDataModel(existingScore, userName);
+
+		if (existingAnsDatas == null) {
+
+			// System.out.println("Koi bhi quiz nhi dia ab tak");
+			logger.info("No existing Answer Data Lists are found in the System");
+
+			tempAnsDatas.add(new AnswerData(userName, answerScore));
+			tempScore.setAnswerData(tempAnsDatas);
+
+			logger.info("Answer Data Lists are created and saved in the System - CLEAN");
+
+			scoreRepo.save(tempScore);
+
+		} else {
+
+			if (existingAnsDatas != null && userAnsData == null) {
+
+				// System.out.println("mai new user uhu");
+				logger.info("Answer Data Lists exist but not for the current User");
+
+				existingAnsDatas.add(new AnswerData(userName, answerScore));
+				existingScore.setAnswerData(existingAnsDatas);
+
+				logger.info("Answer Data Lists are created and saved in the System - CURRENT USER");
+
+				// scoreRepo.save(existingScore);
+
+			} else {
+
+				// System.out.println("mai vhi hu bas update kro mjhe");
+				logger.info("Answer Data Lists exist for the current User");
+
+				userAnsData.setUserScore(userAnsData.getUserScore() + answerScore);
+
+				logger.info("Answer Data in the Answer Data Lists are updated");
+
+				// scoreRepo.save(existingScore);
+
+			}
+
+			scoreRepo.save(existingScore);
+
+		}
+
+		graphRepo.save(existingGraph);
+
+		logger.info("Graph Model is saved in the System");
+
+		return existingScore;
+
+	}
+
+	@PostMapping(value = "/getGraphDataForQuesVsScore/{quizId}/{quesId}")
+	public GraphModel returnDataForGraph(
+		@PathVariable(value = "quizId") long quizId,
+		@PathVariable(value = "quesId") long quesId) {
+
+		logger.info("----- Inside Send Graph Data for Visualization API -----");
+
+		GraphModel graph = graphRepo.findByGraphId(new GraphId(quizId, quesId));
+
+		return graph;
+
+	}
+
+	@PostMapping(value = "/verifyUsername/{userName}/{quizId}")
+	public boolean isUniqueUser(
+		@PathVariable(value = "userName") String userName,
+		@PathVariable(value = "quizId") long quizId) {
+
+		logger.info("----- Inside Check Unique User API -----");
+
+		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
+		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
+
+		if (user == null) return true;
+
+		return false;
+
+	}
+
+	@GetMapping(value = "/getUserScore/{userName}/{quizId}")
+	public int userScore(
+		@PathVariable(value = "userName") String userName,
+		@PathVariable(value = "quizId") long quizId) {
+
+		logger.info("----- Inside Get User Score API -----");
+
+		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
+		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
+
+		if (user != null) return user.getUserScore();
+
+		return 0;
+
+	}
+
+	public GraphModel increaseAnswerCounter(String answer, GraphModel existingGraph) {
+
+		logger.info("----- Inside Answer Counter Function -----");
+
+		if (answer.charAt(0) == 'A')
+			existingGraph.setOptionA(existingGraph.getOptionA() + 1);
+		if (answer.charAt(0) == 'B')
+			existingGraph.setOptionB(existingGraph.getOptionB() + 1);
+		if (answer.charAt(0) == 'C')
+			existingGraph.setOptionC(existingGraph.getOptionC() + 1);
+		if (answer.charAt(0) == 'D')
+			existingGraph.setOptionD(existingGraph.getOptionD() + 1);
+
+		return existingGraph;
+
+	}
+
+	public boolean isMultiOptionsAnswerCorrect(Questions question, String answer) {
+
+		logger.info("----- Inside Multiple Answers Check Function -----");
+
+		int correctFlag = 0, userFlag = 0;
+
+		if (question.isCorrect1()) correctFlag++;
+		if (question.isCorrect2()) correctFlag++;
+		if (question.isCorrect3()) correctFlag++;
+		if (question.isCorrect4()) correctFlag++;
+
+		if (answer.contains("A")) {
+			if (question.isCorrect1()) userFlag++;
+			else userFlag--;
+		}
+
+		if (answer.contains("B")) {
+			if (question.isCorrect2()) userFlag++;
+			else userFlag--;
+		}
+
+		if (answer.contains("C")) {
+			if (question.isCorrect3()) userFlag++;
+			else userFlag--;
+		}
+
+		if (answer.contains("D")) {
+			if (question.isCorrect4()) userFlag++;
+			else userFlag--;
+		}
+
+		if (correctFlag == userFlag) return true;
+
+		return false;
+
+	}
 
 }

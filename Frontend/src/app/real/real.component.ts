@@ -69,7 +69,7 @@ export class RealComponent implements OnInit, AfterViewInit {
    let id = parseInt(this.route.snapshot.paramMap.get('id'));
    this.quizId = id;
     this._realtimeresult.getQuizById(this.quizId).subscribe(data=>this.quiz=data);
-   this.dataSource.paginator = this.paginator;
+ this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   

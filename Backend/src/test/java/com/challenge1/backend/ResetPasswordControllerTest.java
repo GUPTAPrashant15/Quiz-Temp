@@ -14,9 +14,9 @@ import org.springframework.http.ResponseEntity;
 
 import com.challenge1.backend.registration.model.UserModel;
 import com.challenge1.backend.registration.repository.UserRepository;
-import com.challenge1.backend.resetpassword.controller.ResetPasswordController;
-import com.challenge1.backend.resetpassword.model.ResetPasswordModel;
-import com.challenge1.backend.resetpassword.repository.ResetPasswordRepository;
+import com.challenge1.backend.resetPassword.controller.ResetPasswordController;
+import com.challenge1.backend.resetPassword.model.ResetPasswordModel;
+import com.challenge1.backend.resetPassword.repository.ResetPasswordRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @SpringBootTest

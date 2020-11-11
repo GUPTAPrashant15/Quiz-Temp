@@ -1,5 +1,5 @@
 
-package com.challenge1.backend.resetpassword;
+package com.challenge1.backend.resetPassword;
 
 import java.util.Properties;
 

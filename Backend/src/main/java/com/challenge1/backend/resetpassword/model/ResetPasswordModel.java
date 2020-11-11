@@ -1,5 +1,5 @@
 
-package com.challenge1.backend.resetpassword.model;
+package com.challenge1.backend.resetPassword.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;

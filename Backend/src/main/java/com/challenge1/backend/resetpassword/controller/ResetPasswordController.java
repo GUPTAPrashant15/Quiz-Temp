@@ -1,13 +1,13 @@
 
-package com.challenge1.backend.resetpassword.controller;
+package com.challenge1.backend.resetPassword.controller;
 
 import java.util.Random;
 
 import com.challenge1.backend.registration.model.UserModel;
 import com.challenge1.backend.registration.repository.UserRepository;
-import com.challenge1.backend.resetpassword.EmailSender;
-import com.challenge1.backend.resetpassword.model.ResetPasswordModel;
-import com.challenge1.backend.resetpassword.repository.ResetPasswordRepository;
+import com.challenge1.backend.resetPassword.EmailSender;
+import com.challenge1.backend.resetPassword.model.ResetPasswordModel;
+import com.challenge1.backend.resetPassword.repository.ResetPasswordRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

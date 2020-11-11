@@ -5,6 +5,8 @@ import com.challenge1.backend.participationView.model.ScoreModel;
 import com.challenge1.backend.participationView.repository.QuizSessionRepository;
 import com.challenge1.backend.participationView.repository.ScoreRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,63 +17,80 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserSessionController {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserSessionController.class);
+
 	@Autowired
 	private ScoreRepository scoreRepo;
 	@Autowired
 	private QuizSessionRepository quizSessionRepo;
 
 	@GetMapping("/start-quiz/{quizId}")
-	public boolean countLiveParticipants(@PathVariable(value = "quizId") long quizId) {
+	public boolean incrementParticipants(@PathVariable(value = "quizId") long quizId) {
 
-		QuizSession quizSession = quizSessionRepo.findByQuizId(quizId);
+		logger.info("----- Inside Increment Participants API -----");
 
-		if (quizSession == null) {
+		QuizSession existingQuizSession = quizSessionRepo.findByQuizId(quizId);
 
-			QuizSession newQuizSession = new QuizSession();
+		if (existingQuizSession == null) {
 
-			newQuizSession.setQuizId(quizId);
-			newQuizSession.setNoOfUsers(0);
+			logger.info("No existing Quiz Session is found in the System");
 
-			quizSessionRepo.save(newQuizSession);
+			QuizSession tempQuizSession = new QuizSession();
 
-			System.out.println(newQuizSession.getNoOfUsers());
+			tempQuizSession.setQuizId(quizId);
+			tempQuizSession.setNoOfUsers(0);
+
+			quizSessionRepo.save(tempQuizSession);
+
+			logger.info("New Quiz Session is created with Quiz ID " + quizId + " and saved in the System");
+
+			System.out.println(tempQuizSession.getNoOfUsers());
+
+			existingQuizSession = tempQuizSession;
 
 		}
 
-		quizSession = quizSessionRepo.findByQuizId(quizId);
+		// existingQuizSession = quizSessionRepo.findByQuizId(quizId);
 
-		quizSession.setNoOfUsers(quizSession.getNoOfUsers() + 1);
+		existingQuizSession.setNoOfUsers(existingQuizSession.getNoOfUsers() + 1);
+		quizSessionRepo.save(existingQuizSession);
 
-		quizSessionRepo.save(quizSession);
+		logger.info("Quiz Session is updated and saved in the System");
 
-		System.out.println(quizSession.getNoOfUsers());
+		System.out.println(existingQuizSession.getNoOfUsers());
+
 		return true;
 
 	}
 
 	@GetMapping("/submit-quiz/{quizId}")
-	public boolean uponSubmission(@PathVariable(value = "quizId") long quizId) {
+	public boolean decrementParticipants(@PathVariable(value = "quizId") long quizId) {
+
+		logger.info("----- Inside Decrement Participants API -----");
 
 		QuizSession quizSession = quizSessionRepo.findByQuizId(quizId);
 
-		quizSession = quizSessionRepo.findByQuizId(quizId);
-
 		quizSession.setNoOfUsers(quizSession.getNoOfUsers() - 1);
-
 		quizSessionRepo.save(quizSession);
+
+		logger.info("Quiz Session is updated and saved in the System");
 
 		return true;
 	}
 
 	@GetMapping("/show-live/{quizId}")
-	public long countLiveUsers(@PathVariable(value = "quizId") long quizId) {
+	public long countLiveParticipants(@PathVariable(value = "quizId") long quizId) {
+
+		logger.info("----- Inside Count Live Participants API -----");
 
 		return quizSessionRepo.findByQuizId(quizId).getNoOfUsers();
 
 	}
 
 	@GetMapping("/totalUsers/{quizId}")
-    public long countTotalUsers(@PathVariable(value = "quizId") long quizId) {
+    public long countTotalParticipants(@PathVariable(value = "quizId") long quizId) {
+
+		logger.info("----- Inside Count Total Participants API -----");
 
 		ScoreModel scoreModel = scoreRepo.findByQuizId(quizId);
 

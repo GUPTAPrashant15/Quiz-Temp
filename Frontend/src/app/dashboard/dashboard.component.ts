@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   createdQuiz()
   {
     this.router.navigate(['/list'],{relativeTo: this.route});
-    this.service.passUsername(this.username);
+    //this.service.passUsername(this.username);
   }
   createQuiz()
   {

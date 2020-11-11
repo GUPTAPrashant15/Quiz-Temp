@@ -18,6 +18,7 @@ export class RegisterQuizComponent implements OnInit {
 
 
   message:any;
+  public user: any;
 //add() only for routing purpose
   public add(){
     this._router.navigate(['/addQuestions']
@@ -26,7 +27,8 @@ export class RegisterQuizComponent implements OnInit {
 
   public createQuiz(){
     console.log("Inside Quiz Created Function ")
-    this.quiz.username = "sweety.agarwal02";
+    this.service.share.subscribe(x => this.user = x);
+    this.quiz.username = this.user;
     let resp = this.service.registerQuiz(this.quiz);
     
     resp.subscribe((data)=>{this.message=data;

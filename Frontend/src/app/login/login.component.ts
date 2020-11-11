@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
                 data => {
                     if(data.message=="SUCCESS"){
                         // alert("LOGIN SUCCESSFULLY");
-                         //this.service.passUsername(this.f.username.value);
+                         this.service.passUsername(this.f.username.value);
                          this.router.navigate(['/dashboard']);
                          console.log(this.f.username.value)
                          this.authenticationService.setLoggedIn(true);

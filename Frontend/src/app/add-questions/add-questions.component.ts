@@ -108,6 +108,19 @@ export class AddQuestionsComponent implements OnInit {
           this.dialog.open(AlertDialog, { data : {message : 'Select the correct answers!'} });
           return;
         }
+        if(c1== null || c1 == ""){
+          tempObj.correct1= null;
+        }
+        if(c2== null || c2 == ""){
+          tempObj.correct2= null;
+        }
+        if(c3== null || c3 == ""){
+          tempObj.correct3= null;
+        }
+        if(c4 == null || c4 ==""){
+          tempObj.correct4= null;
+        }
+        
         tempObj.correct1 = c1;
         tempObj.correct2 = c2;
         tempObj.correct3 = c3;
@@ -120,19 +133,6 @@ export class AddQuestionsComponent implements OnInit {
         return;
       }
       tempObj.textAnswer = ta;
-    }
-
-    if(c1== null || c1 == ""){
-      tempObj.correct1= false;
-    }
-    if(c2== null || c2 == ""){
-      tempObj.correct2= false;
-    }
-    if(c3== null || c3 == ""){
-      tempObj.correct3= false;
-    }
-    if(c4 == null || c4 ==""){
-      tempObj.correct4= false;
     }
     
     this.questions.push(tempObj);

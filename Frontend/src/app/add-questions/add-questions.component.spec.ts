@@ -92,8 +92,8 @@ describe('AddQuestionsComponent', () => {
   it('should have Create Quiz Button', () => {
     let q = new Question;
     component.questions.push(q);
-    component.saveQuestions();
-    fixture.detectChanges();
+    // component.saveQuestions();
+    // fixture.detectChanges();
     let shareButton = fixture.debugElement.query(By.css('#create')).nativeElement;
     expect(shareButton.textContent).toBe("Create Quiz");
   });

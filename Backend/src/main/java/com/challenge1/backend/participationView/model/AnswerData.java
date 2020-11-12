@@ -1,17 +1,22 @@
 package com.challenge1.backend.participationView.model;
 
+import java.time.LocalDate;
+
+
 public class AnswerData {
 
     private String userName;
     private Integer userScore;
+    private LocalDate localDate;
 
     public AnswerData() {
     }
 
-    public AnswerData(String userName, Integer userScore) {
+    public AnswerData(String userName, Integer userScore,LocalDate localDate) {
 
         this.userName = userName;
         this.userScore = userScore;
+        this.localDate = localDate;
     }
 
     public Integer getUserScore() {
@@ -34,5 +39,15 @@ public class AnswerData {
     public String toString() {
         return "AnswerData [userName=" + userName + ", userScore=" + userScore + "]";
     }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    
 
 }

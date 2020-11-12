@@ -1,5 +1,6 @@
 package com.challenge1.backend.participationView.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,16 +40,8 @@ public class ParticipationController {
 	private GraphRepository graphRepo;
 	@Autowired
 	private ScoreRepository scoreRepo;
-
+	private LocalDate localDate = LocalDate.now();
 	ScoreService scoreService = new ScoreService();
-
-	@GetMapping("/hello-part")
-	public String helloPart() {
-
-		System.out.println("Testing Participation Controller...");
-		return "Hello Participation Controller!";
-
-	}
 
 	@PostMapping("/quiz-view/{quizId}")
 	public Optional<Quiz> quizView(@PathVariable(value = "quizId") long quizId) {
@@ -58,7 +51,6 @@ public class ParticipationController {
 		Optional<Quiz> quiz = quizRepo.findById(quizId);
 
 		return quiz;
-
 	}
 
 	@PutMapping("/quiz-score/{userName}/{quizId}/{quesId}/{answer}")
@@ -175,7 +167,7 @@ public class ParticipationController {
 			// System.out.println("Koi bhi quiz nhi dia ab tak");
 			logger.info("No existing Answer Data Lists are found in the System");
 
-			tempAnsDatas.add(new AnswerData(userName, answerScore));
+			tempAnsDatas.add(new AnswerData(userName, answerScore,localDate));
 			tempScore.setAnswerData(tempAnsDatas);
 
 			logger.info("Answer Data Lists are created and saved in the System - CLEAN");
@@ -189,7 +181,7 @@ public class ParticipationController {
 				// System.out.println("mai new user uhu");
 				logger.info("Answer Data Lists exist but not for the current User");
 
-				existingAnsDatas.add(new AnswerData(userName, answerScore));
+				existingAnsDatas.add(new AnswerData(userName, answerScore,localDate));
 				existingScore.setAnswerData(existingAnsDatas);
 
 				logger.info("Answer Data Lists are created and saved in the System - CURRENT USER");
@@ -260,9 +252,18 @@ public class ParticipationController {
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
-		if (user != null) return user.getUserScore();
-
-		return 0;
+		if (user != null) {
+			return user.getUserScore();
+		}
+		else{
+			ScoreModel scoreModel = scoreRepo.findByQuizId(quizId);
+			List<AnswerData> answerData = scoreModel.getAnswerData();
+			answerData.add(new AnswerData(userName, 0 , localDate));
+			scoreModel.setAnswerData(answerData);
+			scoreRepo.save(scoreModel);
+			return 0;
+		}
+		
 
 	}
 

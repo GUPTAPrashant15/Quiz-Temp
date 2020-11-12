@@ -35,11 +35,6 @@ public class AnswerData {
         this.userName = userName;
     }
 
-    @Override
-    public String toString() {
-        return "AnswerData [userName=" + userName + ", userScore=" + userScore + "]";
-    }
-
     public LocalDate getLocalDate() {
         return localDate;
     }
@@ -48,6 +43,9 @@ public class AnswerData {
         this.localDate = localDate;
     }
 
-    
+    @Override
+    public String toString() {
+        return "AnswerData [localDate=" + localDate + ", userName=" + userName + ", userScore=" + userScore + "]";
+    }
 
 }

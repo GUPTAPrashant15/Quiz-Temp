@@ -109,9 +109,7 @@ public class ParticipationController {
 
 					existingGraph = increaseAnswerCounter(answer, existingGraph);
 
-				}
-
-				else if (question.getQuesType().equals("Multiple Correct")) {
+				} else if (question.getQuesType().equals("Multiple Correct")) {
 
 					logger.info("Question is of Multiple Correct category");
 
@@ -120,9 +118,7 @@ public class ParticipationController {
 
 					existingGraph = increaseAnswerCounter(answer, existingGraph);
 
-				}
-
-				else if (question.getQuesType().equals("Textual")) {
+				} else if (question.getQuesType().equals("Textual")) {
 
 					logger.info("Question is of Textual category");
 
@@ -155,8 +151,6 @@ public class ParticipationController {
 			existingScore = tempScore;
 		}
 
-		// existingScore = scoreRepo.findByQuizId(quizId);
-
 		List<AnswerData> existingAnsDatas = existingScore.getAnswerData();
 		List<AnswerData> tempAnsDatas = new ArrayList<AnswerData>();
 
@@ -164,10 +158,9 @@ public class ParticipationController {
 
 		if (existingAnsDatas == null) {
 
-			// System.out.println("Koi bhi quiz nhi dia ab tak");
 			logger.info("No existing Answer Data Lists are found in the System");
 
-			tempAnsDatas.add(new AnswerData(userName, answerScore,localDate));
+			tempAnsDatas.add(new AnswerData(userName, answerScore, localDate));
 			tempScore.setAnswerData(tempAnsDatas);
 
 			logger.info("Answer Data Lists are created and saved in the System - CLEAN");
@@ -178,26 +171,21 @@ public class ParticipationController {
 
 			if (existingAnsDatas != null && userAnsData == null) {
 
-				// System.out.println("mai new user uhu");
 				logger.info("Answer Data Lists exist but not for the current User");
 
-				existingAnsDatas.add(new AnswerData(userName, answerScore,localDate));
+				existingAnsDatas.add(new AnswerData(userName, answerScore, localDate));
 				existingScore.setAnswerData(existingAnsDatas);
 
 				logger.info("Answer Data Lists are created and saved in the System - CURRENT USER");
 
-				// scoreRepo.save(existingScore);
-
 			} else {
 
-				// System.out.println("mai vhi hu bas update kro mjhe");
 				logger.info("Answer Data Lists exist for the current User");
 
 				userAnsData.setUserScore(userAnsData.getUserScore() + answerScore);
+				userAnsData.setLocalDate(localDate);
 
 				logger.info("Answer Data in the Answer Data Lists are updated");
-
-				// scoreRepo.save(existingScore);
 
 			}
 
@@ -252,18 +240,21 @@ public class ParticipationController {
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
-		if (user != null) {
-			return user.getUserScore();
-		}
-		else{
+		if (user != null) return user.getUserScore();
+
+		else {
+
 			ScoreModel scoreModel = scoreRepo.findByQuizId(quizId);
 			List<AnswerData> answerData = scoreModel.getAnswerData();
-			answerData.add(new AnswerData(userName, 0 , localDate));
+
+			answerData.add(new AnswerData(userName, 0, localDate));
 			scoreModel.setAnswerData(answerData);
+
 			scoreRepo.save(scoreModel);
+
 			return 0;
+
 		}
-		
 
 	}
 

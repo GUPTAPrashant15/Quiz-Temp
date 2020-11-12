@@ -12,71 +12,68 @@ import { ConfirmedValidator } from './confirmed.validator';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-  private resetPwdDetail = new ResetPwdDetail();  
+
+  private resetPwdDetail = new ResetPwdDetail();
   private otpDetail = new OtpDetail();
 
-  constructor(private forgotPwdService : ForgotPwdService, private router : Router,
+  constructor(private forgotPwdService: ForgotPwdService, private router: Router,
     private fb: FormBuilder) { }
-    form: FormGroup = new FormGroup({});
+  form: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
-    let logout = document.getElementById('logout');
-        logout.style.display = "none";
 
-        let dashboard = document.querySelector('.navButton');
-        dashboard.textContent = "";
-    // let logout = document.getElementById('logout');
-    //     logout.style.display = "none";
-        
-    //     let dashboard = document.getElementsByClassName('navButton');
-    // logout.style.display = "none";
+    let logout = document.getElementById('logout');
+    logout.style.display = "none";
+
+    let dashboard = document.querySelector('.navButton');
+    dashboard.textContent = "";
+
     this.form = this.fb.group({
-      password: ['', [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       confirm_password: ['', [Validators.required]]
-    }, { 
+    }, {
       validator: ConfirmedValidator('password', 'confirm_password')
     })
+
     this.resetPwdDetail.emailId = history.state.email;
-    console.log(history.state.email)
-    console.log(this.resetPwdDetail)
   }
-   
-  onCancel(){
-    
+
+  onCancel() {
   }
+
   public barLabel: string = "Password strength:";
-  get f(){
+
+  get f() {
     return this.form.controls;
   }
-  ResetPwdForm(ResetPwdInformation)  
-  {     
-     {   
-        this.resetPwdDetail.password =this.Password.value;  
-        console.log(this.resetPwdDetail);
 
-  
-        this.forgotPwdService.resetDetail(this.resetPwdDetail).subscribe(  
-          response => {  
-              //let result = response.json();  
-              //(response) => {
-                if(response=="SUCCESS"){
-                  alert("RESET SUCCESSFULLY")
-                  //this.router.navigate(['/login'])
-                  this.router.navigateByUrl('/reset-success',{ state: { email: this.resetPwdDetail.emailId,password : 
-                    this.resetPwdDetail.password}}); 
-                } 
-                else {
-                  alert("TRY AGAIN")
-                }
-                console.log('success',response)},
-               (error)=> console.log('error',error)
-        ) 
-     }    
-  }    
-  get Password(){  
-      return this.form.get('password');  
-  }   
-  
-  
+  ResetPwdForm(ResetPwdInformation) {
+    {
+      this.resetPwdDetail.password = this.Password.value;
 
+      this.forgotPwdService.resetDetail(this.resetPwdDetail).subscribe(
+        response => {
+
+          if (response == "SUCCESS") {
+            alert("RESET SUCCESSFULLY")
+
+            this.router.navigateByUrl('/reset-success', {
+              state: {
+                email: this.resetPwdDetail.emailId, password:
+                  this.resetPwdDetail.password
+              }
+            });
+          }
+          else {
+            alert("TRY AGAIN")
+          }
+        },
+        (error) => console.log('error', error)
+      )
+    }
+  }
+
+  get Password() {
+    return this.form.get('password');
+  }
 }

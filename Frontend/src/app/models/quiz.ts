@@ -7,7 +7,7 @@ export class Quiz {
     description: string;
     username:string;
     createdDate: Date;
-    config: QuizConfig;//r
+    config: QuizConfig;
     questions: Question[];
 
     constructor(data: any) {
@@ -15,7 +15,7 @@ export class Quiz {
             this.quizId = data.quizId;
             this.quizName = data.quizName;
             this.description = data.description;
-            this.config = new QuizConfig(data.config);//r
+            this.config = new QuizConfig(data.config);
             this.questions = [];
             data.questions.forEach(q => {
                 this.questions.push(new Question(q));

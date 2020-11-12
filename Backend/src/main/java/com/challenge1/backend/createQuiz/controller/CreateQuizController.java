@@ -46,14 +46,14 @@ public class CreateQuizController {
 		repository.save(quiz);
 
 		logger.info("Inside CreateQuizController: saved the Quiz successfully");
-		logger.info(quiz.getQuizId() + "");
+		logger.info("Quiz Id for the recently created quiz is "+quiz.getQuizId() + "");
 
 		return quiz.getQuizId();
 
 	}
 
 	@PostMapping("/addQuestions/{id}")
-	public String saveQuestions(@RequestBody List<Questions> questions, @PathVariable long quizId) {
+	public String saveQuestions(@RequestBody List<Questions> questions, @PathVariable(value = "id") long quizId) {
 
 		System.out.println(quizId);
 

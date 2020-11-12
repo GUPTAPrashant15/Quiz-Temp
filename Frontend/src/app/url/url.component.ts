@@ -8,24 +8,21 @@ import { MatCardModule } from '@angular/material/card';
 })
 
 export class UrlComponent implements OnInit {
+
   public href: string = "";
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   public clickMessage = '';
 
   onClickMe() {
     this.clickMessage = 'SUCCESS!';
-    
     this.href = this.router.url;
-      console.log(this.router.url); 
-      document.getElementById('textInput').className="show";
+    document.getElementById('textInput').className = "show";
   }
 
   ngOnInit() {
-      this.href = this.router.url;
-      console.log(this.router.url);
+    this.href = this.router.url;
   }
 
-  
 }

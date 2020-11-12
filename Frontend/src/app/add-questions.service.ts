@@ -6,14 +6,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddQuestionsService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   // public addQuestions(questions){
   //   return this.http.post("http://localhost:8080/addQuestions",questions,{responseType:'text' as 'json'});
   // }
 
-  public addQuestions(questions,quizId){
-    // console.log(quizId);
-    return this.http.post("http://localhost:8080/addQuestions/"+quizId,questions,{responseType:'text' as 'json'});
+  public addQuestions(questions, quizId) {
+    return this.http.post("http://localhost:8080/addQuestions/" + quizId, questions, { responseType: 'text' as 'json' });
   }
 }

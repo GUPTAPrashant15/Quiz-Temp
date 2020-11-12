@@ -28,7 +28,7 @@ public class UserSessionController {
 	public boolean incrementParticipants(@PathVariable(value = "quizId") long quizId) {
 
 		logger.info("----- Inside Increment Participants API -----");
-
+		logger.info("Counting live users for the quiz id : "+quizId);
 		QuizSession existingQuizSession = quizSessionRepo.findByQuizId(quizId);
 
 		if (existingQuizSession == null) {

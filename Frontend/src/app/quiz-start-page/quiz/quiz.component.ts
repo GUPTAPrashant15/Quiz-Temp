@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {CookieService} from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
 import { QuizService } from '../../services/quiz.service';
 import { HelperService } from '../../services/helper.service';
 import { Question, Quiz, QuizConfig } from '../../models/index';
@@ -18,10 +18,10 @@ export class QuizComponent implements OnInit {
   [x: string]: any;
   quizes: any[];
   @Input() userName: string;
-  @Input() quiz: Quiz=new Quiz(null);
-  
-  countAnsweredQues=0;
-  flag=0;
+  @Input() quiz: Quiz = new Quiz(null);
+
+  countAnsweredQues = 0;
+  flag = 0;
   mode = 'quiz';
   config: QuizConfig = {
     'allowBack': false,
@@ -48,79 +48,65 @@ export class QuizComponent implements OnInit {
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
-  textAnswer='';
+  textAnswer = '';
 
-  constructor(private quizService: QuizService ,private router: Router,
-    private route: ActivatedRoute , private participantService :ParticipantService, private cookie : CookieService) { }
+  constructor(private quizService: QuizService, private router: Router,
+    private route: ActivatedRoute, private participantService: ParticipantService, private cookie: CookieService) { }
 
   ngOnInit() {
-    this.participantService.updateParticipant( this.quiz.quizId).subscribe(res => {
-     
-    }), 
-   (error) => console.log('error', error)
+    this.participantService.updateParticipant(this.quiz.quizId).subscribe(res => {
+    }), (error) => console.log('error', error)
 
-    this.pager.index= Number(this.cookie.get(this.userName));
+    this.pager.index = Number(this.cookie.get(this.userName));
     this.pager.count = this.quiz.questions.length;
-      this.startTime = new Date();
-      this.ellapsedTime = '00:00';
-      this.timer = setInterval(() => { this.tick(); }, 1000);
-      this.duration = this.parseTime(this.config.duration);
-    
-  }
-  @HostListener('window:beforeunload')
-  async ngOnDestroy()
-  {   this.participantService.removeParticipant( this.quiz.quizId).subscribe(res => {
-  
+    this.startTime = new Date();
+    this.ellapsedTime = '00:00';
+    this.timer = setInterval(() => { this.tick(); }, 1000);
+    this.duration = this.parseTime(this.config.duration);
 
   }
-  ,
-               (error)=> console.log('error',error))
-  
-    //localStorage.setItem("my","hritik");
-    //await this._RegistrationService.test();
-    //alert("hello");
+
+  @HostListener('window:beforeunload')
+  async ngOnDestroy() {
+    this.participantService.removeParticipant(this.quiz.quizId).subscribe(res => {
+
+
+    }, (error) => console.log('error', error))
   }
-  
-  getStyleClass(value: number){
-    if(value<0.333)
-    return 'progress-easy';
-    if(value>=0.333 && value<0.50)
-    return 'progress-medium';
-    if(value>=0.50 && value<=0.80)
-    return 'progress-hard';
-    if(value>=0.80){
+
+  getStyleClass(value: number) {
+    if (value < 0.333)
+      return 'progress-easy';
+    if (value >= 0.333 && value < 0.50)
+      return 'progress-medium';
+    if (value >= 0.50 && value <= 0.80)
+      return 'progress-hard';
+    if (value >= 0.80) {
       return 'progress-very-hard';
     }
   }
- liveUsers=0;
+
+  liveUsers = 0;
   tick() {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
     this.getLiveUsers(this.quiz.quizId);
 
-    if (diff >= this.config.duration && this.flag==0) {
+    if (diff >= this.config.duration && this.flag == 0) {
       // this.onSubmit();
-      this.flag=1;
-      
+      this.flag = 1;
+
     }
-    
+
     this.ellapsedTime = this.parseTime(diff);
   }
-  getLiveUsers(quizId: number){
-    this.quizService.liveUserNumber(quizId).subscribe(  
+  getLiveUsers(quizId: number) {
+    this.quizService.liveUserNumber(quizId).subscribe(
       response => {
-              this.liveUsers=response;
-              // console.log(this.liveUsers);
-           
-            },
-             (error)=> console.log('error',error)
-
-             
-      )
-
-    console.log(this.liveUsers);
-
-
+        this.liveUsers = response;
+      },
+      (error) => console.log('error', error)
+    )
   }
 
   parseTime(totalSeconds: number) {
@@ -132,127 +118,100 @@ export class QuizComponent implements OnInit {
   }
 
   get filteredQuestions() {
-    
+
     return (this.quiz.questions) ?
       this.quiz.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
   }
 
-   onSelect(question: Question,option1:  string,letter: string) {
+  onSelect(question: Question, option1: string, letter: string) {
     if (question.quesType === "Single Correct") {
       {
-        question.answer.answer=letter;
-        question.answer.len=1;
-        console.log(question.answer);
+        question.answer.answer = letter;
+        question.answer.len = 1;
         const dateNow = new Date();
         dateNow.setHours(dateNow.getHours() + 1);
-        this.cookie.set(this.userName, (this.pager.index+1).toString(),dateNow);
-      
-      }
-   }
-    
-   }
-   onSelectMulti(question: Question,option:  string,letter: string) {
-    if (question.quesType === "Multiple Correct") {
-    let flag=0;
-    let str='';
-      for(let i=0;i<question.answer.len;i++){
-        if(question.answer.answer.charAt(i)!=letter){
-          str=str+question.answer.answer.charAt(i);
-        }
-        else{
-          flag=1;
-        }
-      }
-      if(flag==0){
-        question.answer.answer=question.answer.answer+letter;
-        question.answer.len=question.answer.len+1;
-        console.log(question.answer);
-      }
-      else{
-        question.answer.answer=str;
-        question.answer.len=str.length;
-        console.log(question.answer);
-      }
-   }
-   const dateNow = new Date();
-        dateNow.setHours(dateNow.getHours() + 1);
-        this.cookie.set(this.userName, (this.pager.index+1).toString(),dateNow);
-      
-  }
-  onWritingText(question: Question){
-    question.answer.answer=this.textAnswer;
-    console.log(question.answer);
-    const dateNow = new Date();
-        dateNow.setHours(dateNow.getHours() + 1);
-        this.cookie.set(this.userName, (this.pager.index+1).toString(),dateNow);
-      
-  }
-  
-  
+        this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
 
-  goTo(question: Question,index: number) {
-    question.answer.quesId=question.quesId;
-    question.answer.answerId=question.quesId;
-    question.answer.quizId=this.quiz.quizId;
-    question.answer.quizName=this.quiz.quizName;
-    question.answer.userName=this.userName;
+      }
+    }
+
+  }
+  onSelectMulti(question: Question, option: string, letter: string) {
+    if (question.quesType === "Multiple Correct") {
+      let flag = 0;
+      let str = '';
+      for (let i = 0; i < question.answer.len; i++) {
+        if (question.answer.answer.charAt(i) != letter) {
+          str = str + question.answer.answer.charAt(i);
+        }
+        else {
+          flag = 1;
+        }
+      }
+      if (flag == 0) {
+        question.answer.answer = question.answer.answer + letter;
+        question.answer.len = question.answer.len + 1;
+      }
+      else {
+        question.answer.answer = str;
+        question.answer.len = str.length;
+      }
+    }
+    const dateNow = new Date();
+    dateNow.setHours(dateNow.getHours() + 1);
+    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+
+  }
+  onWritingText(question: Question) {
+    question.answer.answer = this.textAnswer;
+    const dateNow = new Date();
+    dateNow.setHours(dateNow.getHours() + 1);
+    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+
+  }
+
+
+
+  goTo(question: Question, index: number) {
+    question.answer.quesId = question.quesId;
+    question.answer.answerId = question.quesId;
+    question.answer.quizId = this.quiz.quizId;
+    question.answer.quizName = this.quiz.quizName;
+    question.answer.userName = this.userName;
     if (index >= 0 && index < this.pager.count) {
       this.pager.index = index;
-      console.log(question.answer);
-      if(question.answer.answer!=""){
-        this.countAnsweredQues = this.countAnsweredQues +1;
+      if (question.answer.answer != "") {
+        this.countAnsweredQues = this.countAnsweredQues + 1;
       }
-      
-    }
-    else{
-      if(question.answer.answer!=""){
-        this.countAnsweredQues = this.countAnsweredQues +1;
-      }
-      this.mode='quizEnded';
-      }  
-      console.log(this.countAnsweredQues);
 
-      {this.quizService.saveAnswer(question.answer).subscribe(  
+    }
+    else {
+      if (question.answer.answer != "") {
+        this.countAnsweredQues = this.countAnsweredQues + 1;
+      }
+      this.mode = 'quizEnded';
+    }
+
+    {
+      this.quizService.saveAnswer(question.answer).subscribe(
         response => {
-                // if(response=="SAVED"){
-                //   alert("Answer Saved SUCCESSFULLY") 
-                // } 
-                // else {
-                //   alert("TRY AGAIN")
-                // }
-                console.log('success',response)
-              },
-               (error)=> console.log('error',error)
-        )}
+        },
+        (error) => console.log('error', error)
+      )
+    }
   }
-  score:number;
-  
+  score: number;
+
   onSubmit() {
-    let time=new Date();
-    console.log(time);
 
-   // this.participantService.removeParticipant( this.quiz.quizId).subscribe(res => {
-      this.quizService.submitQuiz(this.userName , this.quiz.quizId).subscribe(  
-        response => {
-                // if(response=="Submitted"){
-                //   alert("Quiz Submitted SUCCESSFULLY") 
-                // } 
-                // else {
-                //   alert("TRY AGAIN")
-                // }
-                this.score=response;
-                console.log('Score',this.score)
-                this.router.navigateByUrl('/result',{ state: { quiz: this.quiz,username: this.userName,score: this.score}});  
-              },
-               (error)=> console.log('error',error)
-  
-               
-        )
-  
-      console.log("yha aa gya" ,this.score);
-      this.cookie.delete(this.userName);
-    
+    let time = new Date();
 
-    }
-   
+    this.quizService.submitQuiz(this.userName, this.quiz.quizId).subscribe(
+      response => {
+        this.score = response;
+        this.router.navigateByUrl('/result', { state: { quiz: this.quiz, username: this.userName, score: this.score } });
+      }, (error) => console.log('error', error)
+    )
+    this.cookie.delete(this.userName);
+  }
 }

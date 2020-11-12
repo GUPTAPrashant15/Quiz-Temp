@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services';
-import {CreateQuizService} from 'src/app/create-quiz.service';
+import { CreateQuizService } from 'src/app/create-quiz.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -12,8 +12,8 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
-    loginErrorCredentials= false;
-    loginErrorEmail=false;
+    loginErrorCredentials = false;
+    loginErrorEmail = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -21,18 +21,11 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private service: CreateQuizService
-    ) { 
+    ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
-            // this.loginForm = this.formBuilder.group({
-            //     username: ['', Validators.required],
-            //     password:['',[Validators.required, Validators.minLength(8),Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]]
-
-
-            // });
         }
-        
     }
 
     ngOnInit() {
@@ -56,8 +49,8 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
-        this.loginErrorCredentials=false;
-        this.loginErrorEmail=false;
+        this.loginErrorCredentials = false;
+        this.loginErrorEmail = false;
         this.submitted = true;
 
         // stop here if form is invalid
@@ -66,34 +59,31 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        
+
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    if(data.message=="SUCCESS"){
-                        // alert("LOGIN SUCCESSFULLY");
-                         this.service.passUsername(this.f.username.value);
-                         this.router.navigate(['/dashboard']);
-                         console.log(this.f.username.value)
-                         this.authenticationService.setLoggedIn(true);
+
+                    if (data.message == "SUCCESS") {
+                        this.service.passUsername(this.f.username.value);
+                        this.router.navigate(['/dashboard']);
+                        this.authenticationService.setLoggedIn(true);
                     }
-                    else if(data.message=="FAILURE")
-                    this.loginErrorEmail=true;
-                    //alert("EMAIL NOT FOUND");
-                        
-                    else{
-                        //alert("Wrong Credentials");
-                        this.loginErrorCredentials=true;
+                    else if (data.message == "FAILURE")
+                        this.loginErrorEmail = true;
+
+                    else {
+                        this.loginErrorCredentials = true;
                     }
-                   
+
                 },
                 error => {
                     this.error = error;
                     this.loading = false;
                 });
     }
-    onForget(){
+    onForget() {
         this.router.navigate(['/forgotten-password']);
     }
 }

@@ -7,26 +7,25 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-participant-to-quiz.component.css']
 })
 export class AddParticipantToQuizComponent implements OnInit {
-start=false;
 
-front=true;
+  start = false;
+
+  front = true;
   constructor(
     private fb: FormBuilder) { }
-    form: FormGroup = new FormGroup({});
+  form: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      password: ['', [Validators.required,Validators.pattern('^[A-Za-z]\\w{5,29}$')]]
+      password: ['', [Validators.required, Validators.pattern('^[A-Za-z]\\w{5,29}$')]]
     })
   }
-   
-  
-  get f(){
+
+  get f() {
     return this.form.controls;
   }
-  userForm(userInformation)  
-  {   console.log(this.front);
-      
-  }    
+  userForm(userInformation) {
+    console.log(this.front);
+  }
 
 }

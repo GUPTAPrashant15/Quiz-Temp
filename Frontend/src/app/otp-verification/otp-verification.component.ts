@@ -66,7 +66,7 @@ export class OtpVerificationComponent implements OnInit {
     this.forgotPwdService.saveAdminDetails(this.emailDetail).subscribe(
       response => {
         if (response == "SUCCESS") {
-          alert("OTP Generated SUCCESSFULLY");
+          //alert("OTP Generated SUCCESSFULLY");
           this.router.navigateByUrl('/otp-verify', { state: { email: this.emailDetail.emailId } });
         }
         else {

@@ -55,7 +55,7 @@ export class ResetPasswordComponent implements OnInit {
         response => {
 
           if (response == "SUCCESS") {
-            alert("RESET SUCCESSFULLY")
+           // alert("RESET SUCCESSFULLY")
 
             this.router.navigateByUrl('/reset-success', {
               state: {

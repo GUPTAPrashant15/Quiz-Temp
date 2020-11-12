@@ -38,7 +38,7 @@ const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"forgotten-password",component:ForgotPasswordComponent},
   // {path:"**", component:LoginComponent},
-  { path: "url/:id", component:UrlComponent, canActivate: [AuthGuard] }
+  { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] }
 
    //,{path: "home", component:HomeComponent}
   

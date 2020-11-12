@@ -31,7 +31,7 @@ username:any;
 
     share(quiz)
     {
-      this.route.navigate(['/url',quiz.quizId])
+      this.route.navigate(['/shareQuiz',quiz.quizId])
     }
 
     exportToCsv(quiz): void {

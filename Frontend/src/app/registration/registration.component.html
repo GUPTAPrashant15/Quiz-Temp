@@ -3,78 +3,79 @@
     <img class="alignleft wp-image-63595 size-medium" src="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&#038;ssl=1" alt="" width="300" height="113" srcset="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&amp;ssl=1 300w, https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?w=340&amp;ssl=1 340w" sizes="(max-width: 300px) 100vw, 300px" data-recalc-dims="1" />
     <div class="col-md-5 offset-md-3 mt-5">
       <div class="card">
-        <h4 class="card-header">Welcome to SBSI Quiz Portal</h4>
+        <h4 class="card-header" style="background-color:rgb(189, 178, 240)"><b>Welcome to SBSI Quiz Portal</b></h4>
         <div class="card-body">  
         <form  [formGroup] = "form" (ngSubmit)="onSubmit()" #f="ngForm">
           <div id="user-data">
             <div class="form-group">
-              <label for="firstName">FIRST NAME:</label>
-              <input type="text" [class.is-invalid]="form.get('firstName').invalid && form.get('firstName').touched"id="firstName" class="form-control"formControlName="firstName">
+              <label for="firstName">First Name</label>
+              <input type="text" placeholder="John" [class.is-invalid]="form.get('firstName').invalid && form.get('firstName').touched"id="firstName" class="form-control"formControlName="firstName">
               <div *ngIf="form.get('firstName').invalid && form.get('firstName').touched">
-                <small CLASS="text-danger" *ngIf="form.get('firstName').errors?.required">PLEASE ENTER  FIRST NAME</small>
+                <small CLASS="text-danger" *ngIf="form.get('firstName').errors?.required">Please enter First Name</small>
                 </div>
             </div>
             <div class="form-group">
-                <label for="lastName">LAST NAME:</label>
-                <input type="text" 
+                <label for="lastName">Last Name</label>
+                <input type="text" placeholder="Doe"
                 id="lastName" 
                 class="form-control"
                 formControlName="lastName" ngModel
                 required>
                 <div *ngIf="form.get('lastName').invalid && form.get('lastName').touched">
-                  <small CLASS="text-danger" *ngIf="form.get('firstName').errors?.required">PLEASE ENTER LAST NAME</small>
+                  <small CLASS="text-danger" *ngIf="form.get('firstName').errors?.required">Please enter Last Name</small>
                   </div>
               </div>
             <div class="form-group">
-              <label for="emailId">EMAIL</label>
-              <input type="text"
+              <label for="emailId">Email</label>
+              <input type="text" placeholder="xyz@abc.com"
                id="emailId" 
                class="form-control"
                formControlName="emailId"
                required email>
                <div *ngIf="form.get('emailId').invalid && form.get('emailId').touched">
-                <small CLASS="text-danger" *ngIf="form.get('emailId').errors?.required">PLEASE ENTER EMAIL ADDRESS</small>
-                <small CLASS="text-danger" *ngIf="form.get('emailId').errors?.pattern">PLEASE PROVIDE A VALID EMAIL ADDRESS</small>  
+                <small CLASS="text-danger" *ngIf="form.get('emailId').errors?.required">Please provide Email Address</small>
+                <small CLASS="text-danger" *ngIf="form.get('emailId').errors?.pattern">Please provide a valid Email Address</small>  
               </div>
             </div>
             <div class="form-group">
-                <label for="number">PHONE NUMBER:</label>
-                <input type="text"
+                <label for="number">Phone Number</label>
+                <input type="text" placeholder="1234567890"
                  id="number" 
                  class="form-control"
                  formControlName="number"
                  required >
                  <div *ngIf="form.get('number').invalid && form.get('number').touched">
-                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.required">PLEASE ENTER PHONE NUMBER</small>
-                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.minlength">PLEASE PROVIDE A VALID MOBILE NUMBER</small>  
+                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.required">Please enter Phone Number</small>
+                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.minlength">Please provide a valid Phone Number</small>  
                 </div>
               </div>
               <div class="form-group">
-                <label for="password">PASSWORD:</label>
-                <input type="password"
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter a valid password"
                  id="password" 
                  class="form-control"
                  formControlName="password" 
                  required  minlength="8">
                  <div *ngIf="form.get('password').invalid && form.get('password').touched">
-                  <small CLASS="text-danger" *ngIf="form.get('password').errors?.required">PLEASE ENTER PASSWORD</small>
-                  <small CLASS="text-danger" *ngIf="form.get('password').errors?.minlength">PASSWORD MUST BE 8 CHARACTERS LONG</small>  
+                  <small CLASS="text-danger" *ngIf="form.get('password').errors?.required">Please enter password</small>
+                  <small CLASS="text-danger" *ngIf="form.get('password').errors?.minlength">Password must be 8 characters long.</small>  
                   <small CLASS="text-danger" *ngIf="form.get('password').errors?.pattern"> 
                     <ul>
-                    <small>PASSWORD MUST CONTAIN THE FOLLOWING></small>
-                    <li><small>ATLEAST ONE LOWER CASE CHARACTER</small></li>
-                    <li><small>ATLEAST ONE UPPER CASE CHARACTER</small></li>
-                    <li><small>ATLEAST ONE  SPECIAL CHARACTER</small></li>
+                    <small>Password must contain the following:></small>
+                    <li><small>Atleast one lower case character</small></li>
+                    <li><small>Atleast one upper case character</small></li>
+                    <li><small>Atleast one special character</small></li>
                   </ul>
                 </small>  
                 </div>
               </div>
           </div>
-         
           <button class="btn btn-success" [disabled]="!form.valid" type="submit">REGISTER</button>
+          
           <div *ngIf="regErrorEmail" class="alert alert-danger mt-3 mb-0">Email already exists</div>
           <hr>
           <h5>Already have an account?</h5>
+          
           <button class="btn btn-primary" (click)="onClick()"  type="submit">LOGIN</button>
         </form>
         </div>

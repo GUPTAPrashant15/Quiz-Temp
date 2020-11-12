@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+
 @Component({
   selector: 'app-url',
   templateUrl: './url.component.html',
@@ -14,15 +15,20 @@ export class UrlComponent implements OnInit {
   constructor(private router: Router) { }
 
   public clickMessage = '';
-
-  onClickMe() {
-    this.clickMessage = 'SUCCESS!';
-    this.href = this.router.url;
-    document.getElementById('textInput').className = "show";
+  url = "localhost:4200/quiz"
+  quizId;
+  // onClickMe() {
+  //   this.clickMessage = 'SUCCESS!';
+  //   this.href = this.url + this.router.url;
+  //   document.getElementById('textInput').className = "show";
+  // }
+  copyInputMessage(inputElement:any){
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
   }
-
   ngOnInit() {
-    this.href = this.router.url;
+    this.href = this.url + this.router.url;
   }
 
 }

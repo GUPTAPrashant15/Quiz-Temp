@@ -15,20 +15,22 @@ export class UrlComponent implements OnInit {
   constructor(private router: Router) { }
 
   public clickMessage = '';
-  url = "localhost:4200/quiz"
+  url = "localhost:4200/quiz/"
   quizId;
   // onClickMe() {
   //   this.clickMessage = 'SUCCESS!';
   //   this.href = this.url + this.router.url;
   //   document.getElementById('textInput').className = "show";
   // }
+
   copyInputMessage(inputElement:any){
     inputElement.select();
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);
   }
+
   ngOnInit() {
-    this.href = this.url + this.router.url;
+    this.href = this.url + this.router.url.split('/')[2];
   }
 
 }

@@ -33,6 +33,19 @@ username:any;
     {
       this.route.navigate(['/shareQuiz',quiz.quizId])
     }
+    public quizStatus
+    statusQuiz(quiz){
+      this.service.changeQuizStatus(quiz).subscribe(
+        response => {
+          if (response) {
+            console.log(response) 
+            this.quizStatus = response 
+          }
+           
+        }
+      );
+      
+    }
 
     exportToCsv(quiz): void {
       this.downloadService.exportToCsv(quiz.questions, quiz.quizName, ['quesId', 'question', 'quesType', 'option1','option2','option3','option4','correct','correct1','correct2','correct3','correct4','textAnswer']);

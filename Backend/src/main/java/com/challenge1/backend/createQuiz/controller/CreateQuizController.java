@@ -101,7 +101,7 @@ public class CreateQuizController {
 	}
 
 	@PostMapping(value="/changeQuizStatus/{quizId}")
-	public void toggleQuizStatus(@PathVariable(value = "quizId") long quizId) {
+	public boolean toggleQuizStatus(@PathVariable(value = "quizId") long quizId) {
 
 		logger.info("----- Inside Quiz Status Toggler API -----");
 
@@ -112,8 +112,9 @@ public class CreateQuizController {
 		else quizModel.setLiveStatus(true);
 
 		quizRepo.save(quizModel);
-
+		
 		logger.info("Quiz Status has been changed and updated in the System");
+		return quizModel.isLiveStatus();
 
 	}
 	@GetMapping(value="/getQuizStatus/{quizId}")

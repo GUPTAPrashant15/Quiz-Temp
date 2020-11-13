@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { RegistrationService } from '../registration.service';
 import { Router } from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AlertDialog } from '../add-questions/add-questions.component';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -13,7 +15,7 @@ export class RegistrationComponent implements OnInit {
   form: FormGroup
   regErrorEmail = false;
 
-  constructor(public fb: FormBuilder, private http: HttpClient, private _RegistrationService: RegistrationService, private _router: Router) {
+  constructor(public fb: FormBuilder, private http: HttpClient, private _RegistrationService: RegistrationService, private _router: Router, public dialog: MatDialog) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -36,7 +38,7 @@ export class RegistrationComponent implements OnInit {
       .subscribe(
         (response) => {
           if (response == "SUCCESS") {
-            alert("REGISTERED SUCCESSFULLY")
+            this.dialog.open(AlertDialog, { data: { message: 'Registered successfully!' } });
             this._router.navigate(['/login'])
           }
           else {

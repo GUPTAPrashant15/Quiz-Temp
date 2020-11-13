@@ -25,15 +25,19 @@
                         </div>
                 </div>
 
-                <button (click)="onForget()" class="btn btn-primary"> 
-                    Forgot Password?
-                </button>
-                <button class="btn btn-success pull-right">
+               
+                <button class="btn btn-success pull-left">
                     Login
                 </button>
+                <br>
+                <br>
+
                 <div *ngIf="loginErrorCredentials" class="alert alert-danger mt-3 mb-0">Invalid Credentials</div>
                 <div *ngIf="loginErrorEmail" class="alert alert-danger mt-3 mb-0">Email not found</div>
                 <hr>
+                <a href ="http://localhost:4200/forgotten-password" (click)="onForget()"> 
+                    Forgot Password?
+                </a>
                 <a href="http://localhost:4200/registration" class="pull-right">
                 New user? Signup</a>
                 <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>

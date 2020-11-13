@@ -56,6 +56,7 @@ public class ResetPasswordController {
 
         // Check if the Email is valid or not
         try {
+
             existingUser = userRepo.findByEmailId(resetUser.getEmailId());
 
         } catch (Exception exc) {

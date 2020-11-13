@@ -31,9 +31,7 @@ export class ForgotPasswordComponent implements OnInit {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]),
   });
-  onCancel() {
-    this.router.navigate(['/login']);
-  }
+  
 
 
   EmailForm(EmailInformation) {

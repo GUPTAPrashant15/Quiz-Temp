@@ -55,6 +55,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { QuizComponent } from './quiz-start-page/quiz/quiz.component';
 import { AddParticipantToQuizComponent } from './quiz-start-page/add-participant-to-quiz/add-participant-to-quiz.component';
 import { CommonModule } from '@angular/common';
+import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +87,7 @@ import { CommonModule } from '@angular/common';
   
     CommonModule,
     ReactiveFormsModule,
-    
+    NgxSpinnerModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

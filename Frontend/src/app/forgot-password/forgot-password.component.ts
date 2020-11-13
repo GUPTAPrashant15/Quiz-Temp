@@ -6,7 +6,7 @@ import { OtpDetail } from '../classes/otp-detail';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import {​​​​​​​ NgxSpinnerService }​​​​​​​ from "ngx-spinner";
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -18,7 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
   private otpDetail = new OtpDetail();
   errorValidation = false;
 
-  constructor(private forgotPwdService: ForgotPwdService, private router: Router) { }
+  constructor(private forgotPwdService: ForgotPwdService, private router: Router , private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     let logout = document.getElementById('logout');
@@ -35,14 +35,20 @@ export class ForgotPasswordComponent implements OnInit {
 
 
   EmailForm(EmailInformation) {
-    {
+    { this.spinner.show();
+ 
+      setTimeout(() => {​​​​​​​
+        /** spinner ends after 5 seconds */
+        this.spinner.hide();
+      }​​​​​​​, 5000);
       this.emailDetail.emailId = this.Email.value;
       this.otpDetail.emailId = this.Email.value;
 
       this.forgotPwdService.saveAdminDetails(this.emailDetail).subscribe(
         response => {
-
+         
           if (response == "SUCCESS") {
+            
             this.router.navigateByUrl('/otp-verify', { state: { email: this.emailDetail.emailId } });
           }
           else {

@@ -13,6 +13,7 @@ export class ResultComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
     let logout = document.getElementById('logout');
     logout.style.display = "none";
     let dashboard = document.querySelector('.navButton');
@@ -20,5 +21,16 @@ export class ResultComponent implements OnInit {
     this.quiz = history.state.quiz;
     this.username = history.state.username;;
     this.score = history.state.score;
+
+    if(document.getElementById('logout')){
+      let logout = document.getElementById('logout');
+        logout.style.display = "none";
+    }
+    if(document.querySelector('.navButton')){
+      let dashboard = document.querySelector('.navButton');
+      dashboard.textContent = "";
+    }
+
   }
+
 }

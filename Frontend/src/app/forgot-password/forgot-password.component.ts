@@ -36,11 +36,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   EmailForm(EmailInformation) {
     { this.spinner.show();
- 
-      setTimeout(() => {​​​​​​​
-        /** spinner ends after 5 seconds */
-        this.spinner.hide();
-      }​​​​​​​, 5000);
       this.emailDetail.emailId = this.Email.value;
       this.otpDetail.emailId = this.Email.value;
 
@@ -50,6 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
           if (response == "SUCCESS") {
             
             this.router.navigateByUrl('/otp-verify', { state: { email: this.emailDetail.emailId } });
+            this.spinner.hide();
           }
           else {
             this.errorValidation = true;

@@ -23,6 +23,7 @@ export class ForgotPwdService {
     let url = this.baseUrl + "forgot-password";
 
     return this.http.post(url, email).pipe(map((response: any) => {
+      
       return (response.message)
 
     }), catchError((err: any) => {

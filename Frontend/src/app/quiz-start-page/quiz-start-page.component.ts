@@ -28,16 +28,24 @@ export class QuizStartPageComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   ngOnInit() {
-    let logout = document.getElementById('logout');
-    logout.style.display = "none";
-    let dashboard = document.querySelector('.navButton');
-    dashboard.textContent = "";
+    // let logout = document.getElementById('logout');
+    // logout.style.display = "none";
+    // let dashboard = document.querySelector('.navButton');
+    // dashboard.textContent = "";
 
     this.q = { quizId: this.route.snapshot.params['id'] };
     this.loadQuiz(this.q.quizId);
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.pattern('^[A-Za-z]\\w{5,29}$')]]
     })
+    if(document.getElementById('logout')){
+      let logout = document.getElementById('logout');
+        logout.style.display = "none";
+    }
+    if(document.querySelector('.navButton')){
+      let dashboard = document.querySelector('.navButton');
+      dashboard.textContent = "";
+    }
   }
 
   get f() {

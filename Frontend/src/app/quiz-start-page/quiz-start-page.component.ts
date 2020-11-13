@@ -56,10 +56,10 @@ export class QuizStartPageComponent implements OnInit {
       this.quiz = new Quiz(res);
     });
   }
-  onSubmit() {
+  // onSubmit() {
 
-    this.front = false;
-  }
+  //   this.front = false;
+  // }
   OnUpdateUserName(event: Event) {
     this.username = (<HTMLInputElement>event.target).value;
   }

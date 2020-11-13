@@ -57,6 +57,7 @@ import { AddParticipantToQuizComponent } from './quiz-start-page/add-participant
 import { CommonModule } from '@angular/common';
 import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +85,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
   ],
   imports: [
-  
+    FontAwesomeModule,
     CommonModule,
     ReactiveFormsModule,
     NgxSpinnerModule,

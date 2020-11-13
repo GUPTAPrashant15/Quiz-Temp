@@ -7,6 +7,10 @@
     align-content: center;
 
 }
+#us{
+  
+  box-shadow: 0 0 10px rgba(31, 151, 211, 0.39);
+}
 .progress-bar.progress-easy{
     background-color: #fd0801;
   }

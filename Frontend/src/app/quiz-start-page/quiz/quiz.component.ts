@@ -7,6 +7,7 @@ import { Answer } from '../../models/answer';
 import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
 import { ParticipantService } from 'src/app/services/participant.service';
 import { HostListener } from '@angular/core';
+import { faEye, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-quiz',
@@ -15,6 +16,8 @@ import { HostListener } from '@angular/core';
   providers: [QuizService]
 })
 export class QuizComponent implements OnInit {
+  faEye = faEye;
+  faUser=faUser;
   [x: string]: any;
   quizes: any[];
   @Input() userName: string;

@@ -37,10 +37,11 @@ username:any;
     statusQuiz(quiz){
       this.service.changeQuizStatus(quiz).subscribe(
         response => {
-          if (response) {
-            console.log(response) 
-            this.quizStatus = response 
-          }
+          console.log(response) 
+          if(response)
+            this.quizStatus = "Open" 
+          else
+            this.quizStatus = "Closed" 
            
         }
       );

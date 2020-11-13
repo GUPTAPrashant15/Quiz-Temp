@@ -229,17 +229,16 @@ public class ParticipationController {
 		return false;
 
 	}
-	
+
 	@GetMapping(value = "/realtimeanalysis/{quizId}")
 	public ScoreModel getResultById(@PathVariable(value = "quizId") long quizId) {
 
+		logger.info("----- Inside Get Result API -----");
+
 		ScoreModel quiz = scoreRepo.findByQuizId(quizId);
-		//System.out.println(quiz.getAnswerData()+"Hey");
-		
-		System.out.println(quiz.getAnswerData()+"Hey1");
-		
-		
-		
+
+		System.out.println("From inside getResultById() Function : " + quiz.getAnswerData());
+
 		return quiz;
 
 	}

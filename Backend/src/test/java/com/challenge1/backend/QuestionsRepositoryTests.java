@@ -27,7 +27,7 @@ public class QuestionsRepositoryTests {
 	@Test
 	public void testagain() {
 
-		Quiz mockQuiz = new Quiz("Angular", "MCQ", "sweety", new Date());
+		Quiz mockQuiz = new Quiz("Angular", "MCQ",true, "sweety", new Date());
 		mockQuiz.setQuizId(11l);
 
 		quizRepo.save(mockQuiz);

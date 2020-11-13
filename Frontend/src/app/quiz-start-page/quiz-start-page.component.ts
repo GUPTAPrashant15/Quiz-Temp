@@ -51,15 +51,13 @@ export class QuizStartPageComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
+
   loadQuiz(id: number) {
     this.quizService.get(id).subscribe(res => {
       this.quiz = new Quiz(res);
     });
   }
-  onSubmit() {
 
-    this.front = false;
-  }
   OnUpdateUserName(event: Event) {
     this.username = (<HTMLInputElement>event.target).value;
   }

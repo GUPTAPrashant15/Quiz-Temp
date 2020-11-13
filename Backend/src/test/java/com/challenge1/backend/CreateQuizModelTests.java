@@ -44,7 +44,7 @@ public class CreateQuizModelTests {
 
 		Date createdDate = new Date();
 
-		Quiz mockQuiz = new Quiz("Angular", "MCQ", "sweety", createdDate);
+		Quiz mockQuiz = new Quiz("Angular", "MCQ",true, "sweety", createdDate);
 		mockQuiz.setQuizId(11l);
 
 		assertEquals("Quiz [id=" + 11 + ", quizName=" + "Angular" + ", description=" + "MCQ" + ", username=" + "sweety"

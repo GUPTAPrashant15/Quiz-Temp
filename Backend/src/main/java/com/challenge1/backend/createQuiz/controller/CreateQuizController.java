@@ -28,7 +28,7 @@ public class CreateQuizController {
 	private static final Logger logger = LoggerFactory.getLogger(CreateQuizController.class);
 
 	@Autowired
-	private QuizRepository repository;
+	private QuizRepository quizRepo;
 
 	@Autowired
 	private QuestionsRepository quesRepo;
@@ -43,7 +43,7 @@ public class CreateQuizController {
 
 		quiz.setQuizId(sequenceGenerator.generateSequence(Quiz.SEQUENCE_NAME));
 
-		repository.save(quiz);
+		quizRepo.save(quiz);
 
 		logger.info("Inside CreateQuizController: saved the Quiz successfully");
 		logger.info("Quiz Id for the recently created quiz is "+quiz.getQuizId() + "");
@@ -66,7 +66,7 @@ public class CreateQuizController {
 			quesSeq++;
 		}
 
-		Optional<Quiz> quiz = repository.findById(quizId);
+		Optional<Quiz> quiz = quizRepo.findById(quizId);
 
 		if (quiz.isPresent()) quesRepo.updateQuiz(quizId, questions);
 
@@ -85,18 +85,43 @@ public class CreateQuizController {
 	@GetMapping("/list/{username}")
 	public List<Quiz> getQuizByUsername(@PathVariable(value = "username") String userName) {
 
-		List<Quiz> quiz = repository.findByUsernameOrderByQuizIdDesc(userName);
+		List<Quiz> quiz = quizRepo.findByUsernameOrderByQuizIdDesc(userName);
 
 		return quiz;
 
 	}
 
 	@GetMapping("/realtimeanalysis/{quizId}")
-	public Quiz getQuizById(@PathVariable(value = "quizId") Long id) {
+	public Quiz getQuizById(@PathVariable(value = "quizId") long id) {
 
-		Quiz quiz = repository.findById((Long) id).get();
+		Quiz quiz = quizRepo.findById(id).get();
 
 		return quiz;
+
+	}
+
+	@PostMapping(value="/changeQuizStatus/{quizId}")
+	public void toggleQuizStatus(@PathVariable(value = "quizId") long quizId) {
+
+		logger.info("----- Inside Quiz Status Toggler API -----");
+
+		Quiz quizModel = quizRepo.findByQuizId(quizId);
+		boolean isQuizLive = quizModel.isLiveStatus();
+
+		if(isQuizLive) quizModel.setLiveStatus(false);
+		else quizModel.setLiveStatus(true);
+
+		quizRepo.save(quizModel);
+
+		logger.info("Quiz Status has been changed and updated in the System");
+
+	}
+	@GetMapping(value="/getQuizStatus/{quizId}")
+	public boolean getQuizStatus(@PathVariable(value = "quizId") long quizId) {
+
+		logger.info("----- Inside Quiz Status Retriever API -----");
+
+		return quizRepo.findByQuizId(quizId).isLiveStatus();
 
 	}
 

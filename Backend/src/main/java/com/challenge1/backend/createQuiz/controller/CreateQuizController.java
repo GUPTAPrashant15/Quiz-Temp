@@ -112,8 +112,9 @@ public class CreateQuizController {
 		else quizModel.setLiveStatus(true);
 
 		quizRepo.save(quizModel);
-		
+
 		logger.info("Quiz Status has been changed and updated in the System");
+
 		return quizModel.isLiveStatus();
 
 	}

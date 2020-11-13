@@ -1,5 +1,3 @@
-
-
 <div class="main">
     <input type="text" class="form-control" placeholder="Enter Keyword for Search" [(ngModel)]="searchValue"
         id="search" />
@@ -24,14 +22,18 @@
                 <td>{{quiz.quizId}}</td>
                 <td>{{quiz.quizName}}</td>
                 <td>{{quizStatus}}</td>
-                <td><button mat-raised-button color="primary" style="margin-left: 80px" (click)="realTimeAnalysis(quiz)">Analysis</button>
-                    <button mat-raised-button color="accent" style="margin-left: 80px" (click)="exportToCsv(quiz)">Download</button>
-                    <button mat-raised-button color="warn" (click)="share(quiz)" style="margin-left: 80px">Share</button>
+                <td><button mat-raised-button color="primary" style="margin-left: 80px"
+                        (click)="realTimeAnalysis(quiz)">Analysis</button>
+                    <button mat-raised-button color="accent" style="margin-left: 80px"
+                        (click)="exportToCsv(quiz)">Download</button>
+                    <button mat-raised-button color="warn" (click)="share(quiz)"
+                        style="margin-left: 80px">Share</button>
                 </td>
-                <td><button style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success" style="margin-left: 10px">Status</button> 
-                </td> >
+                <td><button style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success"
+                        style="margin-left: 10px">{{Status}}</button>
+                </td>
             </tr>
         </tbody>
     </table>
-    
+
 </div>

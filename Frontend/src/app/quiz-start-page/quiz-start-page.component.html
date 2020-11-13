@@ -1,55 +1,67 @@
-
 <div *ngIf="front">
   <div class="row">
-    <img class="alignleft wp-image-63595 size-medium offset-md-1" src="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&#038;ssl=1" alt="" width="300" height="113" srcset="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&amp;ssl=1 300w, https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?w=340&amp;ssl=1 340w" sizes="(max-width: 300px) 100vw, 300px" data-recalc-dims="1"/>
+    <img class="alignleft wp-image-63595 size-medium offset-md-1"
+      src="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&#038;ssl=1" alt=""
+      width="300" height="113"
+      srcset="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&amp;ssl=1 300w, https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?w=340&amp;ssl=1 340w"
+      sizes="(max-width: 300px) 100vw, 300px" data-recalc-dims="1" />
     <div class="col-md-5 offset-md-2 mt-5">
-  <div class="container">    
-    
-                      <div class="text-center"><h1>Welcome to SBSI Quiz Portal</h1></div>
-                      
-                      <hr>
-                    
-                      <div class="text-center"><h3>Quiz ID : {{quiz.quizId}}</h3></div>
-                      <div class="text-center"><h3>Quiz Name : {{quiz.quizName}} </h3></div>
-                      <div class="text-center"><h3>{{quiz.description}} </h3></div>
-                      <br>
-  
-    <div class="center">
+      <div class="container">
 
-  <form [formGroup]="form" #userInformation (ngSubmit)="userForm(userInformation)"
-  class="form-verticle"> 
-    <div class="row">  
-      <div class=" col-md-8 ">  
-          <!-- <label for="username"> Username </label>   -->
-          <input formControlName="username" class="form-control " type="text" 
-          minlength="5" maxlength="12" style="width:250px;" placeholder="Please enter a Username">  
-          <div *ngIf="f.username.touched && f.username.invalid" >
-            <small CLASS="text-danger" *ngIf="f.username.errors.required">Username is required.</small>
-            <small CLASS="text-danger" *ngIf="f.username.errors.maxlength"></small>
-              <small CLASS="text-danger" *ngIf="f.username.errors.minlength">
-                <ul>
-               <li>Must be at least 5 characters long.</li>
-               <li>Must start with character.</li>
-               <li>Must contain only alphanumeric and underscore.</li>
-               </ul>
-              </small>
-        </div> 
-      </div>  
-    </div>   
-    <div class="row" style="margin-top: 40px;">  
-      <div class="col-md-8">  
-          <button class="btn btn-md btn-success btn-style" id="bn"  [disabled]="!form.valid">Let's Start Quiz</button>  
-      </div>  
-    </div>  
-  </form>  </div>
+        <div class="text-center">
+          <h1>Welcome to SBSI Quiz Portal</h1>
+        </div>
+
+        <hr>
+
+        <div class="text-center">
+          <h3>Quiz ID : {{quiz.quizId}}</h3>
+        </div>
+        <div class="text-center">
+          <h3>Quiz Name : {{quiz.quizName}} </h3>
+        </div>
+        <div class="text-center">
+          <h3>{{quiz.description}} </h3>
+        </div>
+        <br>
+
+        <div class="center">
+
+          <form [formGroup]="form" #userInformation (ngSubmit)="userForm(userInformation)" class="form-verticle">
+            <div class="row">
+              <div class=" col-md-8 ">
+                <!-- <label for="username"> Username </label>   -->
+                <input formControlName="username" class="form-control " type="text" minlength="5" maxlength="12"
+                  style="width:250px;" placeholder="Please enter a Username">
+                <div *ngIf="f.username.touched && f.username.invalid">
+                  <small CLASS="text-danger" *ngIf="f.username.errors.required">Username is required.</small>
+                  <small CLASS="text-danger" *ngIf="f.username.errors.maxlength"></small>
+                  <small CLASS="text-danger" *ngIf="f.username.errors.minlength">
+                    <ul>
+                      <li>Must be at least 5 characters long.</li>
+                      <li>Must start with character.</li>
+                      <li>Must contain only alphanumeric and underscore.</li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 40px;">
+              <div class="col-md-8">
+                <button class="btn btn-md btn-success btn-style" id="bn" [disabled]="!form.valid">Let's Start
+                  Quiz</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>
-  
-  
-  
-  </div>
-  
-  <div *ngIf="!front">
-    <app-quiz [userName]=username [quiz]=quiz></app-quiz>
-  </div>
+
+
+
+</div>
+
+<div *ngIf="!front">
+  <app-quiz [userName]=username [quiz]=quiz></app-quiz>
+</div>

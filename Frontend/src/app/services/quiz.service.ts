@@ -12,7 +12,7 @@ import { Answer } from '../models/answer';
 
 @Injectable()
 export class QuizService {
-  // Base URL  
+
   private baseUrl = "http://localhost:8080/";
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -20,7 +20,7 @@ export class QuizService {
   get(id: number): Observable<any> {
     let url = this.baseUrl + "participation-view/quiz-view/" + id;
     return this.http.post(url, id).pipe(map((response: any) => {
-      if (response.liveStatus) {
+      if (!response.liveStatus) {
         this.router.navigate(['/quiz-not-found']);
       } else {
         return (response)

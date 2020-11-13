@@ -1,4 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { OtpVerificationComponent } from './otp-verification.component';
 
@@ -8,7 +11,13 @@ describe('OtpVerificationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OtpVerificationComponent ]
+      declarations: [ OtpVerificationComponent ],
+      imports:[
+                RouterTestingModule,
+                HttpClientTestingModule,
+                ReactiveFormsModule,
+                FormsModule
+              ],
     })
     .compileComponents();
   });

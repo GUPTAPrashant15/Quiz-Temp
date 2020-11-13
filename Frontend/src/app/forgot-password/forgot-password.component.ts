@@ -21,11 +21,14 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private forgotPwdService: ForgotPwdService, private router: Router , private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    let logout = document.getElementById('logout');
-    logout.style.display = "none";
-
-    let dashboard = document.querySelector('.navButton');
-    dashboard.textContent = "";
+    if(document.getElementById('logout')){
+      let logout = document.getElementById('logout');
+        logout.style.display = "none";
+    }
+    if(document.querySelector('.navButton')){
+      let dashboard = document.querySelector('.navButton');
+      dashboard.textContent = "";
+    }
 
   }
   form = new FormGroup({

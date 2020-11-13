@@ -10,6 +10,10 @@ export class RealtimeresultService {
 
   private _url: string = "/assets/Data/results.json";
   constructor(private http: HttpClient) { }
+  getResultById(quizId): Observable<any>
+  {
+     return this.http.get<any>('http://localhost:8080/participation-view/realtimeanalysis/'+quizId);
+  }
   getResults():Observable<UserData[]>{
    return this.http.get<UserData[]>(this._url);
   }

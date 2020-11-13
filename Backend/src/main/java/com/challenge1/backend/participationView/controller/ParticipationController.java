@@ -229,6 +229,20 @@ public class ParticipationController {
 		return false;
 
 	}
+	
+	@GetMapping(value = "/realtimeanalysis/{quizId}")
+	public ScoreModel getResultById(@PathVariable(value = "quizId") long quizId) {
+
+		ScoreModel quiz = scoreRepo.findByQuizId(quizId);
+		//System.out.println(quiz.getAnswerData()+"Hey");
+		
+		System.out.println(quiz.getAnswerData()+"Hey1");
+		
+		
+		
+		return quiz;
+
+	}
 
 	@GetMapping(value = "/getUserScore/{userName}/{quizId}")
 	public int userScore(

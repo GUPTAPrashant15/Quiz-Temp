@@ -100,6 +100,10 @@ generatePCG()
 {
   this.router.navigate(['/Performance']);
 }
+createdQuiz()
+{
+  this.router.navigate(['/list'],{relativeTo: this.route});
+}
 
 
 sampleData(result)
@@ -112,10 +116,10 @@ sampleData(result)
    this.sampleArray.push({
    id:i+1+'',
    username: result.answerData[i].userName,
-   date:'12 Oct',
+   date:result.answerData[i].localDate,
   marks:result.answerData[i].userScore
    });
-  console.log(Myarr);
+  
 } 
  
 }

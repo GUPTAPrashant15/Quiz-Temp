@@ -59,8 +59,9 @@
 <body>
 
 <div class="secondnav" style="background-color: lightcyan;">
-  <table ><tr><td style="padding: 10px; "><b>Quiz:</b> {{quiz.quizName }}</td><td><b>Status:</b> {{quiz_status}}</td></tr></table>
-
+  <table ><tr><td style="padding: 10px; "><b>Quiz:</b> {{quiz.quizName }}</td><td><b>Status:</b> {{quiz_status}}</td><td></td><td></td><td></td><td></td><td> <button id="pcg" mat-raised-button color="primary" (click)="createdQuiz()">Back</button></td></tr></table>
+ 
+  
 </div>
 
   
@@ -75,7 +76,7 @@
     </tr>
     <tr>
       <td style="padding: 15px;"><b>Total Respondants: </b></td>
-      <td>{{total_respondants}}</td>
+      <td>{{result.answerData.length}}</td>
     </tr>
     
     <tr>
@@ -156,7 +157,7 @@
     <!-- Color Column -->
     <ng-container matColumnDef="marks">
       <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Score </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.marks"> {{row.marks}} </td>
+      <td mat-cell *matCellDef="let row" [style.color]="row.marks"> {{(row.marks/quiz.questions.length)*100}} %</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

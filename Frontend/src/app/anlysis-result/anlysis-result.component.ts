@@ -21,6 +21,7 @@ export class AnlysisResultComponent implements OnInit {
 
           
   }
+  
   saveValue(f){​​​​ 
 
      if(f.chartType==1)

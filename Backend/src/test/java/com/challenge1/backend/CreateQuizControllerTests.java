@@ -69,7 +69,7 @@ class CreateQuizControllerTests {
 	public void testCreateQuiz() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
 
-		Quiz mockQuiz = new Quiz("Angular", "MCQ", "sweety", new Date());
+		Quiz mockQuiz = new Quiz("Angular", "MCQ", true, "sweety", new Date());
 		mockQuiz.setQuizId(11l);
 
 		when(sequenceGenerator.generateSequence(anyString())).thenReturn(11l);
@@ -120,7 +120,7 @@ class CreateQuizControllerTests {
 	void createQuiz() {
 
 		Date createDate = new Date();
-		Quiz insertQuiz = new Quiz("Angular", "MCQ", "sweety", createDate);
+		Quiz insertQuiz = new Quiz("Angular", "MCQ",true, "sweety", createDate);
 		insertQuiz.setQuizId(11);
 
 		Quiz insertedQuiz = quizRepo.save(insertQuiz);
@@ -154,9 +154,9 @@ class CreateQuizControllerTests {
 	@Test
 	public void getQuizTest1() {
 		Date createDate = new Date();
-		Quiz insertQuiz = new Quiz("Angular", "MCQ", "rinku", createDate);
+		Quiz insertQuiz = new Quiz("Angular", "MCQ", true, "rinku", createDate);
 		insertQuiz.setQuizId(11);
-		Quiz insertQuiz1 = new Quiz("React", "MCQ", "rinku", createDate);
+		Quiz insertQuiz1 = new Quiz("React", "MCQ",true, "rinku", createDate);
 		insertQuiz1.setQuizId(12);
 		Quiz quiz1 = quizRepo.save(insertQuiz);
 		Quiz quiz2 = quizRepo.save(insertQuiz1);

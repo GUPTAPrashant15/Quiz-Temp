@@ -18,6 +18,7 @@ public class Quiz {
 		
 	private String quizName;
 	private String description;
+	private boolean isLiveStatus = true;
 	private String username;
 	
 	@DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
@@ -27,10 +28,11 @@ public class Quiz {
 	
 	public Quiz() {}
 		
-	public Quiz(String quizName, String description, String username, Date createdDate) {
+	public Quiz(String quizName, String description, boolean isLiveStatus,String username, Date createdDate) {
 		
 		this.quizName = quizName;
 		this.description = description;
+		this.isLiveStatus =isLiveStatus;
 		this.username = username;
 		this.createdDate = createdDate;
 	}
@@ -91,11 +93,20 @@ public class Quiz {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public boolean isLiveStatus() {
+		return isLiveStatus;
+	}
+
+	public void setLiveStatus(boolean isLiveStatus) {
+		this.isLiveStatus = isLiveStatus;
+	}
 
 	@Override
 	public String toString() {
 		return "Quiz [id=" + quizId + ", quizName=" + quizName + ", description=" + description + ", username=" + username
 				+ ", createdDate=" + createdDate + "]";
 	}
+
+	
 	
 }

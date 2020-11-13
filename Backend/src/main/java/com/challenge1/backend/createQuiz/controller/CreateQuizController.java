@@ -99,5 +99,22 @@ public class CreateQuizController {
 		return quiz;
 
 	}
+	
+	@PostMapping(value="/changequizStatus/{quizId}")
+	public void toggleQuizStatus(@PathVariable(value = "quizId") Long quizId) {
+		Quiz quizModel = repository.findByQuizId(quizId);
+		boolean isQuizLive = quizModel.isLiveStatus();
+		if(isQuizLive) {
+			quizModel.setLiveStatus(false);
+		}
+		else {
+			quizModel.setLiveStatus(true); 
+		}	
+		repository.save(quizModel);
+	}
+	@GetMapping(value="/getQuizStatus/{quizId}")
+	public boolean getQuizStatus(@PathVariable(value = "quizId") Long quizId) {
+		return repository.findByQuizId(quizId).isLiveStatus();
+	}
 
 }

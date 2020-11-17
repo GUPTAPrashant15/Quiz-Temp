@@ -63,6 +63,8 @@ export class RealComponent implements OnInit, AfterViewInit {
   public quiz;
   public result;
   public quizId:any;
+  public quizStatus;
+
    ngOnInit(){
    //this._realtimeresult.getResults().subscribe((data)=>{this.MyArray=data;
      // this.dataSource = new MatTableDataSource(this.MyArray);
@@ -91,7 +93,23 @@ export class RealComponent implements OnInit, AfterViewInit {
   date_published = "10 Oct 2020 8:57pm";
   total_respondants = "7";
    
- 
+ statusQuiz(quiz) {
+    this._realtimeresult.changeQuizStatus(quiz).subscribe(
+      response => {
+        console.log(response)
+        if (response) {
+          this.quizStatus = "Open";
+        }
+
+        else {
+          this.quizStatus = "Closed"
+        }
+
+      }
+
+    );
+    
+  }
 generateRCG()
 {
   this.router.navigate(['/anlysis-result']);

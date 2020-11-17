@@ -27,6 +27,16 @@ public class Quiz {
 	private List<Questions> questions;
 
 	public Quiz() {}
+	public Quiz( String quizName, String description, boolean isLiveStatus, String username, Date createdDate) {
+
+		//this.quizId = quizId;
+		this.quizName = quizName;
+		this.description = description;
+		this.isLiveStatus = isLiveStatus;
+		this.username = username;
+		this.createdDate = createdDate;
+	}
+
 
 	public Quiz(long quizId, String quizName, String description, boolean isLiveStatus, String username, Date createdDate) {
 

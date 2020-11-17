@@ -114,13 +114,6 @@ it('should have a working userInformation function', () => {
   
 });
 
-
-
-
-
-
-
-
 it('username should be undefined when component load', () => {
   expect(component.username).toBe(undefined);
   expect(component.q.quizId).toBe(undefined);
@@ -128,7 +121,6 @@ it('username should be undefined when component load', () => {
 
 it('should have onDelete function', () => {
     let quizId = 12;
-    // expect(component.onDelete(q)).toBeTruthy();
     component.loadQuiz(quizId);
     fixture.detectChanges();
     expect(component.loadQuiz).toHaveBeenCalled;

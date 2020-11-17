@@ -1,15 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { stringify } from 'querystring';
 import { Quiz } from '../models';
 import { ParticipantService } from '../services/participant.service';
 import { QuizService } from '../services/quiz.service';
 import { CookieService } from 'ngx-cookie-service';
-import { HostListener } from '@angular/core';
-import { ConditionalExpr } from '@angular/compiler';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-quiz-start-page',
@@ -28,11 +23,6 @@ export class QuizStartPageComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   ngOnInit() {
-    // let logout = document.getElementById('logout');
-    // logout.style.display = "none";
-    // let dashboard = document.querySelector('.navButton');
-    // dashboard.textContent = "";
-
     this.q = { quizId: this.route.snapshot.params['id'] };
     this.loadQuiz(this.q.quizId);
     this.form = this.fb.group({
@@ -47,7 +37,6 @@ export class QuizStartPageComponent implements OnInit {
       dashboard.textContent = "";
     }
   }
-
   get f() {
     return this.form.controls;
   }
@@ -56,10 +45,6 @@ export class QuizStartPageComponent implements OnInit {
     this.quizService.get(id).subscribe(res => {
       this.quiz = new Quiz(res);
     });
-  }
-
-  OnUpdateUserName(event: Event) {
-    this.username = (<HTMLInputElement>event.target).value;
   }
   userForm(userInformation) {
 
@@ -82,7 +67,6 @@ export class QuizStartPageComponent implements OnInit {
     }
 
   }
-
   get Username() {
     return this.form.get('username');
   }

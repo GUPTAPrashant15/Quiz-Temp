@@ -119,11 +119,14 @@ public class ParticipationControllerTest {
         
         
         answerData=new AnswerData(userName,userScore, null);
+        
+        
+        
         List<AnswerData> answerList=new ArrayList<AnswerData>();
         answerList.add(answerData);
         scoreModel=new ScoreModel();
         scoreModel.setQuizId(quizId);
-        
+        scoreModel.setAnswerData(answerList);
         
         questions=new Questions();
         questions.setQuesId(quesId);
@@ -160,6 +163,8 @@ public class ParticipationControllerTest {
        when(scoreRepo.findByQuizId(quizId)).thenReturn(scoreModel);
         
        when(quizRepo.findByQuizId(quizId)).thenReturn(quiz);
+       
+       when(scoreService.getAnswerDataModel(scoreModel, "xyz")).thenReturn(answerData);
 
        ScoreModel score=participationController.calcScore(userName, quizId, quesId, answer);
         
@@ -191,13 +196,22 @@ public class ParticipationControllerTest {
 	
 	@Test
 	public void testIsUniqueUser() {
- 
+		
+		answerData=new AnswerData("xyz",4, null);
+		
+		 List<AnswerData> answerList=new ArrayList<AnswerData>();
+	        answerList.add(answerData);
+	        scoreModel=new ScoreModel();
+	        scoreModel.setQuizId(123);
+	        scoreModel.setAnswerData(answerList);
 		
 		when(scoreRepo.findByQuizId(123)).thenReturn(scoreModel);
 		
+		when(scoreService.getAnswerDataModel(scoreModel, "xyz")).thenReturn(answerData);
+		
 		boolean value=participationController.isUniqueUser("xyz",123);
 		
-		assertEquals(true, value);
+		assertEquals(false, value);
 		
 	}
 	

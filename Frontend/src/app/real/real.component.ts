@@ -92,9 +92,9 @@ export class RealComponent implements OnInit, AfterViewInit {
   total_respondants = "7";
    
  
-generateRCG()
+generateRCG(quiz)
 {
-  this.router.navigate(['/anlysis-result']);
+  this.router.navigate(['/anlysis-result',quiz.quizId]);
 }
 generatePCG()
 {

@@ -8,11 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class AnlysisResultService {
 
-  private _url: string="/assets/Data/graphData.json";
-
   constructor(private http: HttpClient) { }
 
-  getData(): Observable<IgraphData[]>{
-    return this.http.get<IgraphData[]>(this._url);
+  public getQuizByresultId(quizId): Observable<any>
+  {
+     return this.http.get<any>('http://localhost:8080/anlysis-result/'+quizId);
+  }
+  public getGraphData(quizId,quesId)
+  {
+    return this.http.post<any>('http://localhost:8080/participation-view/getGraphDataForQuesVsScore/'+quizId+'/'+quesId,69);
   }
 }

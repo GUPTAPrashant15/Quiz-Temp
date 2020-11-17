@@ -26,20 +26,20 @@ export class QuizComponent implements OnInit {
   countAnsweredQues = 0;
   flag = 0;
   mode = 'quiz';
-  config: QuizConfig = {
-    'allowBack': false,
-    'allowReview': false,
-    'autoMove': false,  // if true, it will move to next question automatically when answered.
-    'duration': 30,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
-    'pageSize': 1,
-    'requiredAll': false,  // indicates if you must answer all the questions before submitting.
-    'richText': false,
-    'shuffleQuestions': false,
-    'shuffleOptions': false,
-    'showClock': false,
-    'showPager': true,
-    'theme': 'none'
-  };
+  // config: QuizConfig = {
+  //   'allowBack': false,
+  //   'allowReview': false,
+  //   'autoMove': false,  // if true, it will move to next question automatically when answered.
+  //   'duration': 30,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+  //   'pageSize': 1,
+  //   'requiredAll': false,  // indicates if you must answer all the questions before submitting.
+  //   'richText': false,
+  //   'shuffleQuestions': false,
+  //   'shuffleOptions': false,
+  //   'showClock': false,
+  //   'showPager': true,
+  //   'theme': 'none'
+  // };
 
   pager = {
     index: 0,
@@ -181,7 +181,7 @@ export class QuizComponent implements OnInit {
     question.answer.quizId = this.quiz.quizId;
     question.answer.quizName = this.quiz.quizName;
     question.answer.userName = this.userName;
-    if (index >= 0 && index < this.pager.count) {
+    if (index >= 0 && index <= this.pager.count) {
       this.pager.index = index;
       if (question.answer.answer != "") {
         this.countAnsweredQues = this.countAnsweredQues + 1;

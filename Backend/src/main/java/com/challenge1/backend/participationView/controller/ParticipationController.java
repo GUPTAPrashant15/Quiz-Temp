@@ -49,7 +49,12 @@ public class ParticipationController {
 		logger.info("----- Inside Quiz View API -----");
 
 		Optional<Quiz> quiz = quizRepo.findById(quizId);
-
+		ScoreModel existingQuiz = scoreRepo.findByQuizId(quizId);
+		if(existingQuiz == null){
+			ScoreModel score = new ScoreModel();
+			score.setQuizId(quizId);
+			scoreRepo.save(score);
+		}
 		return quiz;
 	}
 
@@ -86,8 +91,12 @@ public class ParticipationController {
 		}
 
 		existingGraph = graphRepo.findByGraphId(graphId);
-
+		//Only for testing
+		if(existingGraph == null)
+			existingGraph = getDummyDataForTesting();			
 		System.out.println(existingGraph);
+
+		graphRepo.save(existingGraph);
 
 		Integer answerScore = 0;
 
@@ -124,9 +133,7 @@ public class ParticipationController {
 
 					if (answer.equalsIgnoreCase(question.getTextAnswer()))
 						answerScore += 1;
-
 				}
-
 			}
 
 		}
@@ -136,69 +143,27 @@ public class ParticipationController {
 		ScoreModel existingScore = scoreRepo.findByQuizId(quizId);
 
 		System.out.println(existingScore + "SCORE");
-
-		ScoreModel tempScore = new ScoreModel();
-
-		if (existingScore == null) {
-
-			logger.info("No existing Score Model is found in the System");
-
-			tempScore.setQuizId(quizId);
-			scoreRepo.save(tempScore);
-
-			logger.info("New Score Model is created with Quiz ID " + quizId + " and saved in the System");
-
-			existingScore = tempScore;
-		}
-
-		List<AnswerData> existingAnsDatas = existingScore.getAnswerData();
-		List<AnswerData> tempAnsDatas = new ArrayList<AnswerData>();
-
 		AnswerData userAnsData = scoreService.getAnswerDataModel(existingScore, userName);
-
-		if (existingAnsDatas == null) {
-
-			logger.info("No existing Answer Data Lists are found in the System");
-
-			tempAnsDatas.add(new AnswerData(userName, answerScore, localDate));
-			tempScore.setAnswerData(tempAnsDatas);
-
-			logger.info("Answer Data Lists are created and saved in the System - CLEAN");
-
-			scoreRepo.save(tempScore);
-
-		} else {
-
-			if (existingAnsDatas != null && userAnsData == null) {
-
-				logger.info("Answer Data Lists exist but not for the current User");
-
-				existingAnsDatas.add(new AnswerData(userName, answerScore, localDate));
-				existingScore.setAnswerData(existingAnsDatas);
-
-				logger.info("Answer Data Lists are created and saved in the System - CURRENT USER");
-
-			} else {
-
-				logger.info("Answer Data Lists exist for the current User");
-
-				userAnsData.setUserScore(userAnsData.getUserScore() + answerScore);
-				userAnsData.setLocalDate(localDate);
-
-				logger.info("Answer Data in the Answer Data Lists are updated");
-
-			}
-
-			scoreRepo.save(existingScore);
-
-		}
-
-		graphRepo.save(existingGraph);
-
+		logger.info("Answer Data Lists exist for the current User");
+		userAnsData.setUserScore(userAnsData.getUserScore() + answerScore);
+		userAnsData.setLocalDate(localDate);
+		logger.info("Answer Data in the Answer Data Lists are updated");
+		scoreRepo.save(existingScore);
+		
 		logger.info("Graph Model is saved in the System");
 
 		return existingScore;
 
+	}
+	//For testing purpose
+	private GraphModel getDummyDataForTesting() {
+		GraphModel graphModel=new GraphModel();
+        graphModel.setGraphId(new GraphId(123, 12));
+        graphModel.setOptionA(25);
+        graphModel.setOptionB(25);
+        graphModel.setOptionC(40);
+        graphModel.setOptionD(10);
+		return graphModel;
 	}
 
 	@PostMapping(value = "/getGraphDataForQuesVsScore/{quizId}/{quesId}")
@@ -209,7 +174,9 @@ public class ParticipationController {
 		logger.info("----- Inside Send Graph Data for Visualization API -----");
 
 		GraphModel graph = graphRepo.findByGraphId(new GraphId(quizId, quesId));
-
+		//Only for testing
+		if(graph == null)
+			graph = getDummyDataForTesting();	
 		return graph;
 
 	}
@@ -224,8 +191,17 @@ public class ParticipationController {
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
-		if (user == null) return true;
-
+		if (user == null){ 
+			List<AnswerData> answerDatas = quizData.getAnswerData();
+			if(answerDatas == null){
+				List<AnswerData> newAnswerDatasList = new ArrayList<AnswerData>();
+				newAnswerDatasList.add(new AnswerData(userName, 0, localDate));
+				quizData.setAnswerData(newAnswerDatasList);
+				scoreRepo.save(quizData);
+			}
+			return true;
+		}
+		
 		return false;
 
 	}

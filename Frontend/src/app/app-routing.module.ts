@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: "dashboard",component:DashboardComponent,canActivate: [AuthGuard]},
   {path: "addQuestions",component:AddQuestionsComponent,canActivate: [AuthGuard]},
   {path: "success",component:DisplaySuccessComponent,canActivate: [AuthGuard]},
-  {path: 'anlysis-result', component: AnlysisResultComponent,canActivate: [AuthGuard]},
+  {path: 'anlysis-result/:id', component: AnlysisResultComponent,canActivate: [AuthGuard]},
   {path: 'realtimeanalysis/:id',component:RealComponent,canActivate: [AuthGuard]},
   {path:'Performance', component: PerformanceChartComponent,canActivate: [AuthGuard]},
   {path:"registration",component:RegistrationComponent},

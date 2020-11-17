@@ -1,8 +1,10 @@
+<button class="btn" style="background: #673ab7; color: white; float: right; margin-right:.5%;margin-top: .2%;" (click)="backClicked()">Back</button>
 <div style="text-align: center;">
     <h1>
       Analyse your QUIZ
     </h1>
 </div>
+
 <form #form="ngForm" (ngSubmit)="saveValue(form.value)">
     <div class="container form-group">
        <div class="form-group">
@@ -19,8 +21,8 @@
 
             <label>Select Question</label>
                 <select ngModel name="Ques" #Ques="ngModel" class="form-control">
-                    <option *ngFor="let QuesNo of graphData" [value]="QuesNo.Ques">
-                         Question {{QuesNo.Ques}}
+                    <option *ngFor="let QuesNo of quiz.questions" [value]="QuesNo.quesId">
+                         Question {{QuesNo.quesId}}
                     </option>
                 </select>
         </div>

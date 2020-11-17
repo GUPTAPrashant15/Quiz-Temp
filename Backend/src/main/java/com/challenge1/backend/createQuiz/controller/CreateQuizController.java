@@ -99,6 +99,15 @@ public class CreateQuizController {
 		return quiz;
 
 	}
+	
+	@GetMapping("/anlysis-result/{quizId}")
+	public Quiz getQuizByresultId(@PathVariable(value = "quizId") long id) {
+
+		Quiz quiz = quizRepo.findById(id).get();
+
+		return quiz;
+
+	}
 
 	@PostMapping(value="/changeQuizStatus/{quizId}")
 	public boolean toggleQuizStatus(@PathVariable(value = "quizId") long quizId) {

@@ -31,14 +31,6 @@ public class ScoreService {
                 new Update().set("answerData.userScore", score), ScoreModel.class);
     }
 
-    public void retrieveUserScore(long id, String userName) {
-
-        // List<Integer> userScore = mongoOperation.findOne(new
-        // Query(Criteria.where("_id").is(id)
-        // .andOperator(Criteria.where("userName").is(userName))),
-        // "userScore",
-        // ScoreModel.class);
-    }
 
     public AnswerData getAnswerDataModel(ScoreModel quizData, String userName) {
         if (quizData != null) {

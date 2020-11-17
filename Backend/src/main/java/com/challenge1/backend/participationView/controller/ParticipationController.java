@@ -86,7 +86,9 @@ public class ParticipationController {
 		}
 
 		existingGraph = graphRepo.findByGraphId(graphId);
-
+		//Only for testing
+		if(existingGraph == null)
+			existingGraph = getDummyDataForTesting();			
 		System.out.println(existingGraph);
 
 		Integer answerScore = 0;
@@ -200,6 +202,16 @@ public class ParticipationController {
 		return existingScore;
 
 	}
+	//For testing purpose
+	private GraphModel getDummyDataForTesting() {
+		GraphModel graphModel=new GraphModel();
+        graphModel.setGraphId(new GraphId(123, 12));
+        graphModel.setOptionA(25);
+        graphModel.setOptionB(25);
+        graphModel.setOptionC(40);
+        graphModel.setOptionD(10);
+		return graphModel;
+	}
 
 	@PostMapping(value = "/getGraphDataForQuesVsScore/{quizId}/{quesId}")
 	public GraphModel returnDataForGraph(
@@ -209,7 +221,9 @@ public class ParticipationController {
 		logger.info("----- Inside Send Graph Data for Visualization API -----");
 
 		GraphModel graph = graphRepo.findByGraphId(new GraphId(quizId, quesId));
-
+		//Only for testing
+		if(graph == null)
+			graph = getDummyDataForTesting();	
 		return graph;
 
 	}

@@ -25,13 +25,5 @@ export class RealtimeresultService {
   {
      return this.http.get<any>('http://localhost:8080/realtimeanalysis/'+quizId);
   }
-  public changeQuizStatus(quizId ){
-    return this.http.post('http://localhost:8080/changeQuizStatus/' +quizId,1).pipe(map((response: any) => {
-      return (response)
-    }), catchError((err: any) => {
-      return throwError(err);
-    }
-    ))
-  }
-
+  
 }

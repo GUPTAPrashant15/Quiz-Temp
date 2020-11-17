@@ -4,6 +4,7 @@ export class CreateQuiz {
         public quizId: number,
         public username: string,
         public quizName: string,
+        public isLiveStatus: boolean,
         public description: string
     ){}
 }

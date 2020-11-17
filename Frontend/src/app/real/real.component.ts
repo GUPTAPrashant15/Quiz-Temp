@@ -74,7 +74,9 @@ export class RealComponent implements OnInit, AfterViewInit {
  console.log(this.MyArray.length+"HyONinit");
    let id = parseInt(this.route.snapshot.paramMap.get('id'));
    this.quizId = id;
-    this._realtimeresult.getQuizById(this.quizId).subscribe(data=>this.quiz=data);
+    this._realtimeresult.getQuizById(this.quizId).subscribe(data=>{this.quiz=data;
+    console.log(this.quiz.keys()+this.quiz.description+"Hey Logger");
+    });
     this._realtimeresult.getResultById(this.quizId).subscribe(data=>{this.result=data;
     this.sampleData(this.result);
      this.dataSource = new MatTableDataSource(this.sampleArray);
@@ -82,7 +84,7 @@ export class RealComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;    
     });
     
- 
+     
   }
   
   
@@ -93,23 +95,7 @@ export class RealComponent implements OnInit, AfterViewInit {
   date_published = "10 Oct 2020 8:57pm";
   total_respondants = "7";
    
- statusQuiz(quiz) {
-    this._realtimeresult.changeQuizStatus(quiz).subscribe(
-      response => {
-        console.log(response)
-        if (response) {
-          this.quizStatus = "Open";
-        }
-
-        else {
-          this.quizStatus = "Closed"
-        }
-
-      }
-
-    );
-    
-  }
+ 
 generateRCG()
 {
   this.router.navigate(['/anlysis-result']);
@@ -122,6 +108,7 @@ createdQuiz()
 {
   this.router.navigate(['/list'],{relativeTo: this.route});
 }
+
 
 
 sampleData(result)

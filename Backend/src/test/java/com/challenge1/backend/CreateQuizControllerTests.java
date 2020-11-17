@@ -58,18 +58,20 @@ class CreateQuizControllerTests {
 	SequenceGeneratorService sequenceGenerator;
 
 	@Test
-	public void testShowQuiz() throws Exception {
+	public void testDemoQuizAdd() throws Exception {
+
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.content().string("Add quiz "));
+				.andExpect(MockMvcResultMatchers.content().string("Demo Quiz Addition"));
+
 	}
 
 	@Test
 	public void testCreateQuiz() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
 
-		Quiz mockQuiz = new Quiz("Angular", "MCQ", true, "sweety", new Date());
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date());
 		mockQuiz.setQuizId(11l);
 
 		when(sequenceGenerator.generateSequence(anyString())).thenReturn(11l);
@@ -97,7 +99,7 @@ class CreateQuizControllerTests {
 		questions.add(q1);
 		questions.add(q2);
 
-		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11, "Angular", "MCQ", "sweety", new Date()));
+		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date()));
 
 		Mockito.when(quizRepository.findById(11l)).thenReturn(mockQuiz);
 
@@ -120,8 +122,7 @@ class CreateQuizControllerTests {
 	void createQuiz() {
 
 		Date createDate = new Date();
-		Quiz insertQuiz = new Quiz("Angular", "MCQ",true, "sweety", createDate);
-		insertQuiz.setQuizId(11);
+		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ",true, "sweety", createDate);
 
 		Quiz insertedQuiz = quizRepo.save(insertQuiz);
 
@@ -153,26 +154,31 @@ class CreateQuizControllerTests {
 
 	@Test
 	public void getQuizTest1() {
+
 		Date createDate = new Date();
-		Quiz insertQuiz = new Quiz("Angular", "MCQ", true, "rinku", createDate);
-		insertQuiz.setQuizId(11);
-		Quiz insertQuiz1 = new Quiz("React", "MCQ",true, "rinku", createDate);
-		insertQuiz1.setQuizId(12);
+
+		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ", true, "rinku", createDate);
+		Quiz insertQuiz1 = new Quiz(12l, "React", "MCQ",true, "rinku", createDate);
+
 		Quiz quiz1 = quizRepo.save(insertQuiz);
 		Quiz quiz2 = quizRepo.save(insertQuiz1);
+
 		assertThat(quizRepo.findByUsernameOrderByQuizIdDesc("rinku")).isNotNull();
+
 		ArrayList<Quiz> quizzes = new ArrayList<>();
+
 		quizzes.add(quiz1);
 		quizzes.add(quiz2);
+
 		assertThat(quizRepo.findByUsernameOrderByQuizIdDesc("rinku")).size().isEqualTo(2);
-		// assertEquals(quizzes.toString(),quizRepo.findByUsername("rinku").toString());
+
 	}
 
 	@Test
 	public void testgetQuizById() throws JsonProcessingException, Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
 
-		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11, "Angular", "MCQ", "sweety", new Date()));
+		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date()));
 
 		Mockito.when(quizRepository.findById(11l)).thenReturn(mockQuiz);
 

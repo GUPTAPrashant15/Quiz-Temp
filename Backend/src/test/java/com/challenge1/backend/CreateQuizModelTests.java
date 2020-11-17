@@ -44,11 +44,12 @@ public class CreateQuizModelTests {
 
 		Date createdDate = new Date();
 
-		Quiz mockQuiz = new Quiz("Angular", "MCQ",true, "sweety", createdDate);
-		mockQuiz.setQuizId(11l);
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", createdDate);
 
-		assertEquals("Quiz [id=" + 11 + ", quizName=" + "Angular" + ", description=" + "MCQ" + ", username=" + "sweety"
-				+ ", createdDate=" + createdDate + "]", mockQuiz.toString());
+		assertEquals("Quiz [createdDate=" + createdDate + ", description=" + "MCQ" + ", isLiveStatus=" + true
+		+ ", questions=" + null + ", quizId=" + 11 + ", quizName=" + "Angular" + ", username="
+		+ "sweety" + "]", mockQuiz.toString());
+
 	}
 
 }

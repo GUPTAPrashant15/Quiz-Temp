@@ -36,6 +36,13 @@ public class CreateQuizController {
 	@Autowired
 	private SequenceGeneratorService sequenceGenerator;
 
+	@GetMapping("/")
+	public String demoQuizAdd() {
+
+		return "Demo Quiz Addition";
+
+	}
+
 	@PostMapping("/addQuiz")
 	public long saveQuiz(@RequestBody Quiz quiz) {
 
@@ -73,13 +80,6 @@ public class CreateQuizController {
 		logger.info("Inside CreateQuizController: added questions successfully");
 
 		return "Added questions";
-	}
-
-	@GetMapping("/")
-	public String showEmployee() {
-
-		return "Add quiz";
-
 	}
 
 	@GetMapping("/list/{username}")

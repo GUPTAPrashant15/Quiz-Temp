@@ -47,6 +47,15 @@ public class Quiz {
 		this.username = username;
 		this.createdDate = createdDate;
 	}
+	public Quiz(long id , String quizName,boolean isLiveStatus, String description, String username, Date createdDate)
+	{
+		this.quizId = id;
+		this.quizName = quizName;
+		this.description = description;
+		this.username = username;
+		this.createdDate = createdDate;
+		this.isLiveStatus= isLiveStatus;
+	}
 
 	public List<Questions> getQuestions() {
 		return questions;
@@ -75,7 +84,13 @@ public class Quiz {
 	public String getQuizName() {
 		return quizName;
 	}
-
+    public boolean getIsLiveStatus(){
+    	return isLiveStatus;
+    }
+    public void setIsLiveStatus(boolean isLiveStatus)
+    {
+    this.isLiveStatus= isLiveStatus;
+    }
 	public void setQuizName(String quizName) {
 		this.quizName = quizName;
 	}

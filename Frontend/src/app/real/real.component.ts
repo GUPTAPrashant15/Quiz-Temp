@@ -63,6 +63,8 @@ export class RealComponent implements OnInit, AfterViewInit {
   public quiz;
   public result;
   public quizId:any;
+  public quizStatus;
+
    ngOnInit(){
    //this._realtimeresult.getResults().subscribe((data)=>{this.MyArray=data;
      // this.dataSource = new MatTableDataSource(this.MyArray);
@@ -72,7 +74,9 @@ export class RealComponent implements OnInit, AfterViewInit {
  console.log(this.MyArray.length+"HyONinit");
    let id = parseInt(this.route.snapshot.paramMap.get('id'));
    this.quizId = id;
-    this._realtimeresult.getQuizById(this.quizId).subscribe(data=>this.quiz=data);
+    this._realtimeresult.getQuizById(this.quizId).subscribe(data=>{this.quiz=data;
+    console.log(this.quiz.keys()+this.quiz.description+"Hey Logger");
+    });
     this._realtimeresult.getResultById(this.quizId).subscribe(data=>{this.result=data;
     this.sampleData(this.result);
      this.dataSource = new MatTableDataSource(this.sampleArray);
@@ -80,7 +84,7 @@ export class RealComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;    
     });
     
- 
+     
   }
   
   
@@ -104,6 +108,7 @@ createdQuiz()
 {
   this.router.navigate(['/list'],{relativeTo: this.route});
 }
+
 
 
 sampleData(result)

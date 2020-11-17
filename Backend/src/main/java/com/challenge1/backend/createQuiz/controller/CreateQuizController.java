@@ -95,7 +95,7 @@ public class CreateQuizController {
 	public Quiz getQuizById(@PathVariable(value = "quizId") long id) {
 
 		Quiz quiz = quizRepo.findById(id).get();
-
+        System.out.println(quiz.toString());
 		return quiz;
 
 	}
@@ -115,16 +115,16 @@ public class CreateQuizController {
 		logger.info("----- Inside Quiz Status Toggler API -----");
 
 		Quiz quizModel = quizRepo.findByQuizId(quizId);
-		boolean isQuizLive = quizModel.isLiveStatus();
+		boolean isQuizLive = quizModel.getIsLiveStatus();
 
-		if(isQuizLive) quizModel.setLiveStatus(false);
-		else quizModel.setLiveStatus(true);
+		if(isQuizLive) quizModel.setIsLiveStatus(false);
+		else quizModel.setIsLiveStatus(true);
 
 		quizRepo.save(quizModel);
 
 		logger.info("Quiz Status has been changed and updated in the System");
 
-		return quizModel.isLiveStatus();
+		return quizModel.getIsLiveStatus();
 
 	}
 	@GetMapping(value="/getQuizStatus/{quizId}")
@@ -132,7 +132,7 @@ public class CreateQuizController {
 
 		logger.info("----- Inside Quiz Status Retriever API -----");
 
-		return quizRepo.findByQuizId(quizId).isLiveStatus();
+		return quizRepo.findByQuizId(quizId).getIsLiveStatus();
 
 	}
 

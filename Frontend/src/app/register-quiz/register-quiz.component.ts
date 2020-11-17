@@ -14,7 +14,7 @@ export class RegisterQuizComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _router: Router) { }
 
-  quiz: CreateQuiz = new CreateQuiz(null, '', '', '');
+  quiz: CreateQuiz = new CreateQuiz(null, '', '',true, '');
 
   message: any;
   public user: any;

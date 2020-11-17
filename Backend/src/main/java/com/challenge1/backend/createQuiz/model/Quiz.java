@@ -28,20 +28,12 @@ public class Quiz {
 
 	public Quiz() {}
 
-	public Quiz(String quizName, String description, boolean isLiveStatus,String username, Date createdDate) {
+	public Quiz(long quizId, String quizName, String description, boolean isLiveStatus, String username, Date createdDate) {
 
+		this.quizId = quizId;
 		this.quizName = quizName;
 		this.description = description;
-		this.isLiveStatus =isLiveStatus;
-		this.username = username;
-		this.createdDate = createdDate;
-	}
-
-	public Quiz( long id , String quizName, String description, String username, Date createdDate) {
-
-		this.quizId = id;
-		this.quizName = quizName;
-		this.description = description;
+		this.isLiveStatus = isLiveStatus;
 		this.username = username;
 		this.createdDate = createdDate;
 	}

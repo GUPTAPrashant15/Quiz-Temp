@@ -27,8 +27,7 @@ public class QuestionsRepositoryTests {
 	@Test
 	public void testagain() {
 
-		Quiz mockQuiz = new Quiz("Angular", "MCQ",true, "sweety", new Date());
-		mockQuiz.setQuizId(11l);
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date());
 
 		quizRepo.save(mockQuiz);
 
@@ -41,6 +40,7 @@ public class QuestionsRepositoryTests {
 		q2.setQuesId(2L);
 
 		List<Questions> questions = new ArrayList<Questions>();
+
 		questions.add(q1);
 		questions.add(q2);
 

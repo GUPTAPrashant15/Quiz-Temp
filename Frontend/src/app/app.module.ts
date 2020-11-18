@@ -10,6 +10,7 @@ import { AnlysisResultComponent } from './anlysis-result/anlysis-result.componen
 import { AnlysisResultService } from './anlysis-result.service';
 import { RealComponent } from 'src/app/real/real.component';
 import { PerformanceChartComponent } from 'src/app/performance-chart.component';
+import {PerformanceChartService} from 'src/app/performance-chart.service';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateQuizService } from 'src/app/create-quiz.service';

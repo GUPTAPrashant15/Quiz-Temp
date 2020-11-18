@@ -1,5 +1,12 @@
 package com.challenge1.backend.createQuiz.model;
 
+/**
+ * <h1> Quiz class</h1>
+ * <p> 
+ *  This is a model class for Quiz.It contains all the details of a Quiz.
+ *  In this class, we are using annotation @Document to create a collection in database.
+ *  </p>
+ */
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.annotation.Id;
@@ -37,15 +44,15 @@ public class Quiz {
 		this.username = username;
 		this.createdDate = createdDate;
 	}
-	public Quiz(long id , String quizName,boolean isLiveStatus, String description, String username, Date createdDate)
-	{
-		this.quizId = id;
-		this.quizName = quizName;
-		this.description = description;
-		this.username = username;
-		this.createdDate = createdDate;
-		this.isLiveStatus= isLiveStatus;
-	}
+//	public Quiz(long id , String quizName,boolean isLiveStatus, String description, String username, Date createdDate)
+//	{
+//		this.quizId = id;
+//		this.quizName = quizName;
+//		this.description = description;
+//		this.username = username;
+//		this.createdDate = createdDate;
+//		this.isLiveStatus= isLiveStatus;
+//	}
 
 	public List<Questions> getQuestions() {
 		return questions;

@@ -14,10 +14,10 @@ export class PerformanceChartComponent implements OnInit {
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60'],
+        labels: ['0', '1', '2', '3', '4', '5'],
         datasets: [{
           label: 'Number of Candidates',
-          data: [11, 19, 8, 3, 6, 15],
+          data: [1, 0, 1, 1, 1, 1],
           backgroundColor: [
             'rgba(187, 196, 59, 1)',
             'rgba(54, 162, 235, 1)',

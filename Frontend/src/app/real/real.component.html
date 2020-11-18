@@ -59,7 +59,7 @@
 <body>
 
 <div class="secondnav" style="background-color: lightcyan;">
-  <table ><tr><td style="padding: 10px; "><b>Quiz:</b> {{quiz.quizName }}</td><td ><b>Status:</b> {{(quiz.isLiveStatus)?'Active':'Inac'}}</td><td></td><td></td><td> <button id="back" mat-raised-button color="primary" (click)="createdQuiz()" style="margin-right: 15px">Back</button></td></tr></table>
+  <table ><tr><td style="padding: 10px; "><b>Quiz:</b> {{quiz.quizName }}</td><td ><b>Status:</b> {{(quiz.isLiveStatus)?'Active':'Inactive'}}</td><td></td><td></td><td> <button id="back" mat-raised-button color="primary" (click)="createdQuiz()" style="margin-right: 15px">Back</button></td></tr></table>
 
 </div>
 
@@ -80,7 +80,7 @@
     
     <tr>
       <td style="padding:15px;"><b>Point vs Count Graph: </b></td>
-      <td> <button id="pcg" mat-raised-button color="primary" (click)="generatePCG()">Generate Graph</button></td>
+      <td> <button id="pcg" mat-raised-button color="primary" (click)="generatePCG(quiz)">Generate Graph</button></td>
     </tr>
     <tr>
       <td style="padding:15px;"><b>Response vs Count Graph: </b></td>

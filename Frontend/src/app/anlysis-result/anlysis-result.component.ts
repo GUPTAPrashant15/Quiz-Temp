@@ -66,7 +66,7 @@ export class AnlysisResultComponent implements OnInit {
           data: [{​​​​
             type: "pie",
             showInLegend: true,
-            toolTipContent: "<b>{​​​​name}​​​​</b>: {​​​​y}​​​​ (#percent%)",
+            toolTipContent: "<b>{​​​​name}​​​​</b> {​​​​y}​​​​ (#percent%)",
             indexLabel: "{​​​​name}​​​​ - #percent%",
             dataPoints: [
               {​​​​ y: response.optionA, name: "Option A" }​​​​,

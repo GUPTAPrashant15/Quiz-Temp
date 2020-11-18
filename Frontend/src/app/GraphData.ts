@@ -1,7 +1,10 @@
-export interface IgraphData{
-    Ques: number,
-    a: number,
-    b: number,
-    c: number,
-    d: number,
-}
+export interface IgraphData
+    {
+        "graphId":
+            {"quizId":number,"questId":number},
+        "optionA":number,
+        "optionB":number,
+        "optionC":number,
+        "optionD":number
+    }
+

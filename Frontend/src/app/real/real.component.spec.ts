@@ -10,6 +10,7 @@ describe('RealComponent', () => {
   let fixture: ComponentFixture<RealComponent>;
    let result : any ;
    let Event : any;
+   let quiz: any;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -43,10 +44,10 @@ describe('RealComponent', () => {
     expect(divcount.nativeElement.textContent).toBe("Real Time Analysis");
   });
    it('should have generateRCG() function', () => {
-    expect(component.generateRCG()).toBeTruthy();
+    expect(component.generateRCG(quiz)).toBeTruthy();
   });
   it('should have generatePCG() function', () => {
-    expect(component.generatePCG()).toBeTruthy();
+    expect(component.generatePCG(quiz)).toBeTruthy();
   });
   it('should have createdQuiz() function', () => {
     expect(component.createdQuiz()).toBeTruthy();

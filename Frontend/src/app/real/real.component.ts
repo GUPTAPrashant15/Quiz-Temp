@@ -75,7 +75,6 @@ export class RealComponent implements OnInit, AfterViewInit {
    let id = parseInt(this.route.snapshot.paramMap.get('id'));
    this.quizId = id;
     this._realtimeresult.getQuizById(this.quizId).subscribe(data=>{this.quiz=data;
-    console.log(this.quiz.keys()+this.quiz.description+"Hey Logger");
     });
     this._realtimeresult.getResultById(this.quizId).subscribe(data=>{this.result=data;
     this.sampleData(this.result);

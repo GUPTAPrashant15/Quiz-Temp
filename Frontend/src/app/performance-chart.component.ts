@@ -18,8 +18,10 @@ export class PerformanceChartComponent implements OnInit {​​​​
 
   public x:any;
   public quiz:any;
+   public result;
   public quizId:any;
-
+  public sampleArray:UserData[]=[];
+  
   constructor(private performanceService:PerformanceChartService,private router: Router,private route:ActivatedRoute,private _location: Location) {​​​​ }​​​​
 
 
@@ -28,22 +30,8 @@ export class PerformanceChartComponent implements OnInit {​​​​
   let id = parseInt(this.route.snapshot.paramMap.get('id'));
    this.quizId = id;
     this.performanceService.getQuizById(this.quizId).subscribe(data=>{this.quiz=data;
-    console.log(this.quiz.description+"Hey Logger");
-    });
-   ​​​​
-
-    
-
-    this.x=[{​​​​ y: 10, label: "Option A" }​​​​,
-
-    {​​​​ y: 20, label: "Option B" }​​​​,
-
-    {​​​​ y: 30, label: "Option C" }​​​​,
-
-    {​​​​ y: 40, label: "Option D" }​​​​,
-
-    {​​​​ y: 45, label: "Option e" }​​​​]
-
+     this.performanceService.getResultById(this.quizId).subscribe(data=>{this.result=data;
+    this.sampleData(this.result,this.quiz);
     let chart : any;
 
     chart = new CanvasJS.Chart("chartContainer", {​​​​
@@ -62,7 +50,7 @@ export class PerformanceChartComponent implements OnInit {​​​​
 
          type: "column",
 
-         dataPoints: this.x
+         dataPoints: this.sampleArray
 
        }​​​​]
 
@@ -70,12 +58,49 @@ export class PerformanceChartComponent implements OnInit {​​​​
 
      chart.render();
 
+    });
+    });
+   ​​​​ 
+    
+
+    
+
+   
+
+    
 
 
   }​​​​
    backClicked() {
     this._location.back();
   }
+  sampleData(result,quiz)
+  { 
+     var max_score = this.quiz.questions.length;
+     let arr = new Array<number>(max_score+1);
 
+     for(var i=0; i<=max_score;i++)
+     {
+       arr[i]=0;
+     }     
+     for(var i=0;i<result.answerData.length;i++)
+     {
+          arr[result.answerData[i].userScore]++;
+     }
+
+
+     for(var i=0; i<=max_score;i++)
+     {
+        this.sampleArray.push({
+         y: arr[i],
+         label : i+""
+        }
+        );
+     } 
+  }
 
 }​​​​
+export interface UserData {
+  y: number;
+  label:string;
+}

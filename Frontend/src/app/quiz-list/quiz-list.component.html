@@ -12,8 +12,8 @@
         <thead>
             <tr>
                 <th width="50px">ID</th>
-                <th width="250px">Quiz Name</th>
-                <th width="100px">Status</th>
+                <th width="350px">Quiz Name</th>
+                
                 <th></th>
                 <th></th>
             </tr>
@@ -22,7 +22,7 @@
             <tr *ngFor="let quiz of quizzes |async |filter:searchValue">
                 <td>{{quiz.quizId}}</td>
                 <td>{{quiz.quizName}}</td>
-                <td>{{quizStatus}}</td>
+                
                 <td><button mat-raised-button color="primary" style="margin-left: 80px"
                         (click)="realTimeAnalysis(quiz)">Analysis</button>
                     <button mat-raised-button color="accent" style="margin-left: 80px"

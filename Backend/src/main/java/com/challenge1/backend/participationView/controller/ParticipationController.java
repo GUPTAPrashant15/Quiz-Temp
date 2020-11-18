@@ -97,6 +97,7 @@ public class ParticipationController {
 		System.out.println(existingGraph);
 
 		graphRepo.save(existingGraph);
+		logger.info("Graph Model is saved in the System");
 
 		Integer answerScore = 0;
 
@@ -138,20 +139,13 @@ public class ParticipationController {
 
 		}
 
-		System.out.println(quizId + "QUIZID");
-
 		ScoreModel existingScore = scoreRepo.findByQuizId(quizId);
 
-		System.out.println(existingScore + "SCORE");
 		AnswerData userAnsData = scoreService.getAnswerDataModel(existingScore, userName);
-		logger.info("Answer Data Lists exist for the current User");
 		userAnsData.setUserScore(userAnsData.getUserScore() + answerScore);
-		userAnsData.setLocalDate(localDate);
 		logger.info("Answer Data in the Answer Data Lists are updated");
 		scoreRepo.save(existingScore);
 		
-		logger.info("Graph Model is saved in the System");
-
 		return existingScore;
 
 	}
@@ -196,9 +190,13 @@ public class ParticipationController {
 			if(answerDatas == null){
 				List<AnswerData> newAnswerDatasList = new ArrayList<AnswerData>();
 				newAnswerDatasList.add(new AnswerData(userName, 0, localDate));
-				quizData.setAnswerData(newAnswerDatasList);
-				scoreRepo.save(quizData);
+				quizData.setAnswerData(newAnswerDatasList);	
 			}
+			else{
+				answerDatas.add(new AnswerData(userName, 0, localDate));
+				quizData.setAnswerData(answerDatas);
+			}
+			scoreRepo.save(quizData);
 			return true;
 		}
 		
@@ -230,20 +228,8 @@ public class ParticipationController {
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
 		if (user != null) return user.getUserScore();
-
-		else {
-
-			ScoreModel scoreModel = scoreRepo.findByQuizId(quizId);
-			List<AnswerData> answerData = scoreModel.getAnswerData();
-
-			answerData.add(new AnswerData(userName, 0, localDate));
-			scoreModel.setAnswerData(answerData);
-
-			scoreRepo.save(scoreModel);
-
-			return 0;
-
-		}
+		
+		return 0;
 
 	}
 

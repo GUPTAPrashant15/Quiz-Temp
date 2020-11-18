@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AnlysisResultComponent } from './anlysis-result.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -41,10 +41,10 @@ describe('AnlysisResultComponent', () => {
     expect(divcount.length).toBe(4);
   });
 
-  it('should be 1 button', () => {
+  it('should be 2 button', () => {
     const divcount = fixture.debugElement
       .queryAll(By.css('button'));
-    expect(divcount.length).toBe(1);
+    expect(divcount.length).toBe(2);
   });
 
   it('should be 2 select', () => {
@@ -74,5 +74,8 @@ describe('AnlysisResultComponent', () => {
   it('should be SaveValue function:column ', () => {
      
     expect(component.saveValue({chartType: "1", Ques: "1"})).toBeTruthy();
+  });
+  it('should call back button',()=>{
+    expect(component.backClicked()).toBeTruthy();
   });
 });

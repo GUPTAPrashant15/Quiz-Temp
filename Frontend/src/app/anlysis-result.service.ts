@@ -12,7 +12,7 @@ export class AnlysisResultService {
 
   public getQuizByresultId(quizId): Observable<any>
   {
-     return this.http.get<any>('http://localhost:8080/anlysis-result/'+quizId);
+     return this.http.get<any>('http://localhost:8080/realtimeanalysis/'+quizId);
   }
   public getGraphData(quizId,quesId)
   {

@@ -128,7 +128,7 @@ public class ParticipationController {
 
 					logger.info("Question is of Textual category");
 
-					if (answer.equalsIgnoreCase(question.getTextAnswer()))
+					if (answer.trim().equalsIgnoreCase(question.getTextAnswer()))
 						answerScore += 1;
 				}
 			}
@@ -234,13 +234,13 @@ public class ParticipationController {
 
 		logger.info("----- Inside Answer Counter Function -----");
 
-		if (answer.charAt(0) == 'A')
+		if (answer.contains("A"))
 			existingGraph.setOptionA(existingGraph.getOptionA() + 1);
-		if (answer.charAt(0) == 'B')
+		if (answer.contains("B"))
 			existingGraph.setOptionB(existingGraph.getOptionB() + 1);
-		if (answer.charAt(0) == 'C')
+		if (answer.contains("C"))
 			existingGraph.setOptionC(existingGraph.getOptionC() + 1);
-		if (answer.charAt(0) == 'D')
+		if (answer.contains("D"))
 			existingGraph.setOptionD(existingGraph.getOptionD() + 1);
 
 		return existingGraph;

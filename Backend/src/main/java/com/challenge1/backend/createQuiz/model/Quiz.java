@@ -1,5 +1,6 @@
 package com.challenge1.backend.createQuiz.model;
 
+import java.time.LocalDate;
 /**
  * <h1> Quiz class</h1>
  * <p> 
@@ -28,14 +29,16 @@ public class Quiz {
 	private boolean isLiveStatus = true;
 	private String username;
 
-	@DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
-	private Date createdDate = new Date();
+	//@DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
+	//private Date createdDate = new Date();
+	
+	private LocalDate createdDate = LocalDate.now();
 
 	private List<Questions> questions;
 
 	public Quiz() {}
 
-	public Quiz(long quizId, String quizName, String description, boolean isLiveStatus, String username, Date createdDate) {
+	public Quiz(long quizId, String quizName, String description, boolean isLiveStatus, String username, LocalDate createdDate) {
 
 		this.quizId = quizId;
 		this.quizName = quizName;
@@ -62,11 +65,11 @@ public class Quiz {
 		this.questions = questions;
 	}
 
-	public Date getCreatedDate() {
+	public LocalDate getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
 	}
 

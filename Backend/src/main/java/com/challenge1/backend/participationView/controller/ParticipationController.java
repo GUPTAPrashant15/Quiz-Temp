@@ -94,10 +94,6 @@ public class ParticipationController {
 		//Only for testing
 		if(existingGraph == null)
 			existingGraph = getDummyDataForTesting();			
-		System.out.println(existingGraph);
-
-		graphRepo.save(existingGraph);
-		logger.info("Graph Model is saved in the System");
 
 		Integer answerScore = 0;
 
@@ -145,7 +141,8 @@ public class ParticipationController {
 		userAnsData.setUserScore(userAnsData.getUserScore() + answerScore);
 		logger.info("Answer Data in the Answer Data Lists are updated");
 		scoreRepo.save(existingScore);
-		
+		graphRepo.save(existingGraph);
+		logger.info("Graph Model is saved in the System");
 		return existingScore;
 
 	}

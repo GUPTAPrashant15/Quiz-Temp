@@ -2,6 +2,7 @@ package com.challenge1.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class CreateQuizModelTests {
 	@Test
 	public void testQuizModel() {
 
-		Date createdDate = new Date();
+		LocalDate createdDate = LocalDate.now();
 
 		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", createdDate);
 

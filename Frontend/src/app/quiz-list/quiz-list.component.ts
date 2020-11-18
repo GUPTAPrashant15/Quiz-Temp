@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreateQuizService } from 'src/app/create-quiz.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DownloadService } from '../download.service';
-
+import * as $ from 'jquery';
 /**
  * This component enables the user to show the list of all previously created quizzes.
  * It provides the feature of analyzing the quiz, shares the quiz, downloads the quiz data, and also provides the feature of changing the status of the quiz.
@@ -73,23 +73,40 @@ export class QuizListComponent implements OnInit {
    * 
    * @param quiz is containing the quiz object.
    */
-  statusQuiz(quiz) {
-    this.service.changeQuizStatus(quiz).subscribe(
-      response => {
-        console.log(response)
-        if (response) {
-          this.quizStatus = "Open";
-          this.Status = 'Inactive';
+  // statusQuiz(quiz) {
+  //   this.service.changeQuizStatus(quiz).subscribe(
+  //     response => {
+  //       console.log(response)
+  //       // if (response) {
+  //       //   this.quizStatus = "Open";
+  //       //   this.Status = 'Inactive';
+  //       // }
+
+  //       // else {
+  //       //   this.quizStatus = "Closed"
+  //       //   this.Status = 'active';
+  //       // }
+      
+  //     }
+  //   );
+
+  // }
+  active(quizId , isLiveStatus){
+    isLiveStatus = !isLiveStatus;
+    if($("#course_status_btn_"+ quizId).text() == "Inactivate"){
+      isLiveStatus = true;
+    }else{
+      isLiveStatus  = false;
+    }
+    this.service.changeQuizStatus(quizId).subscribe(
+        function(response){
+        if(response){
+          console.log(isLiveStatus)
+          $("#course_status_btn_" + quizId).text("Inactivate");
+        }else{
+          $("#course_status_btn_" + quizId).text("Activate");
         }
-
-        else {
-          this.quizStatus = "Closed"
-          this.Status = 'active';
-        }
-
-      }
-    );
-
+    });
   }
 /**
  * This method will call when user clicking on download buttton.

@@ -12,17 +12,18 @@
         <thead>
             <tr>
                 <th width="50px">ID</th>
-                <th width="350px">Quiz Name</th>
+                <th width="300px">Quiz Name</th>
                 
-                <th></th>
-                <th></th>
+                <th width="650px"></th>
+                <th ></th>
+                <!-- <th>Quiz status</th> -->
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let quiz of quizzes |async |filter:searchValue">
                 <td>{{quiz.quizId}}</td>
                 <td>{{quiz.quizName}}</td>
-                
+                <!-- <td>{{quiz.isLiveStatus}}</td> -->
                 <td><button mat-raised-button color="primary" style="margin-left: 80px"
                         (click)="realTimeAnalysis(quiz)">Analysis</button>
                     <button mat-raised-button color="accent" style="margin-left: 80px"
@@ -30,9 +31,17 @@
                     <button mat-raised-button color="warn" (click)="share(quiz)"
                         style="margin-left: 80px">Share</button>
                 </td>
-                <td><button style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success"
+                <!-- <td><button *ngIf="status" style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success"
                         style="margin-left: 10px">{{Status}}</button>
-                </td>
+                </td> -->
+                <td>
+                <button  style="margin-left: 50px" *ngIf="!quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
+                    Activate
+                </button>
+                 <button  style="margin-left: 50px" *ngIf="quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
+                    Inactivate
+                </button>
+            </td>
             </tr>
         </tbody>
     </table>

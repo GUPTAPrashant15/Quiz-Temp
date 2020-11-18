@@ -11,10 +11,18 @@ export class ResetSuccessComponent implements OnInit {
   constructor(private route:Router) { }
 
   ngOnInit(): void {
-    let logout = document.getElementById('logout');
+    // let logout = document.getElementById('logout');
+    //     logout.style.display = "none";
+    //     let dashboard = document.querySelector('.navButton');
+    //     dashboard.textContent = "";
+    if(document.getElementById('logout')){
+      let logout = document.getElementById('logout');
         logout.style.display = "none";
-        let dashboard = document.querySelector('.navButton');
-        dashboard.textContent = "";
+    }
+    if(document.querySelector('.navButton')){
+      let dashboard = document.querySelector('.navButton');
+      dashboard.textContent = "";
+    }
   }
   onCancel(){
 

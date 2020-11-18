@@ -21,6 +21,15 @@ import com.challenge1.backend.createQuiz.repository.QuestionsRepository;
 import com.challenge1.backend.createQuiz.repository.QuizRepository;
 import com.challenge1.backend.createQuiz.service.SequenceGeneratorService;
 
+/**
+ * <h1> Create Quiz Controller</h1>
+ * Provides REST-APIs for creating Quiz and fetching Quiz data.
+ * 
+ * <p>This is a Create Quiz Controller which implements all the methods for creating a Quiz and 
+ * fetching all the details of a Quiz.</p>
+ *
+ */
+
 @RestController
 @CrossOrigin(value = "*")
 public class CreateQuizController {
@@ -43,6 +52,15 @@ public class CreateQuizController {
 
 	}
 
+	/**
+	 * 
+	 * This saveQuiz method is used to save the quiz created by a quiz master.
+	 * 
+	 * @param quiz of type Quiz containing the details of a Quiz.
+	 * @return id of the quiz created.
+	 * @see com.challenge1.backend.createQuiz.model.Quiz
+	 * 
+	 */
 	@PostMapping("/addQuiz")
 	public long saveQuiz(@RequestBody Quiz quiz) {
 
@@ -59,6 +77,25 @@ public class CreateQuizController {
 
 	}
 
+	/**
+	 * 
+	 * This saveQuestions method is used to add questions in the created quiz.
+	 * 
+	 * some variables used in this method are
+	 * <ul>
+	 * 		<li>quesSeq: long variable</li>
+	 * 		<li>question: object of type Questions</li>
+	 * 		<li>quiz: an Optional object of Quiz </li>
+	 * </ul>
+	 * 
+	 * @param questions This is the list of objects of type Questions.
+	 * @param quizId This is the id of the quiz in which questions are to be added.
+	 * @return string success message "Added questions".
+	 * 
+	 * @see com.challenge1.backend.createQuiz.model.Questions
+	 * @see com.challenge1.backend.createQuiz.model.Quiz
+	 * 
+	 */
 	@PostMapping("/addQuestions/{id}")
 	public String saveQuestions(@RequestBody List<Questions> questions, @PathVariable(value = "id") long quizId) {
 
@@ -91,6 +128,20 @@ public class CreateQuizController {
 
 	}
 
+	/**
+	 * 
+	 * This getQuizById method is used to return a quiz.
+	 * 
+	 * some variables used in this method are
+	 * <ul>
+	 * 		<li>quiz: List of objects of type Quiz.</li>
+	 * </ul>
+	 * 
+	 * @param id This is the quiz Id of the quiz to be returned.
+	 * @return quiz having the particular quiz Id.
+	 * 
+	 * @see com.challenge1.backend.createQuiz.model.Quiz
+	 */
 	@GetMapping("/realtimeanalysis/{quizId}")
 	public Quiz getQuizById(@PathVariable(value = "quizId") long id) {
 
@@ -100,15 +151,45 @@ public class CreateQuizController {
 
 	}
 	
-	@GetMapping("/anlysis-result/{quizId}")
-	public Quiz getQuizByresultId(@PathVariable(value = "quizId") long id) {
+//	/**
+//	 * 
+//	 * This getQuizByResultId method is used find a quiz by the quizId.
+//	 * 
+//	 * some variables used in this method are
+//	 * <ul>
+//	 * 		<li>quiz: List of objects of type Quiz.</li>
+//	 * </ul> 
+//	 * 
+//	 * @param id This is the quiz Id of the quiz to be returned.
+//	 * @return quiz having the particular quiz Id.
+//	 * 
+//	 * @see com.challenge1.backend.createQuiz.model.Quiz
+//	 */
+//	@GetMapping("/anlysis-result/{quizId}")
+//	public Quiz getQuizByresultId(@PathVariable(value = "quizId") long id) {
+//
+//		Quiz quiz = quizRepo.findById(id).get();
+//
+//		return quiz;
+//
+//	}
 
-		Quiz quiz = quizRepo.findById(id).get();
-
-		return quiz;
-
-	}
-
+	/**
+	 * 
+	 * This toggleQuizStatus method is used to change the status of the quiz.
+	 * 
+	 * some variables used in this method are
+	 * <ul>
+	 * 		<li>quizModel: An object of type Quiz.</li>
+	 * 		<li>isQuizLive: boolean variable.</li>
+	 * </ul>
+	 * 
+	 * @param quizId This is the id of the quiz whose status is to be changed.
+	 * @return IsLiveStatus of the quiz.
+	 * 
+	 * @see com.challenge1.backend.createQuiz.model.Quiz
+	 * 
+	 */
 	@PostMapping(value="/changeQuizStatus/{quizId}")
 	public boolean toggleQuizStatus(@PathVariable(value = "quizId") long quizId) {
 
@@ -127,6 +208,15 @@ public class CreateQuizController {
 		return quizModel.getIsLiveStatus();
 
 	}
+	
+	/**
+	 * 
+	 * This getQuizStatus method is used to return the quiz status.
+	 * 
+	 * @param quizId This is the id of the quiz whose status is to be returned.
+	 * @return IsLiveStatus of the quiz.
+	 * 
+	 */
 	@GetMapping(value="/getQuizStatus/{quizId}")
 	public boolean getQuizStatus(@PathVariable(value = "quizId") long quizId) {
 

@@ -27,7 +27,6 @@ public class UserSessionController {
 	@GetMapping("/start-quiz/{quizId}")
 	public boolean incrementParticipants(@PathVariable(value = "quizId") long quizId) {
 
-		logger.info("----- Inside Increment Participants API -----");
 		logger.info("Counting live Participants for the Quiz ID " + quizId);
 
 		QuizSession existingQuizSession = quizSessionRepo.findByQuizId(quizId);
@@ -43,8 +42,6 @@ public class UserSessionController {
 
 			quizSessionRepo.save(tempQuizSession);
 
-			logger.info("New Quiz Session is created with Quiz ID " + quizId + " and saved in the System");
-
 			System.out.println(tempQuizSession.getNoOfUsers());
 
 			existingQuizSession = tempQuizSession;
@@ -53,8 +50,6 @@ public class UserSessionController {
 
 		existingQuizSession.setNoOfUsers(existingQuizSession.getNoOfUsers() + 1);
 		quizSessionRepo.save(existingQuizSession);
-
-		logger.info("Quiz Session is updated and saved in the System");
 
 		System.out.println(existingQuizSession.getNoOfUsers());
 
@@ -72,15 +67,11 @@ public class UserSessionController {
 		quizSession.setNoOfUsers(quizSession.getNoOfUsers() - 1);
 		quizSessionRepo.save(quizSession);
 
-		logger.info("Quiz Session is updated and saved in the System");
-
 		return true;
 	}
 
 	@GetMapping("/show-live/{quizId}")
 	public long countLiveParticipants(@PathVariable(value = "quizId") long quizId) {
-
-		logger.info("----- Inside Count Live Participants API -----");
 
 		return quizSessionRepo.findByQuizId(quizId).getNoOfUsers();
 
@@ -88,8 +79,6 @@ public class UserSessionController {
 
 	@GetMapping("/totalUsers/{quizId}")
     public long countTotalParticipants(@PathVariable(value = "quizId") long quizId) {
-
-		logger.info("----- Inside Count Total Participants API -----");
 
 		ScoreModel scoreModel = scoreRepo.findByQuizId(quizId);
 

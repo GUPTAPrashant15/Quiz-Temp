@@ -30,8 +30,11 @@ export class AnlysisResultComponent implements OnInit {
     this._location.back();
   }
   saveValue(f){​​​​ 
-    console.log(f.Ques)
-    
+    if(this.quiz.questions[f.Ques-1].quesType == "Textual")
+    {
+      alert("Can't Display Graphs for Textual Question!! Please select Another Question");
+    }
+    else{
     this._anlysisResultService.getGraphData(this.quizId,f.Ques).subscribe(
       response => {
 
@@ -82,5 +85,6 @@ export class AnlysisResultComponent implements OnInit {
       }
     );
 }​​​​
+}
 }
 

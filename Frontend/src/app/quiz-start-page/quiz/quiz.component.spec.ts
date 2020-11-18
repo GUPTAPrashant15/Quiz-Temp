@@ -4,6 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { QuizComponent } from './quiz.component';
+import { RouterModule } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('QuizComponent', () => {
   let component: QuizComponent;
@@ -11,7 +14,13 @@ describe('QuizComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuizComponent ]
+      declarations: [ QuizComponent ],
+      imports: [        
+        RouterModule.forRoot([]),
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+          
+    ]
     })
     .compileComponents();
   }));

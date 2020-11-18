@@ -42,12 +42,12 @@ describe('RealComponent', () => {
       .query(By.css("title"));
     expect(divcount.nativeElement.textContent).toBe("Real Time Analysis");
   });
-   it('should have generateRCG() function', () => {
-    expect(component.generateRCG()).toBeTruthy();
-  });
-  it('should have generatePCG() function', () => {
-    expect(component.generatePCG()).toBeTruthy();
-  });
+  //  it('should have generateRCG() function', () => {
+  //   expect(component.generateRCG()).toBeTruthy();
+  // });
+  // it('should have generatePCG() function', () => {
+  //   expect(component.generatePCG()).toBeTruthy();
+  // });
   it('should have createdQuiz() function', () => {
     expect(component.createdQuiz()).toBeTruthy();
   });

@@ -53,6 +53,7 @@ export class AddQuestionsComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.question_form.value);
     let ques = this.question_form.value.question_text;
     let o1 = this.question_form.value.option1;
     let o2 = this.question_form.value.option2;
@@ -100,27 +101,29 @@ export class AddQuestionsComponent implements OnInit {
       }
 
       if (tempObj.quesType == 'Multiple Correct') {
+        
         if (c1 == "" && c2 == "" && c3 == "" && c4 == "" || c1 == null && c2 == null && c3 == null && c4 == null) {
           this.dialog.open(AlertDialog, { data: { message: 'Select the correct answers!' } });
           return;
-        }
-        if (c1 == null || c1 == "") {
-          tempObj.correct1 = null;
-        }
-        if (c2 == null || c2 == "") {
-          tempObj.correct2 = null;
-        }
-        if (c3 == null || c3 == "") {
-          tempObj.correct3 = null;
-        }
-        if (c4 == null || c4 == "") {
-          tempObj.correct4 = null;
         }
 
         tempObj.correct1 = c1;
         tempObj.correct2 = c2;
         tempObj.correct3 = c3;
         tempObj.correct4 = c4;
+
+        if (c1 == null || c1 == "") {
+          tempObj.correct1 = false;
+        }
+        if (c2 == null || c2 == "") {
+          tempObj.correct2 = false;
+        }
+        if (c3 == null || c3 == "") {
+          tempObj.correct3 = false;
+        }
+        if (c4 == null || c4 == "") {
+          tempObj.correct4 = false;
+        }
       }
     }
     else {
@@ -131,6 +134,8 @@ export class AddQuestionsComponent implements OnInit {
       tempObj.textAnswer = ta;
     }
 
+    
+   
     this.questions.push(tempObj);
     this.question_form.reset();
 

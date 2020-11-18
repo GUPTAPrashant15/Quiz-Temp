@@ -1,5 +1,9 @@
 package com.challenge1.backend.createQuiz.model;
-
+/**
+ * <h1>Questions class</h1>
+ * <p>The Questions class contains all the details of a particular question. It also contains the getter,setter and
+ * toString methods .</p> 
+ */
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 

@@ -22,11 +22,11 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let logout = document.getElementById('logout');
-    logout.style.display = "none";
+    // let logout = document.getElementById('logout');
+    // logout.style.display = "none";
 
-    let dashboard = document.querySelector('.navButton');
-    dashboard.textContent = "";
+    // let dashboard = document.querySelector('.navButton');
+    // dashboard.textContent = "";
 
     this.form = this.fb.group({
       password: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
@@ -36,10 +36,17 @@ export class ResetPasswordComponent implements OnInit {
     })
 
     this.resetPwdDetail.emailId = history.state.email;
+    if(document.getElementById('logout')){
+      let logout = document.getElementById('logout');
+        logout.style.display = "none";
+    }
+    if(document.querySelector('.navButton')){
+      let dashboard = document.querySelector('.navButton');
+      dashboard.textContent = "";
+    }
   }
 
-  onCancel() {
-  }
+  
 
   public barLabel: string = "Password strength:";
 

@@ -1,0 +1,162 @@
+
+
+<div id="add_main">
+
+    <mat-card>
+
+        <h2 class="heading">Add Questions</h2>        
+
+        <form [formGroup]="question_form" class="form" (ngSubmit)="onSubmit()">
+            <mat-form-field class="full-width">
+                <mat-label>Question</mat-label>
+                <input matInput formControlName="question_text">
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill" id="type">
+                <mat-label>Type of Question</mat-label>
+                <mat-select [(ngModel)]="typeValue" formControlName="type">
+                  <mat-option value="Single Correct">Single Correct</mat-option>
+                  <mat-option value="Multiple Correct">Multiple Correct</mat-option>
+                  <mat-option value="Textual">Textual Questions</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button type="submit" color="primary">Add Question</button>
+    
+            <ng-container *ngIf="typeValue=='Single Correct'">
+                <div class="single form-group" >
+                
+                    <mat-form-field>
+                        <mat-label>Option 1</mat-label>
+                        <input matInput type="text" formControlName="option1">
+                    </mat-form-field>
+                    <mat-radio-button ngDefaultControl formControlName="correct" value="1" class="correct">Correct</mat-radio-button>
+          
+                    <mat-form-field>
+                        <mat-label>Option 2</mat-label>
+                        <input matInput type="text" formControlName="option2">
+                    </mat-form-field>
+                    <mat-radio-button ngDefaultControl formControlName="correct" value="2" class="correct">Correct</mat-radio-button>
+                    
+                    
+                    <mat-form-field>
+                        <mat-label>Option 3</mat-label>
+                        <input matInput type="text" formControlName="option3">
+                    </mat-form-field>
+                    <mat-radio-button ngDefaultControl formControlName="correct" value="3" class="correct">Correct</mat-radio-button>
+                    
+                    
+                    <mat-form-field>
+                        <mat-label>Option 4</mat-label>
+                        <input matInput type="text" formControlName="option4">
+                    </mat-form-field>
+                    <mat-radio-button ngDefaultControl formControlName="correct" value="4" class="correct">Correct</mat-radio-button>
+                    
+                </div>
+            </ng-container>
+    
+            <ng-container *ngIf="typeValue=='Multiple Correct'">
+                <div class="multiple form-group">
+                
+                    <mat-form-field>
+                        <mat-label>Option 1</mat-label>
+                        <input matInput type="text" formControlName="option1">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct1" value="1" class="correct">Correct</mat-checkbox>
+        
+                    <mat-form-field>
+                        <mat-label>Option 2</mat-label>
+                        <input matInput type="text" formControlName="option2">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct2" value="2" class="correct">Correct</mat-checkbox>
+        
+                    <mat-form-field>
+                        <mat-label>Option 3</mat-label>
+                        <input matInput type="text" formControlName="option3">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct3" value="3" class="correct">Correct</mat-checkbox>
+        
+                    <mat-form-field>
+                        <mat-label>Option 4</mat-label>
+                        <input matInput type="text" formControlName="option4">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct4" value="4" class="correct">Correct</mat-checkbox>
+                </div>
+            </ng-container>
+    
+            <ng-container *ngIf="typeValue=='Textual'" class="textual">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>Answer Text</mat-label>
+                        <textarea matInput formControlName="text_answer"></textarea>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+            
+        </form>
+    </mat-card>
+    
+
+    <mat-card id="card">
+        <div id="addedQuestions">
+            <h2 class="heading">Added Questions</h2>
+            <ol>
+                <li *ngFor="let q of questions" >
+                    <div class="ques" >
+                        {{ q.question }}
+                        Type : {{ q.quesType }}
+                        <button mat-mini-fab color="warn" aria-label="Delete" (click)="onDelete(q)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <ng-container *ngIf="q.quesType =='Single Correct'">
+                            <div>
+                                <ol>
+                                    <li>{{ q.option1 }}</li>
+                                    <li>{{ q.option2 }}</li>
+                                    <li>{{ q.option3 }}</li>
+                                    <li>{{ q.option4 }}</li>
+                                    Correct Answer: {{q.correct}}
+                                </ol>  
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="q.quesType =='Multiple Correct'">
+                            <div class="options">
+                                <div>
+                                    <ol>
+                                        <li>{{ q.option1 }} </li>
+                                        <li>{{ q.option2 }} </li>
+                                        <li>{{ q.option3 }} </li>
+                                        <li>{{ q.option4 }} </li>
+                                    </ol>
+                                </div>
+
+                                <div >
+                                    <ul id="mulCorr">
+                                        <li>{{q.correct1}}</li>
+                                        <li>{{q.correct2}}</li>
+                                        <li>{{q.correct3}}</li>
+                                        <li>{{q.correct4}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+                        
+                        <ng-container *ngIf="q.quesType =='Textual'">
+                            <div>
+                                {{ q.textAnswer }}
+                            </div>
+                        </ng-container>
+                    </div>
+                </li>
+            </ol>
+            <button mat-raised-button color="primary" id="create" (click)="saveQuestions()">Create Quiz</button>
+        </div>
+    </mat-card>
+    
+
+    
+    
+
+</div>
+
+<router-outlet></router-outlet>

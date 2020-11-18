@@ -1,0 +1,22 @@
+.container{
+    margin-top: 5px;
+    box-shadow: 0 0 10px rgba(75, 16, 212, 0.39);
+    padding: 15px 15px 15px 15px;
+    width: 450px;
+    height: 450px;
+    align-content: center;
+
+}
+#container2{
+    margin-top: 50px;
+    box-shadow: 0 0 10px rgba(31, 151, 211, 0.39);
+    padding: 15px 15px 15px 15px;
+    width: 500px;
+    height: 300px;
+    align-content: center;
+
+}
+.center{
+    padding-left: 85px;
+    
+}

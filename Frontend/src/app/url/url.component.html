@@ -1,0 +1,9 @@
+<div id="success" align="center">
+    <mat-card>
+        <br/><br/>
+        <h1>Quiz successfully created!</h1>
+        <h2>Share your quiz</h2><br/>
+        <input type="text" id="textInput" value={{href}} readonly #userinput>&nbsp;
+        <button class="btn btn-success" (click)="copyInputMessage(userinput)" value="click to copy">Copy</button>
+    </mat-card>
+</div>

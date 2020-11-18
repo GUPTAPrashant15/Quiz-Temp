@@ -1,0 +1,16 @@
+#chartDiv{
+    display: block;
+    height: 600px;
+    width: 600px;
+    margin: auto;
+}
+
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}

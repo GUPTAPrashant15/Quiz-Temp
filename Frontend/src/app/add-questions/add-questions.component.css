@@ -1,0 +1,69 @@
+.heading {
+    text-align: center;
+}
+
+.form {
+    margin: auto;
+    min-width: 150px;
+    max-width: 500px;
+    width: 90%;
+}
+
+mat-card {
+    width: 70%;
+    margin: auto;
+    margin-top: 5rem;
+    background-color: rgb(248, 248, 248);
+}
+
+.full-width {
+    width: 100%;
+}
+
+#type {
+    margin: 0 1rem 0 0;
+}
+
+.single {
+    width: 60%;
+}
+
+.multiple {
+    width: 60%;
+}
+
+.correct {
+    margin-left: 1rem;
+}
+
+#addedQuestions {
+    margin: auto;
+    min-width: 150px;
+    max-width: 500px;
+    width: 90%;
+}
+
+#create {
+    margin-left: 50%;
+    transform: translate(-50%);
+    padding: 0.2rem 2rem;
+    font-size: large;
+}
+
+#card {
+    min-height: 20.4vh;
+}
+
+.options {
+    display: flex;
+    grid-template-rows: 1 1;
+}
+
+#mulCorr {
+    list-style-type: none;
+}
+
+/* #add_main{
+    min-height: 59vh;
+} */
+

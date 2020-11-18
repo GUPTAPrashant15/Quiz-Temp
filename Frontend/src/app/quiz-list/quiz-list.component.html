@@ -1,0 +1,40 @@
+<div class="main">
+    <input type="text" class="form-control" placeholder="Enter Keyword for Search" [(ngModel)]="searchValue"
+        id="search" />
+</div>
+
+<br>
+<br>
+
+
+<div id="quizList">
+    <table border="1" class="content-table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th width="50px">ID</th>
+                <th width="350px">Quiz Name</th>
+                
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let quiz of quizzes |async |filter:searchValue">
+                <td>{{quiz.quizId}}</td>
+                <td>{{quiz.quizName}}</td>
+                
+                <td><button mat-raised-button color="primary" style="margin-left: 80px"
+                        (click)="realTimeAnalysis(quiz)">Analysis</button>
+                    <button mat-raised-button color="accent" style="margin-left: 80px"
+                        (click)="exportToCsv(quiz)">Download</button>
+                    <button mat-raised-button color="warn" (click)="share(quiz)"
+                        style="margin-left: 80px">Share</button>
+                </td>
+                <td><button style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success"
+                        style="margin-left: 10px">{{Status}}</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

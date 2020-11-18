@@ -100,9 +100,9 @@ generateRCG(quiz)
 {
   this.router.navigate(['/anlysis-result',quiz.quizId]);
 }
-generatePCG()
+generatePCG(quiz)
 {
-  this.router.navigate(['/Performance']);
+  this.router.navigate(['/Performance',quiz.quizId]);
 }
 createdQuiz()
 {

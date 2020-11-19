@@ -17,7 +17,7 @@ export class QuizStartPageComponent implements OnInit {
   q: { quizId: number };
   front = true;
   quiz: Quiz = new Quiz(null);
-  index : any = 0;
+  
   @Input() username: string;
 
   constructor(private quizService: QuizService, private cookie: CookieService, private fb: FormBuilder, private participantService: ParticipantService, private route: ActivatedRoute, private router: Router) { }
@@ -59,9 +59,7 @@ export class QuizStartPageComponent implements OnInit {
           if (response) {
             this.username = this.Username.value;
             this.front = false;
-            const dateNow= new Date();
-      dateNow.setHours(dateNow.getHours()+1);
-      this.cookie.set(this.username, (this.index).toString(), dateNow)
+           
           }
           else {
             alert("User with this name already exist!")

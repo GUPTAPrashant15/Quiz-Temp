@@ -2,17 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CreateQuizService } from 'src/app/create-quiz.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DownloadService } from '../download.service';
-<<<<<<< HEAD
 
 
-=======
 import * as $ from 'jquery';
 /**
  * This component enables the user to show the list of all previously created quizzes.
  * It provides the feature of analyzing the quiz, shares the quiz, downloads the quiz data, and also provides the feature of changing the status of the quiz.
  * 
  */
->>>>>>> 9c1b23fee0f4461522d696362db6c75f0e418e55
 @Component({
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
@@ -42,7 +39,6 @@ export class QuizListComponent implements OnInit {
     this.route.navigate(['/shareQuiz', quiz.quizId])
   }
   public quizStatus
-<<<<<<< HEAD
   statusQuiz(quiz) {
     this.service.changeQuizStatus(quiz).subscribe(
       response => {
@@ -51,7 +47,9 @@ export class QuizListComponent implements OnInit {
           this.quizStatus = "Open";
           this.Status = 'Inactive';
         }
-=======
+        }
+        );
+        }
   /**
    * This method will call when user click on active or inactive.
    * This method is used to change the status of the change of URL, or we can say that this is used to make the status of URL active or inactive.
@@ -66,7 +64,6 @@ export class QuizListComponent implements OnInit {
   //       //   this.quizStatus = "Open";
   //       //   this.Status = 'Inactive';
   //       // }
->>>>>>> 9c1b23fee0f4461522d696362db6c75f0e418e55
 
   //       // else {
   //       //   this.quizStatus = "Closed"

@@ -11,30 +11,27 @@
     <table border="1" class="content-table" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th width="50px">ID</th>
-<<<<<<< HEAD
-                <th width="250px">Quiz Name</th>
-                <th width="100px">Status</th>
-                <th></th>
-                <th></th>
-=======
+                <th width="50px">S.No.</th>
                 <th width="300px">Quiz Name</th>
-                
+                 <th width="200px"> Quiz Status</th> 
                 <th width="650px"></th>
-                <th ></th>
-                <!-- <th>Quiz status</th> -->
->>>>>>> 9c1b23fee0f4461522d696362db6c75f0e418e55
+                
+                
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let quiz of quizzes |async |filter:searchValue">
-                <td>{{quiz.quizId}}</td>
+            <tr *ngFor="let quiz of quizzes |async |filter:searchValue; let i = index">
+                <td>{{i+1}}</td>
                 <td>{{quiz.quizName}}</td>
-<<<<<<< HEAD
-                <td>{{quizStatus}}</td>
-=======
                 <!-- <td>{{quiz.isLiveStatus}}</td> -->
->>>>>>> 9c1b23fee0f4461522d696362db6c75f0e418e55
+                <td>
+                <button  style="margin-left: 30px" *ngIf="!quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
+                    Activate
+                </button>
+                 <button  style="margin-left: 30px" *ngIf="quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
+                    Inactivate
+                </button>
+            </td>
                 <td><button mat-raised-button color="primary" style="margin-left: 80px"
                         (click)="realTimeAnalysis(quiz)">Analysis</button>
                     <button mat-raised-button color="accent" style="margin-left: 80px"
@@ -45,14 +42,7 @@
                 <!-- <td><button *ngIf="status" style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success"
                         style="margin-left: 10px">{{Status}}</button>
                 </td> -->
-                <td>
-                <button  style="margin-left: 50px" *ngIf="!quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
-                    Activate
-                </button>
-                 <button  style="margin-left: 50px" *ngIf="quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
-                    Inactivate
-                </button>
-            </td>
+                
             </tr>
         </tbody>
     </table>

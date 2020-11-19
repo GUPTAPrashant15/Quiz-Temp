@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -48,8 +47,8 @@ public class CreateQuizModelTests {
 		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", createdDate);
 
 		assertEquals("Quiz [createdDate=" + createdDate + ", description=" + "MCQ" + ", isLiveStatus=" + true
-		+ ", questions=" + null + ", quizId=" + 11 + ", quizName=" + "Angular" + ", username="
-		+ "sweety" + "]", mockQuiz.toString());
+				+ ", questions=" + null + ", quizId=" + 11 + ", quizName=" + "Angular" + ", username=" + "sweety" + "]",
+				mockQuiz.toString());
 
 	}
 

@@ -49,7 +49,7 @@ export class QuizStartPageComponent implements OnInit {
   }
   userForm(userInformation) {
 
-    if (Number(this.cookie.get(this.Username.value)) >= 0) {
+    if (Number(this.cookie.get(this.Username.value)) != 0) {
       this.username = this.Username.value;
       this.front = false;
     }

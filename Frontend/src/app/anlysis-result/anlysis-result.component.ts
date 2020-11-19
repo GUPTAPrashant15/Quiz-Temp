@@ -4,7 +4,9 @@ import * as CanvasJS from 'canvasjs.min.js';
 import {Location} from '@angular/common';
 import {AnlysisResultService} from '../anlysis-result.service';
 
-
+/**
+*This component enables the user to analysis the result by response vs count graph.
+*/
 
 @Component({
   selector: 'app-anlysis-result',
@@ -12,11 +14,18 @@ import {AnlysisResultService} from '../anlysis-result.service';
   styleUrls: ['./anlysis-result.component.css']
 })
 export class AnlysisResultComponent implements OnInit {
+  /**
+  * variable to store quizId.
+  */
   public quizId: any;
   public quiz: any;
   constructor(private _anlysisResultService: AnlysisResultService,private router: Router,private route:ActivatedRoute,private _location: Location) { }
 
-  
+    /**
+  * it initalize the quizId and Quiz Data.
+  * This take quizId from URL.
+  * This take quiz data using service and store into quiz variable.
+  */
   ngOnInit(): void {
 
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -26,9 +35,18 @@ export class AnlysisResultComponent implements OnInit {
       .subscribe(data => this.quiz = data);
 
   }
+  /**
+  * This function will called when user clicking on back button.
+  * This navigate the user into previous page.
+  */
   backClicked() {
     this._location.back();
   }
+  
+    /**
+  * This function provides the user two option for chart. one is pie chart and another is column chart.
+  * according to selected chart type, it ask for question number, and on the basis of question number and chart type , it will generate respective chart.
+  */
   saveValue(f){​​​​ 
     if(this.quiz.questions[f.Ques-1].quesType == "Textual")
     {

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +83,7 @@ public class ParticipationControllerTest {
 	        questionsList.add(questions);
 	        
 	        quiz=new Quiz();
-	        quiz.setCreatedDate(new Date());
+	        quiz.setCreatedDate(LocalDate.now());
 	        quiz.setDescription("This for Test");
 	        quiz.setQuizName("TestQuiz");
 	        quiz.setUsername("xyz");
@@ -145,7 +146,7 @@ public class ParticipationControllerTest {
         questionsList.add(questions);
         
         quiz=new Quiz();
-        quiz.setCreatedDate(new Date());
+        quiz.setCreatedDate(LocalDate.now());
         quiz.setDescription("This for Test");
         quiz.setQuizName("TestQuiz");
         quiz.setUsername(userName);

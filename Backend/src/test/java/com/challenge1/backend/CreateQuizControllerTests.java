@@ -2,6 +2,7 @@ package com.challenge1.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +72,7 @@ class CreateQuizControllerTests {
 	public void testCreateQuiz() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
 
-		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date());
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now());
 		mockQuiz.setQuizId(11l);
 
 		when(sequenceGenerator.generateSequence(anyString())).thenReturn(11l);
@@ -99,7 +100,7 @@ class CreateQuizControllerTests {
 		questions.add(q1);
 		questions.add(q2);
 
-		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date()));
+		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now()));
 
 		Mockito.when(quizRepository.findById(11l)).thenReturn(mockQuiz);
 
@@ -121,7 +122,7 @@ class CreateQuizControllerTests {
 	@Test
 	void createQuiz() {
 
-		Date createDate = new Date();
+		LocalDate createDate = LocalDate.now();
 		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ",true, "sweety", createDate);
 
 		Quiz insertedQuiz = quizRepo.save(insertQuiz);
@@ -155,7 +156,7 @@ class CreateQuizControllerTests {
 	@Test
 	public void getQuizTest1() {
 
-		Date createDate = new Date();
+		LocalDate createDate = LocalDate.now();
 
 		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ", true, "rinku", createDate);
 		Quiz insertQuiz1 = new Quiz(12l, "React", "MCQ",true, "rinku", createDate);
@@ -178,7 +179,7 @@ class CreateQuizControllerTests {
 	public void testgetQuizById() throws JsonProcessingException, Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
 
-		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date()));
+		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now()));
 
 		Mockito.when(quizRepository.findById(11l)).thenReturn(mockQuiz);
 

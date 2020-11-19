@@ -1,5 +1,6 @@
 package com.challenge1.backend;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,7 @@ public class QuestionsRepositoryTests {
 	@Test
 	public void testagain() {
 
-		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", new Date());
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now());
 
 		quizRepo.save(mockQuiz);
 

@@ -19,17 +19,25 @@ export class OtpVerificationComponent implements OnInit {
   constructor(private forgotPwdService: ForgotPwdService, private router: Router) { }
 
   ngOnInit(): void {
-    let logout = document.getElementById('logout');
-    logout.style.display = "none";
+    // let logout = document.getElementById('logout');
+    // logout.style.display = "none";
 
-    let dashboard = document.querySelector('.navButton');
-    dashboard.textContent = "";
+    // let dashboard = document.querySelector('.navButton');
+    // dashboard.textContent = "";
     this.otpDetail.emailId = history.state.email;
     this.emailDetail.emailId = this.otpDetail.emailId;
 
     setTimeout(() => {
       this.allowResendOTP = true;
     }, 6000);
+    if(document.getElementById('logout')){
+      let logout = document.getElementById('logout');
+        logout.style.display = "none";
+    }
+    if(document.querySelector('.navButton')){
+      let dashboard = document.querySelector('.navButton');
+      dashboard.textContent = "";
+    }
   }
   form = new FormGroup({
     otp: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{6}$")]),

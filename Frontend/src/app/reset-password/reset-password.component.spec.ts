@@ -25,6 +25,7 @@ describe('ResetPasswordComponent', () => {
   });
 
   beforeEach(() => {
+    window.history.pushState({ email: 'agarwal.shivam645@gmail.com',otp: '123456'},'','/reset-pwd');
     fixture = TestBed.createComponent(ResetPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -22,6 +22,7 @@ describe('ResetSuccessComponent', () => {
   });
 
   beforeEach(() => {
+    window.history.pushState({ email: 'agarwal.shivam645@gmail.com',password: 'Sopr@_7sopra'},'','/reset-pwd');
     fixture = TestBed.createComponent(ResetSuccessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -36,7 +37,7 @@ describe('ResetSuccessComponent', () => {
   });
   it('should have onCancel() function', () => {
 
-    expect(component.onCancel()).toBeUndefined();
+    expect(component.onCancel).toBeTruthy;
   });
   it('should click Send button with async', async(() => {
     let buttonElement = fixture.debugElement.query(By.css('#send-button'));

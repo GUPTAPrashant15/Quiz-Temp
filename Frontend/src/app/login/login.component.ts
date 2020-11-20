@@ -59,7 +59,13 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-
+        /**
+         * checks for authentication 
+         * and then logs the user in
+         * or shows an error
+         * 
+         * also changes the setLoggedIn flag
+         *  */    
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
@@ -67,8 +73,10 @@ export class LoginComponent implements OnInit {
 
                     if (data.message == "SUCCESS") {
                         this.service.passUsername(this.f.username.value);
+                        
                         this.router.navigate(['/dashboard']);
-                        this.authenticationService.setLoggedIn(true);
+                        sessionStorage.setItem('currentUser', (this.f.username.value));
+                        //this.authenticationService.setLoggedIn(true);
                     }
                     else if (data.message == "FAILURE")
                         this.loginErrorEmail = true;
@@ -83,6 +91,10 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+    /**
+     * routes to forget password component
+     */
     onForget() {
         this.router.navigate(['/forgotten-password']);
     }

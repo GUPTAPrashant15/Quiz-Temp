@@ -27,7 +27,9 @@ export class QuizListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.service.share.subscribe(x => this.username = x);
+    // this.service.share.subscribe(x => this.username = x);
+    this.username=sessionStorage.getItem('currentUser');
+    console.log(this.username);
     this.quizzes = this.service.getQuiz(this.username);
   }
 

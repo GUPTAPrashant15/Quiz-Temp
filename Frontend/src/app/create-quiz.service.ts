@@ -14,7 +14,7 @@ export class CreateQuizService {
 /**
 * By default username
 */
-  private username = new BehaviorSubject<string>("MrBean8955");
+  private username = new BehaviorSubject<string>(sessionStorage.getItem('currentUser'));
   public share = this.username.asObservable();
   constructor(private http: HttpClient) { }
   
@@ -23,6 +23,7 @@ export class CreateQuizService {
 */
   public passUsername(text) {
     this.username.next(text);
+    
   }
   
 /**
@@ -36,6 +37,10 @@ export class CreateQuizService {
 * This is method to get the Quiz by username.
 */
   public getQuiz(username: any): Observable<any> {
+    console.log("hellooo");
+    // username=sessionStorage.getItem('currentUser');
+    // //username="alcatrazblaze@gmail.com"
+    console.log(username);
     return this.http.get<any>('http://localhost:8080/list/' + username);
   }
   

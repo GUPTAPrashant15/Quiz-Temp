@@ -33,6 +33,13 @@ export class RegistrationComponent implements OnInit {
     dashboard.textContent = "";
   }
 
+  /**
+         * checks for authentication 
+         * and then registers the user in
+         * or shows an error
+         * 
+         *  */ 
+
   onSubmit() {
     this._RegistrationService.register(this.form.value)
       .subscribe(

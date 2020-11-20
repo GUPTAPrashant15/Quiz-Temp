@@ -17,7 +17,9 @@ export class AppComponent {
 
 
 logOut(){
-  this.authenticationService.setLoggedIn(false);
+  // sessionStorage.removeItem('currentUser');
+  sessionStorage.setItem('currentUser', 'null');
+  // this.authenticationService.setLoggedIn(false);
   this._router.navigate(['/login'])
 
 

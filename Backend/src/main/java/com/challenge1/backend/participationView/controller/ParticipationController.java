@@ -166,8 +166,17 @@ public class ParticipationController {
 
 		GraphModel graph = graphRepo.findByGraphId(new GraphId(quizId, quesId));
 		//Only for testing
-		if(graph == null)
-			graph = getDummyDataForTesting();	
+		if(graph == null){
+			GraphModel graphModel=new GraphModel();
+        	graphModel.setGraphId(new GraphId(quizId, quesId));
+        	graphModel.setOptionA(0);
+        	graphModel.setOptionB(0);
+        	graphModel.setOptionC(0);
+			graphModel.setOptionD(0);
+			graphRepo.save(graphModel);
+			return graphModel;
+		}
+			//graph = getDummyDataForTesting();	
 		return graph;
 
 	}

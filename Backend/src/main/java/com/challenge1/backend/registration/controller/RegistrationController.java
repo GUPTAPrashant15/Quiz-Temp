@@ -48,7 +48,7 @@ public class RegistrationController {
 
             System.out.println(tempUser);
 
-            if (tempUser != null) {
+            if (tempUser != null) { 
 
                 message = "FAILURE";
                 m.setMessage(message);

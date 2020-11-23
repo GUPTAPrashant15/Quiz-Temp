@@ -8,3 +8,5 @@
 [1119/085150.312:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [1119/095103.406:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [1119/110730.853:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1120/164209.270:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1120/164209.272:ERROR:prune_crash_reports.cc(36)] PruneCrashReportDatabase: Failed to get pending reports

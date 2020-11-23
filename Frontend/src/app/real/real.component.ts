@@ -112,7 +112,7 @@ export class RealComponent implements OnInit, AfterViewInit {
    * This method will call when user clicking in point vs count graph button.
    */
   generatePCG(quiz) {
-    this.router.navigate(['/Performance']);
+    this.router.navigate(['/Performance/'+quiz.quizId]);
   }
   /**
    * This method is used to route the control into previous page.

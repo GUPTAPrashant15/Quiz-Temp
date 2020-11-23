@@ -46,7 +46,7 @@
                  required >
                  <div *ngIf="form.get('number').invalid && form.get('number').touched">
                   <small CLASS="text-danger" *ngIf="form.get('number').errors?.required">Please enter Phone Number</small>
-                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.minlength">Please provide a valid Phone Number</small>  
+                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.pattern">Please provide a valid Phone Number</small>  
                 </div>
               </div>
               <div class="form-group">

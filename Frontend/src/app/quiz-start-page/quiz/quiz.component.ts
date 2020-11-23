@@ -135,9 +135,11 @@ export class QuizComponent implements OnInit {
   }
   onWritingText(question: Question) {
     question.answer.answer = this.textAnswer;
+    this.textAnswer='';
     const dateNow = new Date();
     dateNow.setHours(dateNow.getHours() + 1);
     this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+   
 
   }
 
@@ -158,14 +160,16 @@ export class QuizComponent implements OnInit {
    
       this.mode = 'quizEnded';
     }
-
-    {
-      this.quizService.saveAnswer(question.answer).subscribe(
-        response => {
-        },
-        (error) => console.log('error', error)
-      )
+    if(question.answer.answer){
+      {
+        this.quizService.saveAnswer(question.answer).subscribe(
+          response => {
+          },
+          (error) => console.log('error', error)
+        )
+      }
     }
+    
   }
   score: number;
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Quiz } from '../models';
 @Component({
   selector: 'app-result',
@@ -10,15 +11,20 @@ export class ResultComponent implements OnInit {
   username = "";
   score = 0;
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit() {
 
-    
-    this.quiz = history.state.quiz;
-    this.username = history.state.username;;
-    this.score = history.state.score;
+    if(history.state.quiz){
+      this.quiz = history.state.quiz;
+      this.username = history.state.username;;
+      this.score = history.state.score;
 
+    }
+    else{
+      this.route.navigate(['/page-not-found']);
+    }
+    
     if(document.getElementById('logout')){
       let logout = document.getElementById('logout');
         logout.style.display = "none";

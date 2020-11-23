@@ -60,6 +60,7 @@ import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +83,7 @@ import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component
     ResultComponent,
     AddParticipantToQuizComponent,
     QuizStartPageComponent,
-    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent
+    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent
 
 
   ],
@@ -132,7 +133,8 @@ import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component
     },
     { path: 'quiz/:id', component: QuizStartPageComponent },
 
-    { path: 'result', component: ResultComponent }
+    { path: 'result', component: ResultComponent },
+    { path: 'page-not-found', component: PageNotFoundComponent }
     ]),
     AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule, CountdownModule, HttpModule],
   providers: [

@@ -67,10 +67,10 @@ export class AnlysisResultComponent implements OnInit {
           data: [{​​​​
             type: "column",
             dataPoints: [
-              {​​​​ y: response.optionA, label: "Option A" }​​​​,
-              {​​​​ y: response.optionB, label: "Option B" }​​​​,
-              {​​​​ y: response.optionC, label: "Option C" }​​​​,
-              {​​​​ y: response.optionD, label: "Option D" }​​​​
+              {​​​​ y: response.optionA, label: this.quiz.questions[f.Ques-1].option1 }​​​​,
+              {​​​​ y: response.optionB, label: this.quiz.questions[f.Ques-1].option2 }​​​​,
+              {​​​​ y: response.optionC, label: this.quiz.questions[f.Ques-1].option3 }​​​​,
+              {​​​​ y: response.optionD, label: this.quiz.questions[f.Ques-1].option4 }​​​​
             ]
           }​​​​]
         }​​​​);
@@ -90,10 +90,10 @@ export class AnlysisResultComponent implements OnInit {
             toolTipContent: "<b>{​​​​name}​​​​</b> {​​​​y}​​​​ (#percent%)",
             indexLabel: "{​​​​name}​​​​ - #percent%",
             dataPoints: [
-              {​​​​ y: response.optionA, name: "Option A" }​​​​,
-              {​​​​ y: response.optionB, name: "Option B" }​​​​,
-              {​​​​ y: response.optionC, name: "Option C" }​​​​,
-              {​​​​ y: response.optionD, name: "Option D" }​​​​
+              {​​​​ y: response.optionA, name: this.quiz.questions[f.Ques-1].option1 }​​​​,
+              {​​​​ y: response.optionB, name: this.quiz.questions[f.Ques-1].option2 }​​​​,
+              {​​​​ y: response.optionC, name: this.quiz.questions[f.Ques-1].option3 }​​​​,
+              {​​​​ y: response.optionD, name: this.quiz.questions[f.Ques-1].option4 }​​​​
             ]
           }​​​​]
         }​​​​);

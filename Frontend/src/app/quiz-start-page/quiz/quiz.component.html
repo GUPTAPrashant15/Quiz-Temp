@@ -1,13 +1,13 @@
 <div class="row">
-  <div class="col-4 text-center" id="us">
+  <div class="col-sm-4 text-center" id="us">
     <br>
     <h2 class="font-weight-normal"><fa-icon [icon]="faUser"></fa-icon> Hi {{userName}}</h2>
   </div>
-  <div class="col-4" id="us"> 
+  <div class="col-sm-4" id="us"> 
     <h2 class="text-center ">Quiz Id:{{quiz.quizId}}</h2>
     <h2 class="text-center ">Quiz Name: {{quiz.quizName}}</h2>
   </div>
-  <div class="col-4 text-center " id="us">
+  <div class="col-sm-4 text-center " id="us">
     <h2 class="text-center "><fa-icon [icon]="faEye"></fa-icon> Live Users : {{liveUsers}}</h2>
     <!-- <h4 class="font-weight-normal"><div *ngIf="config.duration" class="badge badge-default float-right">Time: {{ellapsedTime}} / {{duration}}</div></h4><br> -->
     <button class="btn btn-info " (click)="onSubmit();">Submit Quiz</button>
@@ -80,10 +80,6 @@
           </div>
         </div>
       </div>
-      <!-- <div *ngIf="mode=='quizEnded' && quiz">
-        <h3>You Are done with All question</h3>
-        <h3>Please Submit the quiz.</h3>
-      </div>   -->
     </div>
   </div>
 </div>
@@ -91,6 +87,7 @@
 </div>
 </ng-template>
 <ng-template #elsepart>
+  <hr>
   <div class="progress progress-easy">
     <div class="progress-bar " role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
       [ngStyle]="{'width':(pager.index/pager.count)*100 + '%'}" [ngClass]="
@@ -104,5 +101,6 @@
     <h3><b>You are done with all the questions </b></h3>
     <h3><b>Please Submit the quiz. </b></h3>
   </div>
+
   
 </ng-template>

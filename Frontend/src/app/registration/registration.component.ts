@@ -5,6 +5,11 @@ import { RegistrationService } from '../registration.service';
 import { Router } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertDialog } from '../add-questions/add-questions.component';
+import { SocialUser } from "angularx-social-login";
+import { SocialMediaAuthService } from '../_services/social-media-auth.service';
+import { SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -14,8 +19,29 @@ export class RegistrationComponent implements OnInit {
 
   form: FormGroup
   regErrorEmail = false;
+  errorMessage = "Invalid Credentials"
 
-  constructor(public fb: FormBuilder, private http: HttpClient, private _RegistrationService: RegistrationService, private _router: Router, public dialog: MatDialog) {
+    /**This variable stores user data */
+    userData;
+
+    /**this variable stores user data when loggedin via social media */
+    socialData;
+    // uData
+    private user: SocialUser;
+
+    /**Flag to check if user has logged in earlier via social media*/
+    private loggedIn: boolean;
+
+    /**@ignore */
+    public res
+
+  constructor(public fb: FormBuilder, 
+    private http: HttpClient, 
+    private _RegistrationService: RegistrationService, 
+    private _router: Router, 
+    public dialog: MatDialog,
+    private socialMediaAuth:SocialMediaAuthService,
+    private authService: SocialAuthService) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -32,7 +58,20 @@ export class RegistrationComponent implements OnInit {
     let dashboard = document.querySelector('.navButton');
     dashboard.textContent = "";
   }
-
+  googleSignUp(){
+    this.authService.authState.subscribe((user) => {
+        if(user!=null)
+        {
+            this.user = user;
+            this.loggedIn = (user != null);
+            this.socialMedia()
+        }});
+        if(!this.loggedIn){
+            this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
+          }
+    console.log('inside GS')
+    
+    }
   /**
          * checks for authentication 
          * and then registers the user in
@@ -40,7 +79,33 @@ export class RegistrationComponent implements OnInit {
          * 
          *  */ 
 
+        socialMedia(){
+          console.log('inside social media')
+          this.socialData={"firstName": this.user["firstName"], "lastName": "lastName", "emailId": this.user["email"], "number": "9999999999", "password": "Qwerty@123"}  
+          console.log("after2____",this.user)
+          console.log(this.socialData);
+          this.socialMediaAuth.socialMedia(this.socialData).subscribe(
+          (response:any) => 
+      {
+          if (response == "SUCCESS") {
+            this.dialog.open(AlertDialog, { data: { message: 'Registered successfully!' } });
+            this._router.navigate(['/login'])
+          }
+          else if(response=="FAILURE")
+          {
+           this.regErrorEmail = true;
+          }
+        }
+        ,
+        (error)=>{
+          console.log("error------",error['error']);
+        }
+      );
+      }
+
   onSubmit() {
+    console.log('Form value-')
+    console.log(this.form.value)
     this._RegistrationService.register(this.form.value)
       .subscribe(
         (response) => {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateQuizService } from 'src/app/create-quiz.service';
 import { ViewEncapsulation } from '@angular/core';
+import { SocialAuthService } from 'angularx-social-login';
+
 
 
 /**This component enables the user to go on the create quiz page and enables the user to go on the created quiz list page of the application. */
@@ -21,6 +23,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     /**@ignore */
      private service: CreateQuizService,
+     private authService: SocialAuthService
      ) { }
 
      /**
@@ -62,6 +65,9 @@ export class DashboardComponent implements OnInit {
     
     this.router.navigate(['/login'])
     sessionStorage.setItem('currentUser', 'null');
+    sessionStorage.setItem('authenticatedUser', 'null');
+    sessionStorage.clear()
+    this.authService.signOut();
     // sessionStorage.removeItem('currentUser');
   }
 }

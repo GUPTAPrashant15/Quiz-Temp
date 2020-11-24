@@ -189,6 +189,7 @@ public class ParticipationController {
 		logger.info("----- Inside Check Unique User API -----");
 
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
+	
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
 		if (user == null){ 

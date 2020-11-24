@@ -5,7 +5,7 @@
       <div class="card">
         <h4 class="card-header" style="background-color:rgb(189, 178, 240)"><b>Welcome to SBSI Quiz Portal</b></h4>
         <div class="card-body">  
-        <form  [formGroup] = "form" (ngSubmit)="onSubmit()" #f="ngForm">
+        <form  [formGroup] = "form"  #f="ngForm">
           <div id="user-data">
             <div class="form-group">
               <label for="firstName">First Name</label>
@@ -70,8 +70,9 @@
                 </div>
               </div>
           </div>
-          <button class="btn btn-success" [disabled]="!form.valid" type="submit">Register</button>
-          
+          <button class="btn btn-success" (click)="onSubmit()" [disabled]="!form.valid" type="submit">Register</button>
+          <button class="btn btn-primary pull-right" (click)="googleSignUp()">Signup with Google</button>
+        
           <div *ngIf="regErrorEmail" class="alert alert-danger mt-3 mb-0">Email already exists</div>
           <hr>
           <h5>Already have an account?</h5>

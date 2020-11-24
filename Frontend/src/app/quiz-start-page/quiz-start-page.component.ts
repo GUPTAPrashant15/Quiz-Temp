@@ -47,18 +47,26 @@ export class QuizStartPageComponent implements OnInit {
       this.quiz = new Quiz(res);
     });
   }
+  index: any=0;
   userForm(userInformation) {
 
-    if (Number(this.cookie.get(this.Username.value)) != 0) {
+    if (this.cookie.get(this.Username.value) != "") {
+      
       this.username = this.Username.value;
       this.front = false;
     }
     else {
+
       this.participantService.checkParticipantDetails(this.Username.value, this.quiz.quizId).subscribe(
         response => {
           if (response) {
+
             this.username = this.Username.value;
             this.front = false;
+            const dateNow = new Date();
+            dateNow.setHours(dateNow.getHours() + 1);
+            this.cookie.set(this.username, (this.index).toString(), dateNow);
+
            
           }
           else {

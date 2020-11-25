@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿
+<div class="container"> 
+      
     <div class="row">
         <img class="alignleft wp-image-63595 size-medium" src="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&#038;ssl=1" alt="" width="300" height="113" srcset="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&amp;ssl=1 300w, https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?w=340&amp;ssl=1 340w" sizes="(max-width: 300px) 100vw, 300px" data-recalc-dims="1" />
         <div class="col-md-5 offset-md-3 mt-5">
@@ -26,11 +28,12 @@
                 </div>
 
                
-                <button (click)="onSubmit" class="btn btn-success pull-left">
+                <button (click)="onSubmit()" class="btn btn-success pull-left">
                     Login
                 </button>
 
-                <button class="btn btn-primary pull-right"(click)="googleSignIn()">
+                <button type="button" class="btn btn-outline-primary pull-right" (click)="googleSignIn()">
+                    <img src="assets/image/GoogleLogo.png" alt="title logo" style="height: 15px;width:auto; padding-right: 5px;">
                     Sign in with Google
                 </button>
 
@@ -47,15 +50,8 @@
                 <a href="http://localhost:4200/registration" class="pull-right">
                 New user? Signup</a>
                 <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
-
-                <!-- <hr>
-                <div align="center">
-                <button class="center" (click)="googleSignIn()"  style="border-radius: 30px; ">
-                    <img src="assets/image/GoogleLogo.png" alt="title logo" style="height: 15px;width:auto; padding-right: 5px;">
-                Sign In With Google</button>
-                </div> -->
-                
             </form>
+        
         </div>
     </div>
     </div>

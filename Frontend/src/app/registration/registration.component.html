@@ -71,7 +71,7 @@
               </div>
           </div>
           <button class="btn btn-success" (click)="onSubmit()" [disabled]="!form.valid" type="submit">Register</button>
-          <button class="btn btn-primary pull-right" (click)="googleSignUp()">Signup with Google</button>
+          <!-- <button class="btn btn-primary pull-right" (click)="googleSignUp()">Signup with Google</button> -->
         
           <div *ngIf="regErrorEmail" class="alert alert-danger mt-3 mb-0">Email already exists</div>
           <hr>

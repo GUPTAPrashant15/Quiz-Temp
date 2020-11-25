@@ -58,51 +58,7 @@ export class RegistrationComponent implements OnInit {
     let dashboard = document.querySelector('.navButton');
     dashboard.textContent = "";
   }
-  googleSignUp(){
-    this.authService.authState.subscribe((user) => {
-        if(user!=null)
-        {
-            this.user = user;
-            this.loggedIn = (user != null);
-            this.socialMedia()
-        }});
-        if(!this.loggedIn){
-            this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-          }
-    console.log('inside GS')
-    
-    }
-  /**
-         * checks for authentication 
-         * and then registers the user in
-         * or shows an error
-         * 
-         *  */ 
-
-        socialMedia(){
-          console.log('inside social media')
-          this.socialData={"firstName": this.user["firstName"], "lastName": "lastName", "emailId": this.user["email"], "number": "9999999999", "password": "Qwerty@123"}  
-          console.log("after2____",this.user)
-          console.log(this.socialData);
-          this.socialMediaAuth.socialMedia(this.socialData).subscribe(
-          (response:any) => 
-      {
-          if (response == "SUCCESS") {
-            this.dialog.open(AlertDialog, { data: { message: 'Registered successfully!' } });
-            this._router.navigate(['/login'])
-          }
-          else if(response=="FAILURE")
-          {
-           this.regErrorEmail = true;
-          }
-        }
-        ,
-        (error)=>{
-          console.log("error------",error['error']);
-        }
-      );
-      }
-
+  
   onSubmit() {
     console.log('Form value-')
     console.log(this.form.value)

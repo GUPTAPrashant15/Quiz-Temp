@@ -26,10 +26,11 @@ export class SocialMediaAuthService {
    * @param data 
    */
   socialMedia(user) {
-    console.log("inside Social Media")
-    console.log(user)
+    console.log("inside SM Signup Service")
+    //console.log(user)
     return this.http.post(`http://localhost:8080/signup`,user).pipe(map((res: any) => {
         this.res=res;
+        console.log("Response from Sm Signup Service- ")
         console.log(res.message)
         //this.registerSuccessfulLogin();
         return (res.message)
@@ -39,11 +40,12 @@ export class SocialMediaAuthService {
   }
 
   socialMediaLogin(emailId, password) {
-    console.log("inside Social Media")
+    console.log("inside SM Log In Service")
     console.log(emailId,password);
     //console.log(user)
     return this.http.post(`http://localhost:8080/login`,{emailId, password}).pipe(map((res: any) => {
         this.res=res;
+        console.log("Response from Sm Log In Service- ")
         console.log(res.message)
         //this.registerSuccessfulLogin();
         return (res.message)

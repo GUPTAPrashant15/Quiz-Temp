@@ -47,6 +47,8 @@ export class LoginComponent implements OnInit {
     /**@ignore */
     public res
 
+    
+
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
         private service: CreateQuizService,
         private socialMediaAuth:SocialMediaAuthService,
         private authService: SocialAuthService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -69,11 +71,12 @@ export class LoginComponent implements OnInit {
         {
             this.user = user;
             this.loggedIn = (user != null);
-            this.socialMedia()
+            this.socialMediaSignUp()
         }});
         if(!this.loggedIn){
+            console.log('inside GoogleSign1')
             this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)}
-    console.log('inside GS')
+            console.log('inside GoogleSign2')
     
     }
   
@@ -81,34 +84,61 @@ export class LoginComponent implements OnInit {
     /**
    * This methods calls the Social Media Authentication service to log the user into a session to acces the Proposal Improvement System Application. The credentials are checked in the Database to either Sign Up or Sign In the user.
    */
-    socialMedia(){
-        console.log('inside social media')
-    //  this.socialData={"email":this.user["email"],"password":"password"}
+    socialMediaSignUp(){
+    
+        console.log('Inside SM Sign Up Fn')
         this.socialData={"firstName": this.user["name"], "lastName": "GoogleUser", "emailId": this.user["email"], "number": "9999999999", "password": "Qwerty@123"}
     
-      
-        console.log("after2____",this.user)
-        console.log(this.socialData);
-        this.socialMediaAuth.socialMediaLogin(this.socialData.emailId, this.socialData.password).subscribe(
+        console.log("Social user after SignUp- ",this.user)
+        //console.log(this.socialData);
+        this.socialMediaAuth.socialMedia(this.socialData).subscribe(
         (response:any) => 
-    {
-        if (response == "SUCCESS") {
-            console.log("After succesful login")
-            console.log(response)
-            sessionStorage.setItem('authenticatedUser',"SUCCESS");
-            sessionStorage.setItem('currentUser', this.socialData.emailId);
-            this.service.passUsername(this.socialData.emailId);
-            this.router.navigate(['/dashboard'])
+        {
+            if (response == "SUCCESS") {
+                
+                this.dialog.open(AlertDialog, { data: { message: 'Registered successfully!' } });
+                this.socialMediaLogIn(this.socialData.emailId,this.socialData.password)
+            }
+            else if(response == "FAILURE"){ 
+                console.log("user already exists, redirecting to login") 
+                this.socialMediaLogIn(this.socialData.emailId,this.socialData.password)     
+            }
+        },
+       (error)=>{
+            console.log("error------",error['error']);
         }
-        else if(response == "FAILURE"){
-            this.loginErrorEmail = true;        
-        }
-      }
-      ,
-      (error)=>{
-        console.log("error------",error['error']);
-      }
     );
+    }
+
+    socialMediaLogIn(emailId, password)
+    {
+        console.log('Inside SM Log In Fn')
+        //this.socialData={"firstName": this.user["name"], "lastName": "GoogleUser", "emailId": this.user["email"], "number": "9999999999", "password": "Qwerty@123"}
+        console.log("Social user after Log In- ",emailId, password)
+        //console.log(this.socialData);
+        this.socialMediaAuth.socialMediaLogin(emailId, password).subscribe(
+        (response:any) => {
+            if (response == "SUCCESS") 
+                {
+                    console.log("LogIn successful and res is-")
+                    console.log(response)
+                    sessionStorage.setItem('authenticatedUser',"SUCCESS");
+                    sessionStorage.setItem('currentUser', this.socialData.emailId);
+                    this.invalidLogin = false;
+                    this.loginSuccess = true;
+                    this.service.passUsername(this.socialData.emailId);
+                    this.router.navigate(['/dashboard'])
+                }
+            else if(response == "FAILURE")
+            {
+                    this.loginErrorEmail = true;       
+            }
+        },
+        (error)=>{
+                console.log("error------",error['error']);
+        }
+        );
+
     }
 
     ngOnInit() {
@@ -118,6 +148,8 @@ export class LoginComponent implements OnInit {
         });
         sessionStorage.setItem('authenticatedUser',"FAILURE");
         sessionStorage.setItem('currentUser', "null");
+        this.invalidLogin = true;
+        this.loginSuccess = false;
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 

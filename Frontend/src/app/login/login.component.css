@@ -1,7 +1,15 @@
 .container {
     min-height: 59vh;
+    
 }
+
+div {
+    display: block;
+    font-family: 'Yellowtail', cursive;
+  }
+
 .bgimg{
 
     background-image: url('./assets/image/GoogleLogo.png');
 }
+

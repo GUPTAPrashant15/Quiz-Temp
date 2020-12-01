@@ -19,6 +19,7 @@ public class Quiz {
 	private String description;
 	private boolean isLiveStatus = true;
 	private String username;
+	private int time;
 
 	// @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
 	// private Date createdDate = new Date();
@@ -31,7 +32,7 @@ public class Quiz {
 	}
 
 	public Quiz(long quizId, String quizName, String description, boolean isLiveStatus, String username,
-			LocalDate createdDate) {
+			LocalDate createdDate, int time) {
 
 		this.quizId = quizId;
 		this.quizName = quizName;
@@ -39,18 +40,8 @@ public class Quiz {
 		this.isLiveStatus = isLiveStatus;
 		this.username = username;
 		this.createdDate = createdDate;
+		this.time = time;
 	}
-
-	// public Quiz(long id , String quizName,boolean isLiveStatus, String
-	// description, String username, Date createdDate)
-	// {
-	// this.quizId = id;
-	// this.quizName = quizName;
-	// this.description = description;
-	// this.username = username;
-	// this.createdDate = createdDate;
-	// this.isLiveStatus= isLiveStatus;
-	// }
 
 	public List<Questions> getQuestions() {
 		return questions;
@@ -121,6 +112,14 @@ public class Quiz {
 		return "Quiz [createdDate=" + createdDate + ", description=" + description + ", isLiveStatus=" + isLiveStatus
 				+ ", questions=" + questions + ", quizId=" + quizId + ", quizName=" + quizName + ", username="
 				+ username + "]";
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
 	}
 
 }

@@ -31,6 +31,13 @@ export class QuizListComponent implements OnInit {
     this.username=sessionStorage.getItem('currentUser');
     console.log(this.username);
     this.quizzes = this.service.getQuiz(this.username);
+
+    let logout = document.getElementById('logout');
+    logout.style.display = "Logout";
+
+    let dashboard = document.querySelector('.navButton');
+    dashboard.textContent = "Dashboard";
+
   }
 
   realTimeAnalysis(quiz) {

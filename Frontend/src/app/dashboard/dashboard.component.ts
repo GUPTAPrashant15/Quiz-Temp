@@ -35,7 +35,9 @@ export class DashboardComponent implements OnInit {
     logout.style.display = "";
 
     let dashboard = document.querySelector('.navButton');
-    dashboard.textContent = "Dashboard";
+    dashboard.textContent = "";
+
+    
 
   }
 

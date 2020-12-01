@@ -51,6 +51,12 @@ export class RegisterQuizComponent implements OnInit {
 
   }
   ngOnInit(): void {
+
+    let logout = document.getElementById('logout');
+    logout.style.display = "Logout";
+
+    let dashboard = document.querySelector('.navButton');
+    dashboard.textContent = "Dashboard";
   }
 
 }

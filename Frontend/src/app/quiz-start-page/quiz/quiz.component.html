@@ -2,10 +2,12 @@
   <div class="col-sm-4 text-center" id="us">
     <br>
     <h2 class="font-weight-normal"><fa-icon [icon]="faUser"></fa-icon> Hi {{userName}}</h2>
+    <h2 class="font-weight-normal"><div *ngIf="this.quiz.time"><fa-icon [icon]="faClock"></fa-icon> {{ellapsedTime}} / {{duration}}</div></h2><br>
   </div>
   <div class="col-sm-4" id="us"> 
     <h2 class="text-center ">Quiz Id:{{quiz.quizId}}</h2>
     <h2 class="text-center ">Quiz Name: {{quiz.quizName}}</h2>
+    
   </div>
   <div class="col-sm-4 text-center " id="us">
     <h2 class="text-center "><fa-icon [icon]="faEye"></fa-icon> Live Users : {{liveUsers}}</h2>
@@ -22,21 +24,21 @@
   </div>
 </div>
 <div id="quiz"> 
-  <div class="container">
+  <div class="container" id="question" >
     <div class="row">
       <div class="col-12">
         <div *ngIf="mode=='quiz' && quiz">
-          <div *ngFor="let question of filteredQuestions;">
+          <div *ngFor="let question of filteredQuestions;" >
             <div class="badge badge-danger">
               Question {{pager.index + 1}} of {{pager.count}}.
             </div>   
             <h3 class="font-weight-normal">{{pager.index + 1}}.
               <span [innerHTML]="question.question"></span>
             </h3>
-            <div class="row text-left">
+            <div class="row text-left" >
               <div class="col-12">
                 <div class=" col-6" *ngIf="question.quesType=='Single Correct'">
-                  <label class="font-weight-normal">
+                  <label class="font-weight-normal" id="option1">
                     (A)<input type="radio" name="optradio"  (change)="onSelect(question,question.option1,'A');" /> {{question.option1}}
                   </label><br>
                   <label class="font-weight-normal">

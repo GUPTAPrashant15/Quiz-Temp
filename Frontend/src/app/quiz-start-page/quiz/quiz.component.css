@@ -2,8 +2,7 @@
     margin-top: 50px;
     box-shadow: 0 0 10px rgba(31, 151, 211, 0.39);
     padding: 15px 15px 15px 15px;
-    width: 600px;
-    height: 400px;
+    max-width: 600px;
     align-content: center;
 
 }
@@ -30,7 +29,7 @@
     margin-top: 50px;
     box-shadow: 0 0 10px rgba(31, 151, 211, 0.39);
     padding: 15px 15px 15px 15px;
-    width: 600px;
+    max-width: 600px;
     height: 233px;
     align-content: center;
   }

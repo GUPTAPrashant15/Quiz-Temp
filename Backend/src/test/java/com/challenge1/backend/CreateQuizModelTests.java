@@ -2,8 +2,8 @@ package com.challenge1.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -42,13 +42,13 @@ public class CreateQuizModelTests {
 	@Test
 	public void testQuizModel() {
 
-		Date createdDate = new Date();
+		LocalDate createdDate = LocalDate.now();
 
-		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", createdDate);
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", createdDate,20);
 
 		assertEquals("Quiz [createdDate=" + createdDate + ", description=" + "MCQ" + ", isLiveStatus=" + true
-		+ ", questions=" + null + ", quizId=" + 11 + ", quizName=" + "Angular" + ", username="
-		+ "sweety" + "]", mockQuiz.toString());
+				+ ", questions=" + null + ", quizId=" + 11 + ", quizName=" + "Angular" + ", username=" + "sweety" + "]",
+				mockQuiz.toString());
 
 	}
 

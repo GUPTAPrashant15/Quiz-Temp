@@ -19,6 +19,8 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  
+
   setLoggedIn(value: boolean) {
     this.loggedInStatus = value
   }
@@ -43,7 +45,8 @@ export class AuthenticationService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    // sessionStorage.removeItem('currentUser');
+    sessionStorage.setItem('currentUser', 'null');
     this.currentUserSubject.next(null);
   }
 }

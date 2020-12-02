@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateQuizService } from 'src/app/create-quiz.service';
 import { ViewEncapsulation } from '@angular/core';
+import { SocialAuthService } from 'angularx-social-login';
+
+
 
 /**This component enables the user to go on the create quiz page and enables the user to go on the created quiz list page of the application. */
 @Component({
@@ -12,6 +15,7 @@ import { ViewEncapsulation } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   /**@ignore */
+  
   constructor(
     /**@ignore */
     private route: ActivatedRoute,
@@ -19,19 +23,25 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     /**@ignore */
      private service: CreateQuizService,
+     private authService: SocialAuthService
      ) { }
 
      /**
       * This activates the logout and dashboard button on navbar.
       */
+  
   ngOnInit(): void {
     let logout = document.getElementById('logout');
     logout.style.display = "";
 
     let dashboard = document.querySelector('.navButton');
-    dashboard.textContent = "Dashboard";
+    dashboard.textContent = "";
+
+    
 
   }
+
+  
   /**
    * This method route the user into already created quiz page on click on created quiz button.
    * where user can analysis , share , download the previous created quiz.
@@ -54,6 +64,12 @@ export class DashboardComponent implements OnInit {
    * This method used to logout.
    */
   logOut() {
+    
     this.router.navigate(['/login'])
+    sessionStorage.setItem('currentUser', 'null');
+    sessionStorage.setItem('authenticatedUser', 'null');
+    sessionStorage.clear()
+    this.authService.signOut();
+    // sessionStorage.removeItem('currentUser');
   }
 }

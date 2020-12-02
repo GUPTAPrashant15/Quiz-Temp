@@ -12,11 +12,16 @@
     margin-right: 2rem;
 }
 
+
 #footer {
-    margin-bottom: 0;
+    margin-bottom: auto;
     margin-top: 5rem;
 }
 
 .main{
     min-height: calc(100vh-64px-64px);
 }
+
+/* div {
+    background-color: #2e2e2e;
+  } */

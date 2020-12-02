@@ -43,18 +43,18 @@ public class RegistrationController {
 
         try {
 
-            String tempEmail = signupUser.getEmailId();
+            String tempEmail = signupUser.getEmailId().toLowerCase();
             UserModel tempUser = userRepo.findByEmailId(tempEmail);
 
             System.out.println(tempUser);
 
-            if (tempUser != null) {
+            if (tempUser != null) { 
 
                 message = "FAILURE";
                 m.setMessage(message);
 
             } else {
-
+                signupUser.setEmailId(signupUser.getEmailId().toLowerCase());
                 tempUser = userRepo.save(signupUser);
                 message = "SUCCESS";
                 System.out.println(message);
@@ -84,7 +84,7 @@ public class RegistrationController {
 
         try {
 
-            String tempEmail = loginUser.getEmailId();
+            String tempEmail = loginUser.getEmailId().toLowerCase();
             String tempPass = loginUser.getPassword();
 
             UserModel tempUser = userRepo.findByEmailId(tempEmail);

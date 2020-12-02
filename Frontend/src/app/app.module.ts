@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { SocialMediaAuthService } from './_services/social-media-auth.service';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -60,6 +60,10 @@ import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SocialLoginModule, SocialAuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider} from "angularx-social-login";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +86,7 @@ import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component
     ResultComponent,
     AddParticipantToQuizComponent,
     QuizStartPageComponent,
-    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent
+    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent
 
 
   ],
@@ -113,6 +117,7 @@ import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component
     MatPaginatorModule,
     MatSortModule,
     Ng2SearchPipeModule,
+    SocialLoginModule,
     RouterModule.forRoot([{
       path: 'quiz-not-found',
       component: QuizNotFoundComponent
@@ -132,10 +137,26 @@ import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component
     },
     { path: 'quiz/:id', component: QuizStartPageComponent },
 
-    { path: 'result', component: ResultComponent }
+    { path: 'result', component: ResultComponent },
+    { path: 'page-not-found', component: PageNotFoundComponent }
     ]),
     AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule, CountdownModule, HttpModule],
   providers: [
+  SocialMediaAuthService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '673510750693-80cj7qvc07ggnvt2vi1da7eqamqu8hik.apps.googleusercontent.com'
+            ),
+          }
+        ],
+      } as SocialAuthServiceConfig,
+    },
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ForgotPwdService, CreateQuizService, AnlysisResultService, RealtimeresultService,

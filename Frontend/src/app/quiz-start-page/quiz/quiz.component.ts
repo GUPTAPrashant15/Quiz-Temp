@@ -100,9 +100,9 @@ export class QuizComponent implements OnInit {
   
         question.answer.answer = letter;
         question.answer.len = 1;
-        const dateNow = new Date();
-        dateNow.setHours(dateNow.getHours() + 1);
-        this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+        // const dateNow = new Date();
+        // dateNow.setHours(dateNow.getHours() + 1);
+        // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
 
     
 
@@ -128,16 +128,18 @@ export class QuizComponent implements OnInit {
         question.answer.len = str.length;
       }
     
-    const dateNow = new Date();
-    dateNow.setHours(dateNow.getHours() + 1);
-    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+    // const dateNow = new Date();
+    // dateNow.setHours(dateNow.getHours() + 1);
+    // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
 
   }
   onWritingText(question: Question) {
     question.answer.answer = this.textAnswer;
-    const dateNow = new Date();
-    dateNow.setHours(dateNow.getHours() + 1);
-    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+    this.textAnswer='';
+    // const dateNow = new Date();
+    // dateNow.setHours(dateNow.getHours() + 1);
+    // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+   
 
   }
 
@@ -158,14 +160,19 @@ export class QuizComponent implements OnInit {
    
       this.mode = 'quizEnded';
     }
+    if(question.answer.answer){
+        this.quizService.saveAnswer(question.answer).subscribe(
+          response => {
+          },
+          (error) => console.log('error', error)
+        )
 
-    {
-      this.quizService.saveAnswer(question.answer).subscribe(
-        response => {
-        },
-        (error) => console.log('error', error)
-      )
     }
+    const dateNow = new Date();
+    dateNow.setHours(dateNow.getHours() + 1);
+    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+
+    
   }
   score: number;
 

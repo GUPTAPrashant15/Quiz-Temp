@@ -7,10 +7,11 @@
   <a class="navButton" routerLink="/dashboard">Dashboard</a>
   <button mat-raised-button id="logout" (click)="logOut()">Log Out</button>
 </mat-toolbar>
-<div class="main">
+<div class="main" >
   <router-outlet></router-outlet>
+  <mat-toolbar id="footer"color="primary">
+    &#169; Sopra Banking Software
+  </mat-toolbar>
 </div>
 
-<mat-toolbar id="footer"color="primary">
-  &#169; Sopra Banking Software
-</mat-toolbar>
+

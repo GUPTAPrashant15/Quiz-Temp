@@ -1,5 +1,10 @@
 package com.challenge1.backend.createQuiz.model;
 
+/**
+ * <h1>DatabaseSequence class</h1>
+ * <p>It is model for the collection that'll store the auto-incremented sequence for Quiz collection.</p> 
+ * 
+ */
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

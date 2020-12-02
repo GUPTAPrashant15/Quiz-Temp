@@ -1,5 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ResetSuccessComponent } from './reset-success.component';
@@ -20,6 +22,7 @@ describe('ResetSuccessComponent', () => {
   });
 
   beforeEach(() => {
+    window.history.pushState({ email: 'agarwal.shivam645@gmail.com',password: 'Sopr@_7sopra'},'','/reset-pwd');
     fixture = TestBed.createComponent(ResetSuccessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -28,4 +31,23 @@ describe('ResetSuccessComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have onCancel() function', () => {
+    spyOn(component, 'onCancel');
+    expect(component.onCancel).toBeTruthy();
+  });
+  it('should have onCancel() function', () => {
+
+    expect(component.onCancel).toBeTruthy;
+  });
+  it('should click Send button with async', async(() => {
+    let buttonElement = fixture.debugElement.query(By.css('#send-button'));
+      
+    spyOn(component, 'onCancel');
+    //Trigger click event after spyOn
+    buttonElement.triggerEventHandler('click', null);
+  
+    fixture.whenStable().then(() => {
+      expect(component.onCancel).toHaveBeenCalled();
+    });
+  })); 
 });

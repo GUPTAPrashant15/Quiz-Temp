@@ -52,6 +52,7 @@ export class ForgotPasswordComponent implements OnInit {
           }
           else {
             this.errorValidation = true;
+            this.spinner.hide();
           }
         },
         (error) => console.log('error', error)

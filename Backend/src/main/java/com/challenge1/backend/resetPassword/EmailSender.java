@@ -42,7 +42,7 @@ public class EmailSender /* implements CommandLineRunner */ {
         msg.setTo(email);
 
         msg.setSubject("Reset Password for SBSI Quiz Portal");
-        msg.setText("\nDear User,\nYour OTP to reset your Password is " + otp + ". This OTP is valid only for 10 minutes.\n\nRegards,\nTeam Spartans");
+        msg.setText("\nDear User,\nYour OTP to reset your Password is " + otp + ". This OTP is valid only for 10 minutes.\n\nRegards,\nSBSI Iridsparkz 2020 Team");
 
         javaMailSender.send(msg);
 

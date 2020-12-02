@@ -2,6 +2,7 @@ package com.challenge1.backend;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -26,8 +27,11 @@ public class QuestionsRepositoryTests {
 
 	@Test
 	public void testagain() {
+		
+		Date startDate = new Date();
+		Date endDate = new Date();
 
-		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now(),20);
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety",5,startDate,endDate, LocalDate.now());
 
 		quizRepo.save(mockQuiz);
 

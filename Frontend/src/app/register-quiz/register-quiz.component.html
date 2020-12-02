@@ -36,6 +36,22 @@
         <textarea matInput name="quizDesc" [(ngModel)]="quiz.description"></textarea>
       </mat-form-field>
 
+      <mat-form-field >
+        <mat-label>Time to complete Quiz</mat-label>
+        <input matInput name="time" [(ngModel)]="quiz.quizTime">
+      </mat-form-field>
+      mins
+
+      <mat-form-field class="full-width">
+        <mat-label>Start Date:</mat-label>
+        <input matInput name="startDate" type="datetime-local" placeholder="start date" [(ngModel)]="quiz.startDate">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>End Date:</mat-label>
+        <input matInput name="endDate" type="datetime-local" placeholder="end date" [(ngModel)]="quiz.endDate" >
+      </mat-form-field>
+
 
       <!-- </div> -->
       <!-- <div class="form-group">

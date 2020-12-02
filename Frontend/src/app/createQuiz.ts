@@ -2,9 +2,13 @@ export class CreateQuiz {
 
     constructor(
         public quizId: number,
-        public username: string,
         public quizName: string,
+        public description: string,
         public isLiveStatus: boolean,
-        public description: string
+        public username: string,
+        public quizTime: number,
+        public startDate: Date,
+        public endDate: Date,
+        public createdDate: Date
     ){}
 }

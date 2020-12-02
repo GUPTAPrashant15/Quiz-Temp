@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,8 @@ import com.challenge1.backend.createQuiz.repository.QuizRepository;
 import com.challenge1.backend.createQuiz.service.SequenceGeneratorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -70,8 +73,11 @@ class CreateQuizControllerTests {
 	@Test
 	public void testCreateQuiz() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
+		
+		Date startDate = new Date();
+		Date endDate = new Date();
 
-		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now(),20);
+		Quiz mockQuiz = new Quiz(11l, "Angular", "MCQ", true, "sweety",5,startDate,endDate, LocalDate.now());
 		mockQuiz.setQuizId(11l);
 
 		when(sequenceGenerator.generateSequence(anyString())).thenReturn(11l);
@@ -98,8 +104,11 @@ class CreateQuizControllerTests {
 		List<Questions> questions = new ArrayList<Questions>();
 		questions.add(q1);
 		questions.add(q2);
+		
+		Date startDate = new Date();
+		Date endDate = new Date();
 
-		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now(),20));
+		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety",5,startDate,endDate, LocalDate.now()));
 
 		Mockito.when(quizRepository.findById(11l)).thenReturn(mockQuiz);
 
@@ -122,7 +131,10 @@ class CreateQuizControllerTests {
 	void createQuiz() {
 
 		LocalDate createDate = LocalDate.now();
-		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ",true, "sweety", createDate,20);
+		Date startDate = new Date();
+		Date endDate = new Date();
+		
+		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ",true, "sweety",5,startDate,endDate, createDate);
 
 		Quiz insertedQuiz = quizRepo.save(insertQuiz);
 
@@ -141,6 +153,8 @@ class CreateQuizControllerTests {
 	private String mapToJson(Object object) throws JsonProcessingException {
 
 		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 		System.out.println(objectMapper.writeValueAsString(object));
 		return objectMapper.writeValueAsString(object);
 	}
@@ -156,9 +170,11 @@ class CreateQuizControllerTests {
 	public void getQuizTest1() {
 
 		LocalDate createDate = LocalDate.now();
+		Date startDate = new Date();
+		Date endDate = new Date();
 
-		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ", true, "rinku", createDate,20);
-		Quiz insertQuiz1 = new Quiz(12l, "React", "MCQ",true, "rinku", createDate,20);
+		Quiz insertQuiz = new Quiz(11l, "Angular", "MCQ", true, "rinku",5,startDate,endDate, createDate);
+		Quiz insertQuiz1 = new Quiz(12l, "React", "MCQ",true, "rinku",5,startDate,endDate, createDate);
 
 		Quiz quiz1 = quizRepo.save(insertQuiz);
 		Quiz quiz2 = quizRepo.save(insertQuiz1);
@@ -177,8 +193,11 @@ class CreateQuizControllerTests {
 	@Test
 	public void testgetQuizById() throws JsonProcessingException, Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(createQuizController).build();
+		
+		Date startDate = new Date();
+		Date endDate = new Date();
 
-		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety", LocalDate.now(),20));
+		Optional<Quiz> mockQuiz = Optional.ofNullable(new Quiz(11l, "Angular", "MCQ", true, "sweety",5,startDate,endDate, LocalDate.now()));
 
 		Mockito.when(quizRepository.findById(11l)).thenReturn(mockQuiz);
 

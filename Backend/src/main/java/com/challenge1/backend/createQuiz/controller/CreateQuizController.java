@@ -1,5 +1,6 @@
 package com.challenge1.backend.createQuiz.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,8 @@ public class CreateQuizController {
 		logger.info("Inside CreateQuizController: saveQuiz() method");
 
 		quiz.setQuizId(sequenceGenerator.generateSequence(Quiz.SEQUENCE_NAME));
-
+		quiz.setCreatedDate(LocalDate.now());
+		
 		quizRepo.save(quiz);
 
 		logger.info("Inside CreateQuizController: saved the Quiz successfully");

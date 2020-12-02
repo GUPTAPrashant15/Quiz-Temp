@@ -110,8 +110,8 @@ public class Quiz {
 	@Override
 	public String toString() {
 		return "Quiz [createdDate=" + createdDate + ", description=" + description + ", isLiveStatus=" + isLiveStatus
-				+ ", questions=" + questions + ", quizId=" + quizId + ", quizName=" + quizName + ", username="
-				+ username + "]";
+				+ ", questions=" + questions + ", quizId=" + quizId + ", quizName=" + quizName + ", time=" + time
+				+ ", username=" + username + "]";
 	}
 
 	public int getTime() {

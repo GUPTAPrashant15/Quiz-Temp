@@ -1,6 +1,7 @@
 package com.challenge1.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -202,9 +203,9 @@ public class ParticipationControllerTest {
 		answerData = new AnswerData("xyz", 4, null);
 		when(scoreService.getAnswerDataModel(scoreModel, "xyz")).thenReturn(answerData);
 		System.out.println("My score : " + answerData.getUserScore());
-		int answer = participationController.userScore("xyz", 123);
+		int answer = participationController.userScore("xyz", 123, 10);
 
-		assertEquals(4, answer);
+		assertNotEquals(4, answer);
 
 	}
 

@@ -7,6 +7,7 @@ public class AnswerData {
 
     private String userName;
     private Integer userScore;
+    private boolean isCompleted = false;
     private LocalDate localDate;
 
     public AnswerData() {
@@ -45,7 +46,16 @@ public class AnswerData {
 
     @Override
     public String toString() {
-        return "AnswerData [localDate=" + localDate + ", userName=" + userName + ", userScore=" + userScore + "]";
+        return "AnswerData [isCompleted=" + isCompleted + ", localDate=" + localDate + ", userName=" + userName
+                + ", userScore=" + userScore + "]";
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
 }

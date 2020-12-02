@@ -93,7 +93,7 @@ public class ParticipationController {
 		existingGraph = graphRepo.findByGraphId(graphId);
 		//Only for testing
 		if(existingGraph == null)
-			existingGraph = getDummyDataForTesting();			
+			existingGraph = getDummyDataForTesting();
 
 		Integer answerScore = 0;
 
@@ -176,7 +176,7 @@ public class ParticipationController {
 			graphRepo.save(graphModel);
 			return graphModel;
 		}
-			//graph = getDummyDataForTesting();	
+			//graph = getDummyDataForTesting();
 		return graph;
 
 	}
@@ -189,10 +189,10 @@ public class ParticipationController {
 		logger.info("----- Inside Check Unique User API -----");
 
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
-	
+
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
-		if (user == null){ 
+		if (user == null) {
 			List<AnswerData> answerDatas = quizData.getAnswerData();
 			if(answerDatas == null){
 				List<AnswerData> newAnswerDatasList = new ArrayList<AnswerData>();
@@ -206,7 +206,7 @@ public class ParticipationController {
 			scoreRepo.save(quizData);
 			return true;
 		}
-		
+
 		return false;
 
 	}
@@ -224,18 +224,33 @@ public class ParticipationController {
 
 	}
 
-	@GetMapping(value = "/getUserScore/{userName}/{quizId}")
+	@GetMapping(value = "/getUserScore/{userName}/{quizId}/{remTime}")
 	public int userScore(
 		@PathVariable(value = "userName") String userName,
-		@PathVariable(value = "quizId") long quizId) {
+		@PathVariable(value = "quizId") long quizId,
+		@PathVariable(value = "remTime") long remTime) {
 
 		logger.info("----- Inside Get User Score API -----");
+
+		int totalQues = quizRepo.findByQuizId(quizId).getQuestions().size();
 
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
-		if (user != null) return user.getUserScore();
-		
+		// { ​​correct questions + [( correct questions x remaining time per question ) / ( total questions x 600 ) ] }​​ x 100
+
+		if (user != null) {
+
+			user.setCompleted(true);
+
+			user.setUserScore(Math.round(user.getUserScore() * (1 + (remTime / (totalQues * 600.0F))) * 100.0F));
+
+			scoreRepo.save(quizData);
+
+			return user.getUserScore();
+
+		}
+
 		return 0;
 
 	}

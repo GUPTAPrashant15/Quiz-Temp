@@ -8,8 +8,11 @@
     <div id="create_quiz">
 
       <mat-card>
+        <mat-card-title  style="background-color:#a0a1d1">Create Quiz</mat-card-title>
   
-          <h2 class="heading">Create Quiz</h2>
+          <!-- <h2 class="heading">Create Quiz</h2> -->
+          <mat-card-content>
+            <br>
     <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createQuiz() " novalidate class="form" >
   
       <!-- <div class="form-group mt-2">
@@ -43,9 +46,10 @@
     <br/>
     <!-- <button type="submit"  class="btn btn-primary">Add Questions</button> -->
 
-    <button mat-raised-button type="submit" color="primary">Add Questions</button>
-  
+    <button mat-raised-button type="submit" color="primary" class="pull-right">Add Questions</button>
+      <br><br>
     </form>
+  </mat-card-content>
   <hr/>
   <br/>
   </mat-card>

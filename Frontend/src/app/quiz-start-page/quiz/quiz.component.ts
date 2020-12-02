@@ -7,7 +7,7 @@ import { Question, Quiz } from '../../models/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParticipantService } from 'src/app/services/participant.service';
 import { HostListener } from '@angular/core';
-import { faEye, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faEye, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-quiz',
@@ -18,12 +18,11 @@ import { faEye, faUser } from '@fortawesome/free-solid-svg-icons';
 export class QuizComponent implements OnInit {
   faEye = faEye;
   faUser=faUser;
+  faClock=faClock;
   
   quizes: any[];
   @Input() userName: string;
   @Input() quiz: Quiz = new Quiz(null);
-
-  
   
   mode = 'quiz';
  
@@ -34,6 +33,13 @@ export class QuizComponent implements OnInit {
     count: 1
   };
   timer: any = null;
+  startTime: Date;
+  ellapsedTime = '00:00';
+  duration = '';
+  diff: number=0;
+  keyForCookie: string=null;
+  timeForCookie=0;
+  
 
   textAnswer = '';
 
@@ -41,11 +47,22 @@ export class QuizComponent implements OnInit {
     private route: ActivatedRoute, private participantService: ParticipantService, private cookie: CookieService) { }
 
   ngOnInit() {
+    this.quiz.time=this.quiz.time*60;
     this.participantService.updateParticipant(this.quiz.quizId).subscribe(res => {
     }), (error) => console.log('error', error)
 
     this.pager.index = Number(this.cookie.get(this.userName));
+    this.keyForCookie=this.userName + 's';
+    if(this.cookie.get(this.keyForCookie)){
+      this.ellapsedTime = this.cookie.get(this.keyForCookie);
+      console.log(this.ellapsedTime);
+      this.timeForCookie=60*Number(this.ellapsedTime.substr(0,2))+Number(this.ellapsedTime.substr(3,2));
+      console.log(this.timeForCookie);
+    }
+    
     this.pager.count = this.quiz.l;
+    this.startTime = new Date();
+    this.duration = this.parseTime(this.quiz.time);
     
     this.timer = setInterval(() => { this.tick(); }, 1000);
     
@@ -54,6 +71,10 @@ export class QuizComponent implements OnInit {
 
   @HostListener('window:beforeunload')
   async ngOnDestroy() {
+    const dateNow = new Date();
+    dateNow.setHours(dateNow.getHours() + 1);
+    
+    this.cookie.set(this.keyForCookie,this.ellapsedTime, dateNow);
     this.participantService.removeParticipant(this.quiz.quizId).subscribe(res => {
 
 
@@ -74,11 +95,25 @@ export class QuizComponent implements OnInit {
 
   liveUsers = 0;
   tick() {
-    
+    const now = new Date();
+    this.diff = (now.getTime() - this.startTime.getTime()+this.timeForCookie*1000) / 1000;
     this.getLiveUsers(this.quiz.quizId);
+    if (this.diff >= this.quiz.time) {
+      this.onSubmit();
 
+    }
+
+    this.ellapsedTime = this.parseTime(this.diff);
     
   }
+  parseTime(totalSeconds: number) {
+    let mins: string | number = Math.floor(totalSeconds / 60);
+    let secs: string | number = Math.round(totalSeconds % 60);
+    mins = (mins < 10 ? '0' : '') + mins;
+    secs = (secs < 10 ? '0' : '') + secs;
+    return `${mins}:${secs}`;
+  }
+
   getLiveUsers(quizId: number) {
     this.quizService.liveUserNumber(quizId).subscribe(
       response => {
@@ -100,9 +135,6 @@ export class QuizComponent implements OnInit {
   
         question.answer.answer = letter;
         question.answer.len = 1;
-        // const dateNow = new Date();
-        // dateNow.setHours(dateNow.getHours() + 1);
-        // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
 
     
 
@@ -127,18 +159,12 @@ export class QuizComponent implements OnInit {
         question.answer.answer = str;
         question.answer.len = str.length;
       }
-    
-    // const dateNow = new Date();
-    // dateNow.setHours(dateNow.getHours() + 1);
-    // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+ 
 
   }
   onWritingText(question: Question) {
     question.answer.answer = this.textAnswer;
     this.textAnswer='';
-    // const dateNow = new Date();
-    // dateNow.setHours(dateNow.getHours() + 1);
-    // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
    
 
   }
@@ -151,6 +177,10 @@ export class QuizComponent implements OnInit {
     question.answer.quizId = this.quiz.quizId;
     
     question.answer.userName = this.userName;
+    const dateNow = new Date();
+    dateNow.setHours(dateNow.getHours() + 1);
+    
+    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
     if (index >= 0 && index <= this.pager.count) {
       this.pager.index = index;
       
@@ -168,9 +198,9 @@ export class QuizComponent implements OnInit {
         )
 
     }
-    const dateNow = new Date();
-    dateNow.setHours(dateNow.getHours() + 1);
-    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+    // const dateNow = new Date();
+    // dateNow.setHours(dateNow.getHours() + 1);
+    // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
 
     
   }
@@ -187,5 +217,6 @@ export class QuizComponent implements OnInit {
       }, (error) => console.log('error', error)
     )
     this.cookie.delete(this.userName);
+    this.cookie.delete(this.keyForCookie);
   }
 }

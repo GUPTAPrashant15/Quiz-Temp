@@ -34,3 +34,16 @@ mat-card {
 #create_quiz {
     min-height: 60.2vh;
 }
+
+.mat-card{
+    width: 50%;
+    padding: 0px;
+    border-radius: 20px;
+}
+
+.mat-card-title{
+
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}

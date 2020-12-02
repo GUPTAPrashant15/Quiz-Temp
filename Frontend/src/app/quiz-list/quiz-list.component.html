@@ -1,5 +1,5 @@
 <br>
-<div class="row heading">
+<div class="row heading" >
     <div class="column">
             <h1>Your Quizzes</h1>
     </div>
@@ -7,6 +7,7 @@
         <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchValue"
         id="search"/>
     </div>
+    
 </div>
 
 
@@ -16,7 +17,7 @@
 <div id="quizList" >
     <table border="1" class="content-table" cellspacing="0" width="85%" >
         <thead>
-            <tr>
+            <tr style="background-color:#a0a1d1">
                 <th width="50px">S.No.</th>
                 <th width="200px">Quiz Name</th>
                 <th width="180px"> Quiz Status</th> 
@@ -26,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let quiz of quizzes |async |filter:searchValue; let i = index">
+            <tr *ngFor="let quiz of quizzes |async |filter:searchValue; let i = index" >
                 <td>{{i+1}}</td>
                 <td>{{quiz.quizName}}</td>
                 <!-- <td>{{quiz.isLiveStatus}}</td> -->

@@ -9,12 +9,12 @@
     width: 90%;
 }
 
-mat-card {
+/* mat-card {
     width: 70%;
     margin: auto;
     margin-top: 5rem;
     background-color: rgb(248, 248, 248);
-}
+} */
 
 .full-width {
     width: 100%;
@@ -67,3 +67,39 @@ mat-card {
     min-height: 59vh;
 } */
 
+.mat-card{
+    width: 50%;
+    padding: 0px;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 5rem;
+    background-color: rgb(248, 248, 248);
+}
+
+.mat-card-title{
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.mat-select{
+    height: 10px;
+}
+
+
+.mat-form-field {
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 10px;
+    
+}
+
+
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-radius: 10px 10px 0 0;
+    /* padding: .25em .25em 0 .25em; */
+    height: 12px;
+}

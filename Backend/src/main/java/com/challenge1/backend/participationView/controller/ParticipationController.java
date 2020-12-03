@@ -246,7 +246,7 @@ public class ParticipationController {
 
 				user.setCompleted(true);
 				
-				user.setUserScore(Math.round(user.getUserScore() * (float)(1 + (float)(remTime / (totalQues * totalTime*60))) * 1000.0F));
+				user.setUserScore(Math.round(user.getUserScore() * (float)(1 + (float)(remTime / (totalQues * totalTime*60))) * 100.0F));
 				scoreRepo.save(quizData);
 			}
 

@@ -17,7 +17,7 @@
 } */
 
 .full-width {
-    width: 100%;
+    width: 90%;
 }
 
 #type {
@@ -84,7 +84,7 @@
     border-top-right-radius: 20px;
 }
 
-.mat-select{
+/* .mat-select{
     height: 10px;
 }
 
@@ -94,12 +94,12 @@
     font-weight: 400;
     line-height: 10px;
     
-}
+} */
 
 
 
-.mat-form-field-appearance-fill .mat-form-field-flex {
+/* .mat-form-field-appearance-fill .mat-form-field-flex {
     border-radius: 10px 10px 0 0;
-    /* padding: .25em .25em 0 .25em; */
+    padding: .25em .25em 0 .25em;
     height: 12px;
-}
+}   */

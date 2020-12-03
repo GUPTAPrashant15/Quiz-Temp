@@ -39,6 +39,9 @@ export class QuizComponent implements OnInit {
   diff: number=0;
   keyForCookie: string=null;
   timeForCookie=0;
+  remTime: number;
+  answered: number=1;
+  
   
 
   textAnswer = '';
@@ -48,6 +51,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
     this.quiz.time=this.quiz.time*60;
+    this.remTime=this.quiz.time;
     this.participantService.updateParticipant(this.quiz.quizId).subscribe(res => {
     }), (error) => console.log('error', error)
 
@@ -58,6 +62,7 @@ export class QuizComponent implements OnInit {
       console.log(this.ellapsedTime);
       this.timeForCookie=60*Number(this.ellapsedTime.substr(0,2))+Number(this.ellapsedTime.substr(3,2));
       console.log(this.timeForCookie);
+      this.remTime=this.remTime-this.timeForCookie;
     }
     
     this.pager.count = this.quiz.l;
@@ -95,11 +100,15 @@ export class QuizComponent implements OnInit {
 
   liveUsers = 0;
   tick() {
+    
     const now = new Date();
     this.diff = (now.getTime() - this.startTime.getTime()+this.timeForCookie*1000) / 1000;
     this.getLiveUsers(this.quiz.quizId);
+    this.remTime=this.remTime-1;
     if (this.diff >= this.quiz.time) {
+      this.remTime=1;
       this.onSubmit();
+
 
     }
 
@@ -135,6 +144,7 @@ export class QuizComponent implements OnInit {
   
         question.answer.answer = letter;
         question.answer.len = 1;
+        this.answered=2;
 
     
 
@@ -159,12 +169,24 @@ export class QuizComponent implements OnInit {
         question.answer.answer = str;
         question.answer.len = str.length;
       }
+      if(question.answer.len==0){
+        this.answered=1;
+      }
+      else{
+        this.answered=2;
+      }
  
 
   }
   onWritingText(question: Question) {
     question.answer.answer = this.textAnswer;
-    this.textAnswer='';
+    if(this.textAnswer==''){
+      this.answered=1;
+    }
+    else{
+      this.answered=2;
+    }
+    
    
 
   }
@@ -181,14 +203,10 @@ export class QuizComponent implements OnInit {
     dateNow.setHours(dateNow.getHours() + 1);
     
     this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
-    if (index >= 0 && index <= this.pager.count) {
+    if (index >= 0 && index < this.pager.count) {
       this.pager.index = index;
       
 
-    }
-    else {
-   
-      this.mode = 'quizEnded';
     }
     if(question.answer.answer){
         this.quizService.saveAnswer(question.answer).subscribe(
@@ -198,21 +216,34 @@ export class QuizComponent implements OnInit {
         )
 
     }
-    // const dateNow = new Date();
-    // dateNow.setHours(dateNow.getHours() + 1);
-    // this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
-
+    if(index==this.pager.count){
+      this.onSubmit();
+    }
+    else{
+      this.textAnswer='';
+      if(this.pager.index==this.pager.count-1){
+        this.answered=3;
+        console.log("inside me");
+      }
+      else{
+        console.log("inside me 2");
+        this.answered=1;
+        
+      }
+    }
+   
     
   }
   score: number;
 
   onSubmit() {
 
-   
+   console.log(this.remTime);
 
-    this.quizService.submitQuiz(this.userName, this.quiz.quizId).subscribe(
+    this.quizService.submitQuiz(this.userName, this.quiz.quizId,this.remTime).subscribe(
       response => {
         this.score = response;
+        
         this.router.navigateByUrl('/result', { state: { quiz: this.quiz, username: this.userName, score: this.score } });
       }, (error) => console.log('error', error)
     )

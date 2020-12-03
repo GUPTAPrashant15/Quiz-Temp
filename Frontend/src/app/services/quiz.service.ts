@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { IfStmt } from '@angular/compiler';
 import { Route } from '@angular/compiler/src/core';
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
@@ -55,10 +55,10 @@ export class QuizService {
     
   }
 
-  submitQuiz(username, quizId) {
+  submitQuiz(username, quizId,remTime) {
 
-    let url = this.baseUrl + "participation-view/getUserScore/" + username + "/" + quizId;
-
+    let url = this.baseUrl + "participation-view/getUserScore/" + username + "/" + quizId + "/" + remTime;
+    
     return this.http.get(url).pipe(map((response: any) => {
       return (response)
 

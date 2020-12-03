@@ -15,7 +15,7 @@ export class Quiz {
             this.quizId = data.quizId;
             this.quizName = data.quizName;
             this.description = data.description;
-            this.time=2;
+            this.time=data.quizTime;
             this.l=0;
             this.questions = [];
             data.questions.forEach(q => {

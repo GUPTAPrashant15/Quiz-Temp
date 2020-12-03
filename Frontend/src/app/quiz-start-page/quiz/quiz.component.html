@@ -10,12 +10,14 @@
     
   </div>
   <div class="col-sm-4 text-center " id="us">
+    <br>
+    <br>
     <h2 class="text-center "><fa-icon [icon]="faEye"></fa-icon> Live Users : {{liveUsers}}</h2>
     <!-- <h4 class="font-weight-normal"><div *ngIf="config.duration" class="badge badge-default float-right">Time: {{ellapsedTime}} / {{duration}}</div></h4><br> -->
-    <button class="btn btn-info " (click)="onSubmit();">Submit Quiz</button>
+    <!-- <button class="btn btn-info " (click)="onSubmit();">Submit Quiz</button> -->
   </div>   
 </div>
-<ng-template [ngIf]="pager.index < pager.count" [ngIfElse]="elsepart">
+<ng-template [ngIf]="pager.index < pager.count" >
 <hr>
 <div class="progress progress-easy">
   <div class="progress-bar " role="progressbar" aria-valuenow="40"
@@ -24,21 +26,21 @@
   </div>
 </div>
 <div id="quiz"> 
-  <div class="container" id="question" >
+  <div class="container">
     <div class="row">
       <div class="col-12">
         <div *ngIf="mode=='quiz' && quiz">
-          <div *ngFor="let question of filteredQuestions;" >
+          <div *ngFor="let question of filteredQuestions;">
             <div class="badge badge-danger">
               Question {{pager.index + 1}} of {{pager.count}}.
             </div>   
             <h3 class="font-weight-normal">{{pager.index + 1}}.
               <span [innerHTML]="question.question"></span>
             </h3>
-            <div class="row text-left" >
+            <div class="row text-left">
               <div class="col-12">
                 <div class=" col-6" *ngIf="question.quesType=='Single Correct'">
-                  <label class="font-weight-normal" id="option1">
+                  <label class="font-weight-normal">
                     (A)<input type="radio" name="optradio"  (change)="onSelect(question,question.option1,'A');" /> {{question.option1}}
                   </label><br>
                   <label class="font-weight-normal">
@@ -70,15 +72,21 @@
                   <label for="comment">Answer:</label>
                   <textarea class="form-control" 
                   rows="5" id="textAnswer" [(ngModel)]="textAnswer" 
-                  (change)="onWritingText(question);">
+                  (ngModelChange)="onWritingText(question);">
                   </textarea>
                 </div>
               </div>
             </div>
           </div>
           <hr/>
-          <div class="pull-right">
-            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);">Next</button>
+          <div class="pull-right" *ngIf="answered==1">
+            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Skip</button>
+          </div>
+          <div class="pull-right" *ngIf="answered==2">
+            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Save & Next</button>
+          </div>
+          <div class="pull-right" *ngIf="answered==3">
+            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Save & Submit</button>
           </div>
         </div>
       </div>
@@ -88,7 +96,7 @@
 
 </div>
 </ng-template>
-<ng-template #elsepart>
+<!-- <ng-template #elsepart>
   <hr>
   <div class="progress progress-easy">
     <div class="progress-bar " role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
@@ -105,4 +113,4 @@
   </div>
 
   
-</ng-template>
+</ng-template> -->

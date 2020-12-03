@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { RegisterQuizComponent } from './register-quiz/register-quiz.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import {LeaderBoardComponent} from './leader-board/leader-board.component'
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
 import { DisplaySuccessComponent } from './display-success/display-success.component';
 import {QuizListComponent} from 'src/app/quiz-list/quiz-list.component';
@@ -37,7 +37,7 @@ const routes: Routes = [
   {path:"registration",component:RegistrationComponent},
   {path:"login",component:LoginComponent},
   {path:"forgotten-password",component:ForgotPasswordComponent},
-  // {path:"**", component:LoginComponent},
+  {path:'leaderboard/:id', component:LeaderBoardComponent},
   { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] }
 
    //,{path: "home", component:HomeComponent}
@@ -51,5 +51,5 @@ const routes: Routes = [
 //export class AppRoutingModule { }
 
 export class AppRoutingModule { }
-export const routingComponents=[RegistrationComponent,ForgotPasswordComponent,LoginComponent, HomeComponent]
+export const routingComponents=[RegistrationComponent,ForgotPasswordComponent,LoginComponent, HomeComponent,LeaderBoardComponent]
 

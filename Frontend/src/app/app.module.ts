@@ -63,6 +63,7 @@ import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider} from "angularx-social-login";
+import { LeaderBoardComponent } from './leader-board/leader-board.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,7 @@ import { GoogleLoginProvider} from "angularx-social-login";
     ResultComponent,
     AddParticipantToQuizComponent,
     QuizStartPageComponent,
-    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent
+    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent, LeaderBoardComponent
 
 
   ],

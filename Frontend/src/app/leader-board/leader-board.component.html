@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Time Analysis</title>
+  <style type="text/css">
+    .topnav {
+  background-color: #87ceeb;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+
+}
+.mat_card1
+{
+  background-color: white;
+}
+
+.mat_card2
+{
+   float: center;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.divsetup
+{
+  background-color: #E1DFE4;
+  position: relative;
+  width: 100%;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+    float: center;
+  margin: auto;
+
+}
+  </style>
+
+</head>
+<body>
+    <mat-card class="mat_card1">
+    <div class="divsetup" >
+
+
+      
+</div>
+<!--
+<div >
+    <table style="width: 80%;border: solid;float: center;margin-left: auto;margin-right: auto; ">
+      <tr  style="background-color: skyblue;padding: 10%;text-align: center;"><th colspan="5" style="border: solid;">Indiviudal Summary</th></tr>
+      <tr></tr>
+      <tr>
+
+      <td style="padding: 15px;text-align: center;">S.NO</td>
+        <td style="padding: 15px;text-align: center;">User Name</td>
+        
+        <td style="padding: 15px;text-align: center;">Date Submitted</td>
+
+        <td style="padding: 15px;text-align: center;">Score</td>
+        <td style="padding: 15px;text-align: center;">Grade</td>
+
+      </tr>
+      <tr *ngFor="let person of MyArray; let i  = index">
+        <td style="padding: 15px; text-align: center;">{{i+1}}</td>
+        <td style="padding: 15px; text-align: center;">{{person.username}}</td>
+        <td style="padding: 15px;text-align: center;">{{person.date}}</td>
+        <td style="padding: 15px;text-align: center;">{{person.marks}}</td>
+        <td *ngIf="person.marks>3" style="padding: 15px;text-align: center;">Pass</td>
+        <td *ngIf="person.marks<3" style="padding: 15px;text-align: center;">Fail</td>
+              
+        
+      </tr>
+
+    </table>  
+    
+    
+    </div> -->
+    <div>
+      <mat-form-field>
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table style="width: 100%;" >
+    <tr  style="background-color: skyblue;padding: 10%;text-align: center;"><th colspan="4" style="border: solid;">Leaderboard</th></tr>
+  </table>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style=" width: 100%;" >
+
+    <!-- ID Column -->
+    
+    <ng-container matColumnDef="id">
+
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> S.No </th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> UserName </th>
+      <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Date </th>
+      <td mat-cell *matCellDef="let row"> {{row.date}} </td>
+    </ng-container>
+    <!-- Color Column -->
+    <ng-container matColumnDef="marks">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Score </th>
+      <td mat-cell *matCellDef="let row" [style.color]="row.marks"> {{(row.marks/quiz.questions.length)*100 | number: '.2'}} %</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>
+</div>
+    </div>  
+    </mat-card> 
+    
+
+</body>
+</html>

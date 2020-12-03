@@ -86,4 +86,7 @@ export class QuizStartPageComponent implements OnInit {
   get Username() {
     return this.form.get('username');
   }
+  leaderboard(){
+    this.router.navigate(['leaderboard',this.quiz.quizId]);
+  }
 }

@@ -209,6 +209,7 @@ export class QuizComponent implements OnInit {
 
     }
     if(question.answer.answer){
+      console.log("trying to save answer");
         this.quizService.saveAnswer(question.answer).subscribe(
           response => {
           },
@@ -217,6 +218,7 @@ export class QuizComponent implements OnInit {
 
     }
     if(index==this.pager.count){
+      console.log("hello");
       this.onSubmit();
     }
     else{

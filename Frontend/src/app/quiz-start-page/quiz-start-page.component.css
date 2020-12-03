@@ -3,9 +3,21 @@
     box-shadow: 0 0 10px rgba(75, 16, 212, 0.39);
     padding: 15px 15px 15px 15px;
     width: 450px;
-    height: 450px;
+    
     align-content: center;
 
+}
+
+.show-less2 {
+    
+    height: 32rem;
+    overflow: hidden;
+    padding: 1rem;
+}
+.show-less {
+    height: 4rem;
+    overflow: hidden;
+    padding: 1rem;
 }
 #container2{
     margin-top: 50px;

@@ -19,6 +19,7 @@ export class QuizStartPageComponent implements OnInit {
   quiz: Quiz = new Quiz(null);
   
   @Input() username: string;
+  showShortDesciption = true;
 
   constructor(private quizService: QuizService, private cookie: CookieService, private fb: FormBuilder, private participantService: ParticipantService, private route: ActivatedRoute, private router: Router) { }
   form: FormGroup = new FormGroup({});
@@ -41,6 +42,11 @@ export class QuizStartPageComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
+  
+
+ alterDescriptionText() {
+    this.showShortDesciption = !this.showShortDesciption;
+ }
 
   loadQuiz(id: number) {
     this.quizService.get(id).subscribe(res => {

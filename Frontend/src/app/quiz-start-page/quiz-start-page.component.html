@@ -7,7 +7,7 @@
       srcset="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&amp;ssl=1 300w, https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?w=340&amp;ssl=1 340w"
       sizes="(max-width: 300px) 100vw, 300px" data-recalc-dims="1" />
     <div class="col-md-5 offset-md-3 mt-5">
-      <div class="container1">
+      <div class="container1" [ngClass]="{'show-less2': showShortDesciption}">
 
         <div class="text-center">
           <h2 ><b>Welcome to SBSI Quiz Portal</b></h2>
@@ -21,9 +21,15 @@
         <div class="text-center">
           <h3><b>Quiz Name :</b> {{quiz.quizName}} </h3>
         </div>
-        <div class="text-center">
+        <!-- <div class="text-center">
           <h3><b>Description : </b><i>{{quiz.description}}</i> </h3>
-        </div>
+        </div> -->
+        <div [ngClass]="{'show-less': showShortDesciption}">
+          <h3><b>Description : </b><i>{{quiz.description}}</i> </h3>
+      </div>
+      <button (click)="alterDescriptionText()" >
+        {{ showShortDesciption ? 'SHOW ALL': 'SHOW LESS' }}</button>
+        <br>
         <br>
 
         <div class="center">

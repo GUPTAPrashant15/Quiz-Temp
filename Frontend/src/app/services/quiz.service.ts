@@ -45,6 +45,7 @@ export class QuizService {
   saveAnswer(answer: Answer) {
       let url = this.baseUrl + "participation-view/quiz-score/" + answer.userName + "/" + answer.quizId + "/" + answer.quesId + "/" + answer.answer;
     return this.http.put(url, answer).pipe(map((response: any) => {
+      console.log(response);
       return (response)
     }), catchError((err: any) => {
       return throwError(err);
@@ -60,7 +61,9 @@ export class QuizService {
     let url = this.baseUrl + "participation-view/getUserScore/" + username + "/" + quizId + "/" + remTime;
     
     return this.http.get(url).pipe(map((response: any) => {
+      console.log(response);
       return (response)
+
 
     }), catchError((err: any) => {
       return throwError(err);

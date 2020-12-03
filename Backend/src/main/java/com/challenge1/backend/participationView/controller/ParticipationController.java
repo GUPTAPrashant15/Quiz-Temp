@@ -241,11 +241,14 @@ public class ParticipationController {
 
 		if (user != null) {
 
-			user.setCompleted(true);
+			if (!user.isCompleted()) {
 
-			user.setUserScore(Math.round(user.getUserScore() * (1 + (remTime / (totalQues * 600.0F))) * 100.0F));
+				user.setCompleted(true);
 
-			scoreRepo.save(quizData);
+				user.setUserScore(Math.round(user.getUserScore() * (1 + (remTime / (totalQues * 600.0F))) * 100.0F));
+
+				scoreRepo.save(quizData);
+			}
 
 			return user.getUserScore();
 

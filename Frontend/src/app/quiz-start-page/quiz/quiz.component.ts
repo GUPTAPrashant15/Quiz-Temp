@@ -41,6 +41,7 @@ export class QuizComponent implements OnInit {
   timeForCookie=0;
   remTime: number;
   answered: number=1;
+  last=false;
   
   
 
@@ -225,6 +226,7 @@ export class QuizComponent implements OnInit {
       this.textAnswer='';
       if(this.pager.index==this.pager.count-1){
         this.answered=3;
+        this.last=true;
         console.log("inside me");
       }
       else{

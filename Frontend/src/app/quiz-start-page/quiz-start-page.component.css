@@ -8,16 +8,10 @@
 
 }
 
-.show-less2 {
-    
-    height: 32rem;
-    overflow: hidden;
-    padding: 1rem;
-}
 .show-less {
     height: 4rem;
     overflow: hidden;
-    padding: 1rem;
+    
 }
 #container2{
     margin-top: 50px;

@@ -39,18 +39,18 @@
             </h3>
             <div class="row text-left">
               <div class="col-12">
-                <div class=" col-6" *ngIf="question.quesType=='Single Correct'">
+                <div class=" col-10" *ngIf="question.quesType=='Single Correct'">
                   <label class="font-weight-normal">
-                    (A)<input type="radio" name="optradio"  (change)="onSelect(question,question.option1,'A');" /> {{question.option1}}
+                    <input type="radio" name="optradio"  (change)="onSelect(question,question.option1,'A');" /> {{question.option1}}
                   </label><br>
                   <label class="font-weight-normal">
-                    (B)<input type="radio" name="optradio" (change)="onSelect(question,question.option2,'B');" /> {{question.option2}}
+                    <input type="radio" name="optradio" (change)="onSelect(question,question.option2,'B');" /> {{question.option2}}
                   </label><br>
                   <label class="font-weight-normal">
-                    (C)<input type="radio" name="optradio" (change)="onSelect(question,question.option3,'C');" /> {{question.option3}}
+                    <input type="radio" name="optradio" (change)="onSelect(question,question.option3,'C');" /> {{question.option3}}
                   </label><br>
                   <label class="font-weight-normal">
-                    (D)<input type="radio" name="optradio" (change)="onSelect(question,question.option4,'D');" /> {{question.option4}}
+                    <input type="radio" name="optradio" (change)="onSelect(question,question.option4,'D');" /> {{question.option4}}
                   </label>
                 </div>
               <div class=" col-6" *ngIf="question.quesType=='Multiple Correct'">
@@ -79,13 +79,13 @@
             </div>
           </div>
           <hr/>
-          <div class="pull-right" *ngIf="answered==1">
+          <div class="pull-right" *ngIf="answered==1 && !last">
             <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Skip</button>
           </div>
-          <div class="pull-right" *ngIf="answered==2">
+          <div class="pull-right" *ngIf="answered==2 && !last">
             <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Save & Next</button>
           </div>
-          <div class="pull-right" *ngIf="answered==3">
+          <div class="pull-right" *ngIf="last">
             <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Save & Submit</button>
           </div>
         </div>

@@ -216,9 +216,8 @@ public class ParticipationController {
 
 		logger.info("----- Inside Get Result API -----");
 
-		ScoreModel quiz = scoreRepo.findByQuizId(quizId);
-		ScoreModel finalData = scoreService.getParticipants(quiz);
-		System.out.println("From inside getResultById() Function : " + quiz.getAnswerData());
+		ScoreModel finalData = scoreService.getParticipants(scoreRepo.findByQuizId(quizId));
+		System.out.println("From inside getResultById() Function : " + finalData);
 
 		return finalData;
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { QuizService } from '../../services/quiz.service';
 
@@ -42,6 +42,7 @@ export class QuizComponent implements OnInit {
   remTime: number;
   answered: number=1;
   last=false;
+  submitCount=0;
   
   
 
@@ -69,6 +70,9 @@ export class QuizComponent implements OnInit {
     this.pager.count = this.quiz.l;
     this.startTime = new Date();
     this.duration = this.parseTime(this.quiz.time);
+    if(this.pager.index==this.pager.count-1){
+      this.last=true;
+    }
     
     this.timer = setInterval(() => { this.tick(); }, 1000);
     
@@ -106,8 +110,11 @@ export class QuizComponent implements OnInit {
     this.diff = (now.getTime() - this.startTime.getTime()+this.timeForCookie*1000) / 1000;
     this.getLiveUsers(this.quiz.quizId);
     this.remTime=this.remTime-1;
-    if (this.diff >= this.quiz.time) {
+    if (this.diff >= this.quiz.time && this.submitCount==0) {
       this.remTime=1;
+      console.log(this.quiz.questions[this.pager.index]);
+      this.goTo(this.quiz.questions[this.pager.index],this.pager.index + 1);
+      this.submitCount=1;
       this.onSubmit();
 
 

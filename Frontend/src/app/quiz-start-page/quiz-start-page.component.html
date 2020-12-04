@@ -1,5 +1,6 @@
-<div class="container">
-<div *ngIf="front">
+
+<div class="container" *ngIf="front">
+<div >
   <div class="row">
     <img class="alignleft wp-image-63595 size-medium "
       src="https://i0.wp.com/www.itnation.lu/content/uploads/2020/09/SBsoftware3.jpg?resize=300%2C113&#038;ssl=1" alt=""
@@ -79,8 +80,10 @@
 
 
 </div>
+</div>
 
 <div *ngIf="!front">
+  
   <app-quiz [userName]=username [quiz]=quiz></app-quiz>
 </div>
-</div>
+

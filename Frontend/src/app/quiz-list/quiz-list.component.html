@@ -29,7 +29,7 @@
         <tbody>
             <tr *ngFor="let quiz of quizzes |async |filter:searchValue; let i = index" >
                 <td>{{i+1}}</td>
-                <td>{{quiz.quizName}}</td>
+                <td><a class="btn btn-link" (click)="previewQuiz(quiz)">{{quiz.quizName}}</a></td>
                 <!-- <td>{{quiz.isLiveStatus}}</td> -->
                 <td>
                 <button  style="margin-left: 30px" *ngIf="!quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >

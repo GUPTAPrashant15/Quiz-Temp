@@ -23,6 +23,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ResetSuccessComponent } from './reset-success/reset-success.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { UrlComponent } from './url/url.component';
+import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
 const routes: Routes = [
   {path:"",redirectTo:"/login",pathMatch:"full"},
   // {path:"add",redirectTo:"addQuiz",pathMatch:"full"},
@@ -38,7 +39,9 @@ const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"forgotten-password",component:ForgotPasswordComponent},
   {path:'leaderboard/:id', component:LeaderBoardComponent},
-  { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] }
+  { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] },
+  { path: "preview-quiz/:id", component:PreviewQuizComponent }
+  
 
    //,{path: "home", component:HomeComponent}
   
@@ -51,5 +54,5 @@ const routes: Routes = [
 //export class AppRoutingModule { }
 
 export class AppRoutingModule { }
-export const routingComponents=[RegistrationComponent,ForgotPasswordComponent,LoginComponent, HomeComponent,LeaderBoardComponent]
+export const routingComponents=[RegistrationComponent,ForgotPasswordComponent,LoginComponent, HomeComponent,LeaderBoardComponent, PreviewQuizComponent]
 

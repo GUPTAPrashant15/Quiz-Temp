@@ -6,6 +6,23 @@
     align-content: center;
 
 }
+#lb {
+  padding: 10px 20px;
+  background-color:  #fff;
+  color:  #333;
+  border: 1px solid #333;
+  border-radius: 0;
+  transition: .2s;
+}
+
+/* On hover, the color of .btn will transition to white with black text */
+#lb:hover, #lb:focus {
+  border: 1px solid rgb(51, 51, 51);
+  background-color: #fff;
+  color: #000;
+  box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+  transition: box-shadow 0.5s;
+}
 #us{
   
   box-shadow: 0 0 10px rgba(31, 151, 211, 0.39);

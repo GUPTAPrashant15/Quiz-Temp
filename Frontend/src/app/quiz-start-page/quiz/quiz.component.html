@@ -1,4 +1,26 @@
-<br><div class="row">
+
+<!-- <div *ngIf="!front" class="secondnav" style="background-color: lightcyan;">
+  <table ><tr>
+              <td style="padding: 10px; "><h2><fa-icon [icon]="faUser"></fa-icon> Hi {{userName}}</h2></td>
+              <td style="padding: 10px; "><h2><b>Quiz ID :</b> {{quiz.quizId}}</h2></td>
+              <td style="padding: 10px; "><h2><b>Quiz Name :</b> {{quiz.quizName}}</h2></td>
+          
+              <td style="padding: 10px; ">
+                <h2><div *ngIf="this.quiz.time">
+                  <fa-icon [icon]="faClock"></fa-icon>
+                   {{ellapsedTime}} / {{duration}}</div>
+                </h2>
+              </td>
+              <td style="padding: 10px; ">
+                <h2 class="text-center ">
+                  <fa-icon [icon]="faEye"></fa-icon> Live Users : {{liveUsers}}</h2>
+              </td>
+          </tr>
+  </table>
+
+</div> -->
+<div class="container-fluid" >
+<div class="row">
   <div class="col-sm-4 text-center" id="us">
     <br>
     <br>
@@ -7,6 +29,7 @@
   </div>
   <div class="col-sm-4" id="us"> 
     <br>
+
     <table style="width:100%">
       <tr>
         <td><h3 class="text-center ">Quiz Id: </h3></td>
@@ -17,15 +40,12 @@
         <td><h3 class="text-center ">{{quiz.quizName}}</h3></td>
       </tr>
     </table>
-    <!-- <h3 class="text-center ">Quiz Id:{{quiz.quizId}}</h3>
-    <h3 class="text-center ">Quiz Name: {{quiz.quizName}}</h3> -->
     
   </div>
   <div class="col-sm-4 text-center " id="us">
     <br>
     <h2 class="text-center "><fa-icon [icon]="faEye"></fa-icon> Live Users : {{liveUsers}}</h2>
     <h2 class="font-weight-normal"><div *ngIf="this.quiz.time"><fa-icon [icon]="faClock"></fa-icon> {{ellapsedTime}} / {{duration}}</div></h2>
-    <!-- <h4 class="font-weight-normal"><div *ngIf="config.duration" class="badge badge-default float-right">Time: {{ellapsedTime}} / {{duration}}</div></h4><br> -->
     <!-- <button class="btn btn-info " (click)="onSubmit();">Submit Quiz</button> -->
   </div>   
 </div>
@@ -53,36 +73,36 @@
             <div class="row text-left">
               <div class="col-12">
                 <div class=" col-10" *ngIf="question.quesType=='Single Correct'">
-                  <label class="font-weight-normal">
+                  <label id="lb" class="font-weight-normal">
                     <input type="radio" name="optradio"  (change)="onSelect(question,question.option1,'A');" /> {{question.option1}}
                   </label><br>
-                  <label class="font-weight-normal">
+                  <label id="lb" class="font-weight-normal">
                     <input type="radio" name="optradio" (change)="onSelect(question,question.option2,'B');" /> {{question.option2}}
                   </label><br>
-                  <label class="font-weight-normal">
+                  <label id="lb" class="font-weight-normal">
                     <input type="radio" name="optradio" (change)="onSelect(question,question.option3,'C');" /> {{question.option3}}
                   </label><br>
-                  <label class="font-weight-normal">
+                  <label id="lb" class="font-weight-normal">
                     <input type="radio" name="optradio" (change)="onSelect(question,question.option4,'D');" /> {{question.option4}}
                   </label>
                 </div>
-              <div class=" col-6" *ngIf="question.quesType=='Multiple Correct'">
-                <label class="font-weight-normal">
+              <div class=" col-10" *ngIf="question.quesType=='Multiple Correct'">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option1,'A');" /> {{question.option1}}
                 </label><br>
-                <label class="font-weight-normal">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option2,'B');" /> {{question.option2}}
                 </label><br>
-                <label class="font-weight-normal">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option3,'C');" /> {{question.option3}}
                 </label><br>
-                <label class="font-weight-normal">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option4,'D');" /> {{question.option4}}
                 </label>
               </div>
-              <div class="col-6" *ngIf="question.quesType=='Textual'">
+              <div class="col-10" *ngIf="question.quesType=='Textual'">
                 <div class="form-group">
-                  <label for="comment">Answer:</label>
+                  <label id="lb" for="comment">Answer:</label>
                   <textarea class="form-control" 
                   rows="5" id="textAnswer" [(ngModel)]="textAnswer" 
                   (ngModelChange)="onWritingText(question);">
@@ -109,6 +129,7 @@
 
 </div>
 </ng-template>
+</div>
 <!-- <ng-template #elsepart>
   <hr>
   <div class="progress progress-easy">

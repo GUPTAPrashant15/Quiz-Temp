@@ -24,7 +24,7 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
   /**
    * Name of column
    */
-  displayedColumns: string[] = ['id', 'username', 'date', 'marks'];
+  displayedColumns: string[] = ['id', 'username', 'marks'];
   dataSource: MatTableDataSource<UserData>;
   /**
    * Adding mat paginator in table.

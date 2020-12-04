@@ -38,8 +38,8 @@
           <form [formGroup]="form" #userInformation (ngSubmit)="userForm(userInformation)" class="form-verticle">
             <div class="row">
               <div class=" col-md-8 ">
-                <input formControlName="username" class="form-control " type="text" minlength="5" maxlength="12"
-                  style="width:250px;" placeholder="Please enter a Username">
+                <input formControlName="username" class="form-control button1" type="text" minlength="5" maxlength="12"
+                  style="width:250px;" placeholder="Please enter a Username" id="input1">
                 <div *ngIf="f.username.touched && f.username.invalid">
                   <small CLASS="text-danger" *ngIf="f.username.errors.required">Username is required.</small>
                   <small CLASS="text-danger" *ngIf="f.username.errors.maxlength"></small>
@@ -53,20 +53,25 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="margin-top: 40px;">
+          
+            <div class="row" style="margin-top: 20px;">
               <div class="col-md-8">
                 <button class="btn btn-md btn-success btn-style" id="bn" [disabled]="!form.valid">Let's Start
                   Quiz</button>
               </div> 
             </div>
-            <hr>
-
-            <div >
-              <button  (click)="leaderboard() ">Leaderboard</button>
-
-            </div>
           </form>
         </div>
+            <hr style="height:1px;border-width:0;color:gray;background-color:gray">
+            
+
+            <div class="row leaderboard">
+              <button class="btn btn-md btn-info btn-style" (click)="leaderboard()">
+                Leaderboard
+              </button>
+            </div>
+          
+        
       </div>
     </div>
   </div>

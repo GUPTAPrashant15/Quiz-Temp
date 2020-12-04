@@ -3,7 +3,6 @@
     box-shadow: 0 0 10px rgba(75, 16, 212, 0.39);
     padding: 15px 15px 15px 5px;
     width: 450px;
-    height: 430px;
     align-content: center;
     border-radius: 20px;
 
@@ -33,11 +32,14 @@
 } 
 
 hr{
-    width: 75%;
+    width: 60%;
     height: 3px;
 }
 
-
+a{
+    cursor: pointer;
+    padding-left: 350px;
+}
 
 
 

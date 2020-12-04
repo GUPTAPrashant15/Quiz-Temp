@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ParticipantService } from 'src/app/services/participant.service';
 import { HostListener } from '@angular/core';
 import { faClock, faEye, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AlertDialog } from 'src/app/add-questions/add-questions.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-quiz',
@@ -48,7 +50,7 @@ export class QuizComponent implements OnInit {
 
   textAnswer = '';
 
-  constructor(private quizService: QuizService, private router: Router,
+  constructor(private quizService: QuizService, private router: Router,public dialog: MatDialog,
     private route: ActivatedRoute, private participantService: ParticipantService, private cookie: CookieService) { }
 
   ngOnInit() {
@@ -110,11 +112,13 @@ export class QuizComponent implements OnInit {
     this.diff = (now.getTime() - this.startTime.getTime()+this.timeForCookie*1000) / 1000;
     this.getLiveUsers(this.quiz.quizId);
     this.remTime=this.remTime-1;
+    if(this.remTime==30 && this.submitCount==0){
+      this.dialog.open(AlertDialog, { data: { message: '30 Seconds left.Please save your answer ' } });
+    }
     if (this.diff >= this.quiz.time && this.submitCount==0) {
-      this.remTime=1;
-      console.log(this.quiz.questions[this.pager.index]);
-      this.goTo(this.quiz.questions[this.pager.index],this.pager.index + 1);
       this.submitCount=1;
+      
+      
       this.onSubmit();
 
 
@@ -248,12 +252,15 @@ export class QuizComponent implements OnInit {
   score: number;
 
   onSubmit() {
+    this.submitCount=1;
 
    console.log(this.remTime);
 
     this.quizService.submitQuiz(this.userName, this.quiz.quizId,this.remTime).subscribe(
       response => {
+        console.log("-----------------",response);
         this.score = response;
+        console.log(this.score);
         
         this.router.navigateByUrl('/result', { state: { quiz: this.quiz, username: this.userName, score: this.score } });
       }, (error) => console.log('error', error)

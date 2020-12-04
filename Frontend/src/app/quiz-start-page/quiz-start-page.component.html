@@ -29,8 +29,8 @@
           <h3><b>Description : </b><i>{{quiz.description}}</i> </h3>
       </div>
       <div *ngIf="quiz.descriptionLength>100">
-      <button (click)="alterDescriptionText()" >
-        {{ showShortDesciption ? 'SHOW ALL': 'SHOW LESS' }}</button>
+      <a (click)="alterDescriptionText()" style="color: blue;" ><u>
+        {{ showShortDesciption ? 'show all': 'show less' }}</u></a>
         <br><br>
       </div>
 

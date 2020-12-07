@@ -21,31 +21,40 @@ export class QuizService {
   get(id: number): Observable<any> {
     let url = this.baseUrl + "participation-view/quiz-view/" + id;
     return this.http.post(url, id).pipe(map((response: any) => {
-      // const dateNow = new Date();
-       const dateNow=this.datepipe.transform(new Date(), 'MM/dd/yyyy hh:mm:ss');
+       const dateNow = new Date();
+      //  console.log(dateNow);
+       dateNow.setMinutes(dateNow.getMinutes()+30);
+       dateNow.setHours(dateNow.getHours()+5);
+      //  console.log(dateNow);
+       const dateNow1=this.datepipe.transform(dateNow, 'MM/dd/yyyy hh:mm:ss');
+      //  console.log(dateNow1);
+      //  const dateNow=this.datepipe.transform(new Date(), 'MM/dd/yyyy hh:mm:ss');
       
       // console.log(this.datepipe.transform(dateNow, 'MM/dd/yyyy hh:mm:ss'));
       
       response.startDate=this.datepipe.transform(response.startDate, 'MM/dd/yyyy hh:mm:ss');
       response.endDate=this.datepipe.transform(response.endDate, 'MM/dd/yyyy hh:mm:ss');
-      console.log(!response.liveStatus && !(response.startDate<dateNow && response.endDate>dateNow));
-      if (!response.liveStatus || !(response.startDate<dateNow && response.endDate>dateNow)) {
+      // console.log((!response.liveStatus));
+      // console.log(!(response.startDate<dateNow1 && response.endDate>dateNow1));
+      
+      // console.log((!response.liveStatus || !(response.startDate<dateNow1 && response.endDate>dateNow1)));
+      if (!response.liveStatus || !(response.startDate<dateNow1 && response.endDate>dateNow1)) {
         this.router.navigate(['/quiz-not-found']);
         
-        console.log(dateNow);
+        console.log(dateNow1);
         
         console.log(response.startDate);
         console.log(response.endDate);
-        console.log(response.startDate<dateNow);
-        console.log(response.endDate>dateNow);
+        // console.log(response.startDate<dateNow1);
+        // console.log(response.endDate>dateNow1);
       } else {
-        console.log(dateNow);
+        console.log(dateNow1);
         response.startDate=this.datepipe.transform(response.startDate, 'MM/dd/yyyy hh:mm:ss');
         response.endDate=this.datepipe.transform(response.endDate, 'MM/dd/yyyy hh:mm:ss');
         console.log(response.startDate);
         console.log(response.endDate);
-        console.log(response.startDate<dateNow);
-        console.log(response.endDate>dateNow);
+        console.log(response.startDate<dateNow1);
+        console.log(response.endDate>dateNow1);
         
         return (response)
       }

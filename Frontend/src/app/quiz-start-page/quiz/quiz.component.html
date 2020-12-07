@@ -58,7 +58,7 @@
   [ngClass]="getStyleClass(pager.index/pager.count)"> Attempted {{(pager.index/pager.count)*100 | number}} %
   </div>
 </div>
-<div id="quiz"> 
+<div > 
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -113,13 +113,13 @@
           </div>
           <hr/>
           <div class="pull-right" *ngIf="answered==1 && !last">
-            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Skip</button>
+            <button class="btn btn-primary" (click)="moveToNextQuestion(question,pager.index + 1);" >Skip</button>
           </div>
           <div class="pull-right" *ngIf="answered==2 && !last">
-            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Save & Next</button>
+            <button class="btn btn-primary" (click)="moveToNextQuestion(question,pager.index + 1);" >Save & Next</button>
           </div>
           <div class="pull-right" *ngIf="last">
-            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);" >Save & Submit</button>
+            <button class="btn btn-primary" (click)="moveToNextQuestion(question,pager.index + 1);" >Save & Submit</button>
           </div>
         </div>
       </div>

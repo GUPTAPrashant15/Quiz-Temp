@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import * as XLSX from 'xlsx';
 /**
  * This component enables the user for analysis the quiz, on this basis of score , point vs count graph, Response vs count graph.
  */
@@ -22,6 +23,7 @@ export class RealComponent implements OnInit, AfterViewInit {
   /**
    * Name of column
    */
+   fileName= 'ExcelSheet.xlsx';
   displayedColumns: string[] = ['id', 'username', 'date', 'marks'];
   dataSource: MatTableDataSource<UserData>;
   /**
@@ -122,7 +124,20 @@ export class RealComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/list'], { relativeTo: this.route });
   }
 
+  exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('excel-table'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
 
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+      
+    }
   /**
    * This method is used to store the result into a list.
    * @param result is object of type results .

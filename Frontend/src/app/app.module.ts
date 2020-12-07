@@ -65,6 +65,8 @@ import { SocialLoginModule, SocialAuthServiceConfig } from "angularx-social-logi
 import { GoogleLoginProvider} from "angularx-social-login";
 import { LeaderBoardComponent } from './leader-board/leader-board.component';
 import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
+import {​​​​​​​​ DatePipe }​​​​​​​​ from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -144,7 +146,7 @@ import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
     ]),
     AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule, CountdownModule, HttpModule],
   providers: [
-  SocialMediaAuthService,
+  SocialMediaAuthService,DatePipe,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -161,6 +163,7 @@ import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
     },
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  
     ForgotPwdService, CreateQuizService, AnlysisResultService, RealtimeresultService,
     // provider used to create fake backend
     fakeBackendProvider, ParticipantService, CookieService

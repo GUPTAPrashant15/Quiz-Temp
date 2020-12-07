@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { IfStmt } from '@angular/compiler';
 import { Route } from '@angular/compiler/src/core';
@@ -15,16 +16,40 @@ export class QuizService {
 
   private baseUrl = "http://localhost:8080/";
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router,public datepipe: DatePipe) { }
 
   get(id: number): Observable<any> {
     let url = this.baseUrl + "participation-view/quiz-view/" + id;
     return this.http.post(url, id).pipe(map((response: any) => {
-      if (!response.liveStatus) {
+      // const dateNow = new Date();
+       const dateNow=this.datepipe.transform(new Date(), 'MM/dd/yyyy hh:mm:ss');
+      
+      // console.log(this.datepipe.transform(dateNow, 'MM/dd/yyyy hh:mm:ss'));
+      
+      response.startDate=this.datepipe.transform(response.startDate, 'MM/dd/yyyy hh:mm:ss');
+      response.endDate=this.datepipe.transform(response.endDate, 'MM/dd/yyyy hh:mm:ss');
+      console.log(!response.liveStatus && !(response.startDate<dateNow && response.endDate>dateNow));
+      if (!response.liveStatus || !(response.startDate<dateNow && response.endDate>dateNow)) {
         this.router.navigate(['/quiz-not-found']);
+        
+        console.log(dateNow);
+        
+        console.log(response.startDate);
+        console.log(response.endDate);
+        console.log(response.startDate<dateNow);
+        console.log(response.endDate>dateNow);
       } else {
+        console.log(dateNow);
+        response.startDate=this.datepipe.transform(response.startDate, 'MM/dd/yyyy hh:mm:ss');
+        response.endDate=this.datepipe.transform(response.endDate, 'MM/dd/yyyy hh:mm:ss');
+        console.log(response.startDate);
+        console.log(response.endDate);
+        console.log(response.startDate<dateNow);
+        console.log(response.endDate>dateNow);
+        
         return (response)
       }
+      
     }), catchError((err: any) => {
       return throwError(err);
     }

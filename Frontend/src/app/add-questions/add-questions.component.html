@@ -13,7 +13,12 @@
                 <input matInput formControlName="question_text">
                 
             </mat-form-field>
-            <button class="photo"><mat-icon>photo</mat-icon></button>
+            
+                <input style="display:none;" #fileInput type="file" (change)="onFileSelected($event)" formControlName="ques_Image">
+                <button type="button" class="photo" (click)="fileInput.click()"><mat-icon>photo</mat-icon></button>
+            <div>
+                <img [src]="imgURL" height="125" width="125" *ngIf="imgURL">
+            </div>
 
             <mat-form-field appearance="fill" id="type">
                 <mat-label>Type of Question</mat-label>
@@ -121,6 +126,9 @@
                         <button mat-mini-fab color="warn" class="pull-right" aria-label="Delete" (click)="onDelete(q)">
                             <mat-icon>delete</mat-icon>
                         </button>
+                        <div>
+                            <img [src]="imgURL" height="125" width="125" *ngIf="imgURL">
+                        </div>
                         <ng-container *ngIf="q.quesType =='Single Correct'">
                             <div>
                                 <ol>

@@ -1,6 +1,9 @@
+import { Binary } from '@angular/compiler';
+
 export class Question {
     quesID: number;
     question: string;
+    quesImage:any;
     quesType: any;
     option1: any;
     option2: any;

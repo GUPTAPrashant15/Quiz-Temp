@@ -33,6 +33,7 @@ export class AddQuestionsComponent implements OnInit {
 
   question_form = this.fb.group({
     question_text: [''],
+    ques_Image: [''],
     type: [''],
     option1: [''],
     option2: [''],
@@ -63,6 +64,32 @@ export class AddQuestionsComponent implements OnInit {
       this.quizId = param.quizId;
     })
   }
+
+  selectedFile: File = null ; 
+  retrievedImage: any;
+  base64Data: any;
+
+  public imagePath;
+  imgURL: any;
+  event1 : any;
+
+  onFileSelected(event){
+    //this.event = event1;
+    //this.event1 = event;
+    console.log(event);
+    this.selectedFile = <File>event.target.files[0];
+    
+    var reader = new FileReader();
+    this.imagePath = event.target.files;
+    if(event.target.files[0]){
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    //reader.readAsDataURL(event.target.files[0]); 
+    //reader.readAsDataURL(this.event1.target.files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+    }
+  }
 /**
  * This method deletes the selected question.
  * This method will call when user clicking on delete icon in Added Question .
@@ -92,6 +119,19 @@ export class AddQuestionsComponent implements OnInit {
     let ta = this.question_form.value.text_answer;
     let ty = this.question_form.value.type;
 
+    let quesImg = this.selectedFile;
+    // let quesImg = this.question_form.value.ques_Image;
+     //this.selectedFile = null;
+     //this.imgURL = null;
+    console.log(quesImg);
+     var reader = new FileReader();
+     //this.imagePath = event.target.files;
+     reader.readAsDataURL(quesImg); 
+     reader.onload = (_event) => { 
+       this.imgURL = reader.result; 
+     }
+
+
     let message: string;
     if (ques == "" || ques == null) {
       this.dialog.open(AlertDialog, { data: { message: 'Question cannot be empty!' } });
@@ -110,6 +150,11 @@ export class AddQuestionsComponent implements OnInit {
     tempObj.option2 = o2;
     tempObj.option3 = o3;
     tempObj.option4 = o4;
+
+    // var binary = reader.readAsBinaryString(quesImg);
+
+    // tempObj.quesImage = binary;
+    tempObj.quesImage = quesImg;
 
     if (tempObj.quesType != 'Textual') {
       if (o1 == "" || o2 == "" || o3 == "" || o4 == "" || o1 == null || o2 == null || o3 == null || o4 == null) {

@@ -40,7 +40,7 @@ const routes: Routes = [
   {path:"forgotten-password",component:ForgotPasswordComponent},
   {path:'leaderboard/:id', component:LeaderBoardComponent},
   { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] },
-  { path: "preview-quiz/:id", component:PreviewQuizComponent }
+  { path: "preview-quiz/:id", component:PreviewQuizComponent, canActivate: [AuthGuard] }
   
 
    //,{path: "home", component:HomeComponent}

@@ -37,7 +37,8 @@ export class QuizComponent implements OnInit {
   ellapsedTime = '00:00';
   duration = '';
   diff: number=0;
-  keyForCookie: string=null;
+  keyForIndexCookie: string=null;
+  keyForTimeCookie: string=null;
   timeForCookie=0;
   remTime: number;
   answered: number=1;
@@ -69,14 +70,16 @@ export class QuizComponent implements OnInit {
     checking cookie if any present for this user and asigning it to pager.index
     to start from same question where he left
      */
-    this.pager.index = Number(this.cookie.get(this.userName));
+    this.keyForIndexCookie=this.quiz.quizId+this.userName;
+    console.log(this.keyForIndexCookie);
+    this.pager.index = Number(this.cookie.get(this.keyForIndexCookie));
     /* 
     checking cookie if any present for this user and asigning it to ellapsedTime
     to start from same time interval where he left
      */
-    this.keyForCookie=this.userName + 's';
-    if(this.cookie.get(this.keyForCookie)){
-      this.ellapsedTime = this.cookie.get(this.keyForCookie);
+    this.keyForTimeCookie=this.quiz.quizId+'@'+ this.userName;
+    if(this.cookie.get(this.keyForTimeCookie)){
+      this.ellapsedTime = this.cookie.get(this.keyForTimeCookie);
       /* 
         converting ellapsed time in seconds after fetching it from cookie
       */
@@ -118,7 +121,7 @@ export class QuizComponent implements OnInit {
   async ngOnDestroy() {
     const dateNow = new Date();
     dateNow.setHours(dateNow.getHours() + 1);
-    this.cookie.set(this.keyForCookie,this.ellapsedTime, dateNow);
+    this.cookie.set(this.keyForTimeCookie,this.ellapsedTime, dateNow);
     this.participantService.removeParticipant(this.quiz.quizId).subscribe(res => {
 
 
@@ -352,7 +355,7 @@ export class QuizComponent implements OnInit {
     */
     const dateNow = new Date();
     dateNow.setHours(dateNow.getHours() + 1);
-    this.cookie.set(this.userName, (this.pager.index + 1).toString(), dateNow);
+    this.cookie.set(this.keyForIndexCookie, (this.pager.index + 1).toString(), dateNow);
     /* 
         If index is less than pager.count increase pager.index
     */
@@ -427,7 +430,9 @@ export class QuizComponent implements OnInit {
         this.router.navigateByUrl('/result', { state: { quiz: this.quiz, username: this.userName, score: this.score } });
       }, (error) => console.log('error', error)
     )
-    this.cookie.delete(this.userName);
-    this.cookie.delete(this.keyForCookie);
+    this.cookie.delete(this.keyForIndexCookie);
+    this.cookie.delete(this.keyForTimeCookie);
+    console.log(this.cookie.delete(this.keyForTimeCookie));
+    console.log(this.keyForTimeCookie);
   }
 }

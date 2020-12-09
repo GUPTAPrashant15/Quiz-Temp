@@ -56,7 +56,7 @@ export class QuizStartPageComponent implements OnInit {
   index: any=0;
   userForm(userInformation) {
 
-    if (this.cookie.get(this.Username.value) != "") {
+    if (this.cookie.get(this.quiz.quizId+this.Username.value) != "") {
       
       this.username = this.Username.value;
       this.front = false;
@@ -71,7 +71,7 @@ export class QuizStartPageComponent implements OnInit {
             this.front = false;
             const dateNow = new Date();
             dateNow.setHours(dateNow.getHours() + 1);
-            this.cookie.set(this.username, (this.index).toString(), dateNow);
+            this.cookie.set(this.quiz.quizId+this.username, (this.index).toString(), dateNow);
 
            
           }

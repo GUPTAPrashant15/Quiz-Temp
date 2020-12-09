@@ -59,7 +59,7 @@
 <body>
 
 <div class="secondnav" style="background-color: lightcyan;">
-  <table ><tr><td style="padding: 10px; "><b>Quiz:</b> {{quiz.quizName }}</td><td ><b>Status:</b> {{(quiz.isLiveStatus)?'Active':'Inactive'}}</td><td></td><td></td><td> <button id="back" mat-raised-button color="primary" (click)="createdQuiz()" style="margin-right: 15px">Back</button></td></tr></table>
+  <table ><tr><td style="padding: 10px; "><b>Quiz:</b>{{quiz_name}} </td><td ><b>Status:</b> {{(quizStatus)?'Active':'Inactive'}}</td><td></td><td></td><td> <button id="back" mat-raised-button color="primary" (click)="createdQuiz()" style="margin-right: 15px">Back</button></td></tr></table>
 
 </div>
 
@@ -71,11 +71,11 @@
       <table>
     <tr>
       <td style="padding: 15px;"><b>Date Published: </b></td>
-      <td>{{quiz.createdDate}}</td>
+      <td>{{createdDate}}</td>
     </tr>
     <tr>
       <td style="padding: 15px;"><b>Total Respondants: </b></td>
-      <td>{{result.answerData.length}}</td>
+      <td>{{total_respondants}}</td>
     </tr>
     
     <tr>
@@ -84,7 +84,7 @@
     </tr>
     <tr>
       <td style="padding:15px;"><b>Response vs Count Graph: </b></td>
-      <td> <button id="rcg" mat-raised-button color="primary" (click)="generateRCG(quiz)">Generate Graph</button></td>
+      <td> <button id="rcg" mat-raised-button color="primary" (click)="generateRCG(quiz)" >Generate Graph</button></td>
     </tr>
     <tr>
       <td style="padding:15px;"><b>Download Result </b></td>

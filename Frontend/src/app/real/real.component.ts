@@ -42,14 +42,6 @@ export class RealComponent implements OnInit, AfterViewInit {
   public sampleArray: UserData[] = [];
 
   constructor(private _realtimeresult: RealtimeresultService, private router: Router, private route: ActivatedRoute) {
-    console.log(this.MyArray.length + "hy");
-  }
-  /**
-   * This is used to add paginator and sorting in mat-table
-   */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
   /**
    * This is used to add filter in every column.
@@ -66,39 +58,50 @@ export class RealComponent implements OnInit, AfterViewInit {
   public quiz;
   public result;
   public quizId: any;
-  public quizStatus;
-
+  public quizStatus=false;
+  public total_respondants = 0;
+  public createdDate = "";
+  quiz_name="";
   /**
    * This is used to fetch the quiz data at a time of page calling.
    * It fetch the quiz data by quizId and also fetch the result data on the basis of quizId.
    */
   ngOnInit() {
 
-    console.log(this.MyArray.length + "HyONinit");
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.quizId = id;
     this._realtimeresult.getQuizById(this.quizId).subscribe(data => {
       this.quiz = data;
-      console.log(this.quiz.keys() + this.quiz.description + "Hey Logger");
+      this.quiz_name = this.quiz.quizName;
+      this.quizStatus = this.quiz.isLiveStatus;
+      this.createdDate = this.quiz.createdDate;
+      console.log("Hey Logger");
     });
-    this._realtimeresult.getResultById(this.quizId).subscribe(data => {
+   
+
+  }
+
+  /**
+   * This is used to add paginator and sorting in mat-table
+   */
+  ngAfterViewInit() {
+this._realtimeresult.getResultById(this.quizId).subscribe(data => {
       this.result = data;
+      this.total_respondants = this.result.answerData.length;
       this.sampleData(this.result);
       this.dataSource = new MatTableDataSource(this.sampleArray);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
 
-
   }
-
-
+  
 
   public tagselected = "";
-  quiz_name;
+  
   quiz_status = "Open";
   date_published = "10 Oct 2020 8:57pm";
-  total_respondants = "7";
+  
 
   /**
    * This method will call when user clicking in response vs count graph button.

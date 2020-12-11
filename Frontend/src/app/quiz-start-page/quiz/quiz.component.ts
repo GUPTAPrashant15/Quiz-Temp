@@ -1,13 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { QuizService } from '../../services/quiz.service';
-import { Question, Quiz } from '../../models/index';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParticipantService } from 'src/app/services/participant.service';
 import { HostListener } from '@angular/core';
 import { faClock, faEye, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AlertDialog } from 'src/app/add-questions/add-questions.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Quiz } from 'src/app/models/quiz';
+import { Question } from 'src/app/models/question';
 
 @Component({
   selector: 'app-quiz',
@@ -165,7 +167,14 @@ export class QuizComponent implements OnInit {
         and quiz is not submitted
     */
     if(this.remTime==30 && this.submitCount==0){
-      this.dialog.open(AlertDialog, { data: { message: '30 Seconds left.Please save your answer ' } });
+      console.log("hi");
+      const timeout=5000;
+      const dialogRef=this.dialog.open(AlertDialog, { data: { message: '30 Seconds left.Please submit your quiz ' } });
+      dialogRef.afterOpened().subscribe(_ => {
+        setTimeout(()=>{
+          dialogRef.close();
+        },timeout)
+      })
     }
     /* 
         If no more time is remaining and quiz is not submited 

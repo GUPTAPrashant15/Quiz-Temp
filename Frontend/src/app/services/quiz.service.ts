@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
-import { Quiz } from '../models';
 import { Answer } from '../models/answer';
 
 @Injectable()

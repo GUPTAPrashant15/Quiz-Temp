@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Quiz } from '../models';
+import { Quiz } from '../models/quiz';
+
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',

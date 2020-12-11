@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Quiz } from '../models';
+
 import { ParticipantService } from '../services/participant.service';
 import { QuizService } from '../services/quiz.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Quiz } from '../models/quiz';
 
 @Component({
   selector: 'app-quiz-start-page',

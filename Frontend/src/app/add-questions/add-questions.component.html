@@ -14,10 +14,10 @@
                 
             </mat-form-field>
             
-                <input style="display:none;" #fileInput type="file" (change)="onFileSelected($event)" formControlName="ques_Image">
+                <input style="display:none;" #fileInput ng2FileSelect type="file" (change)="onFileSelected($event)">
                 <button type="button" class="photo" (click)="fileInput.click()"><mat-icon>photo</mat-icon></button>
             <div>
-                <img [src]="imgURL" height="125" width="125" *ngIf="imgURL">
+                <img [src]="this.question_form.value.ques_Image" height="125" width="125" *ngIf="this.question_form.value.ques_Image">
             </div>
 
             <mat-form-field appearance="fill" id="type">
@@ -127,7 +127,7 @@
                             <mat-icon>delete</mat-icon>
                         </button>
                         <div>
-                            <img [src]="imgURL" height="125" width="125" *ngIf="imgURL">
+                            <img [src]="q.quesImage" height="125" width="125" *ngIf="q.quesimage">
                         </div>
                         <ng-container *ngIf="q.quesType =='Single Correct'">
                             <div>

@@ -78,7 +78,6 @@ export class AddQuestionsComponent implements OnInit {
     //this.event1 = event;
     console.log(event);
     this.selectedFile = <File>event.target.files[0];
-    
     var reader = new FileReader();
     this.imagePath = event.target.files;
     if(event.target.files[0]){
@@ -88,7 +87,11 @@ export class AddQuestionsComponent implements OnInit {
     //reader.readAsDataURL(this.event1.target.files[0]); 
     reader.onload = (_event) => { 
       this.imgURL = reader.result; 
+      this.question_form.patchValue({
+        ques_Image : this.imgURL
+      });
     }
+    
   }
 /**
  * This method deletes the selected question.
@@ -106,6 +109,7 @@ export class AddQuestionsComponent implements OnInit {
    * It also check all validation, if an undesirable thing happens, it generates an alert.
    */
   onSubmit() {
+    console.log(this.question_form.value);
     let ques = this.question_form.value.question_text;
     let o1 = this.question_form.value.option1;
     let o2 = this.question_form.value.option2;
@@ -123,13 +127,13 @@ export class AddQuestionsComponent implements OnInit {
     // let quesImg = this.question_form.value.ques_Image;
      //this.selectedFile = null;
      //this.imgURL = null;
-    console.log(quesImg);
-     var reader = new FileReader();
-     //this.imagePath = event.target.files;
-     reader.readAsDataURL(quesImg); 
-     reader.onload = (_event) => { 
-       this.imgURL = reader.result; 
-     }
+    // console.log(quesImg);
+    //  var reader = new FileReader();
+    //  //this.imagePath = event.target.files;
+    //  reader.readAsDataURL(quesImg); 
+    //  reader.onload = (_event) => { 
+    //    this.imgURL = reader.result; 
+    //  }
 
 
     let message: string;
@@ -154,7 +158,8 @@ export class AddQuestionsComponent implements OnInit {
     // var binary = reader.readAsBinaryString(quesImg);
 
     // tempObj.quesImage = binary;
-    tempObj.quesImage = quesImg;
+    // tempObj.quesImage = quesImg;
+    tempObj.quesImage =this.question_form.value.ques_Image;
 
     if (tempObj.quesType != 'Textual') {
       if (o1 == "" || o2 == "" || o3 == "" || o4 == "" || o1 == null || o2 == null || o3 == null || o4 == null) {

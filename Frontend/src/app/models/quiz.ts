@@ -8,14 +8,20 @@ export class Quiz {
     username:string;
     createdDate: Date;
     questions: Question[];
+    descriptionLength: number;
     l: number;
+    startDate: Date;
+    endDate: Date;
     time: number;
     constructor(data: any) {
         if (data) {
             this.quizId = data.quizId;
             this.quizName = data.quizName;
             this.description = data.description;
-            this.time=2;
+            this.descriptionLength=this.description.length;
+            this.time=data.quizTime;
+            this.startDate=data.startDate;
+            this.endDate=data.endDate;
             this.l=0;
             this.questions = [];
             data.questions.forEach(q => {

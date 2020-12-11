@@ -1,84 +1,125 @@
+
+<!-- <div *ngIf="!front" class="secondnav" style="background-color: lightcyan;">
+  <table ><tr>
+              <td style="padding: 10px; "><h2><fa-icon [icon]="faUser"></fa-icon> Hi {{userName}}</h2></td>
+              <td style="padding: 10px; "><h2><b>Quiz ID :</b> {{quiz.quizId}}</h2></td>
+              <td style="padding: 10px; "><h2><b>Quiz Name :</b> {{quiz.quizName}}</h2></td>
+          
+              <td style="padding: 10px; ">
+                <h2><div *ngIf="this.quiz.time">
+                  <fa-icon [icon]="faClock"></fa-icon>
+                   {{ellapsedTime}} / {{duration}}</div>
+                </h2>
+              </td>
+              <td style="padding: 10px; ">
+                <h2 class="text-center ">
+                  <fa-icon [icon]="faEye"></fa-icon> Live Users : {{liveUsers}}</h2>
+              </td>
+          </tr>
+  </table>
+
+</div> -->
+<div class="container-fluid" >
 <div class="row">
   <div class="col-sm-4 text-center" id="us">
     <br>
-    <h2 class="font-weight-normal"><fa-icon [icon]="faUser"></fa-icon> Hi {{userName}}</h2>
-    <h2 class="font-weight-normal"><div *ngIf="this.quiz.time"><fa-icon [icon]="faClock"></fa-icon> {{ellapsedTime}} / {{duration}}</div></h2><br>
+    <br>
+    <h1 class="font-weight-normal"><fa-icon [icon]="faUser"></fa-icon> Hi, {{userName}}</h1>
+         
   </div>
   <div class="col-sm-4" id="us"> 
-    <h2 class="text-center ">Quiz Id:{{quiz.quizId}}</h2>
-    <h2 class="text-center ">Quiz Name: {{quiz.quizName}}</h2>
+    <br>
+
+    <table style="width:100%">
+      <tr>
+        <td><h3 class="text-center ">Quiz Id: </h3></td>
+        <td><h3 class="text-center ">{{quiz.quizId}}</h3></td>
+      </tr>
+      <tr>
+        <td><h3 class="text-center ">Quiz Name: </h3></td>
+        <td><h3 class="text-center ">{{quiz.quizName}}</h3></td>
+      </tr>
+    </table>
     
   </div>
   <div class="col-sm-4 text-center " id="us">
+    <br>
     <h2 class="text-center "><fa-icon [icon]="faEye"></fa-icon> Live Users : {{liveUsers}}</h2>
-    <!-- <h4 class="font-weight-normal"><div *ngIf="config.duration" class="badge badge-default float-right">Time: {{ellapsedTime}} / {{duration}}</div></h4><br> -->
-    <button class="btn btn-info " (click)="onSubmit();">Submit Quiz</button>
+    <h2 class="font-weight-normal"><div *ngIf="this.quiz.time"><fa-icon [icon]="faClock"></fa-icon> {{ellapsedTime}} / {{duration}}</div></h2>
+    <!-- <button class="btn btn-info " (click)="onSubmit();">Submit Quiz</button> -->
   </div>   
 </div>
-<ng-template [ngIf]="pager.index < pager.count" [ngIfElse]="elsepart">
-<hr>
+<ng-template [ngIf]="pager.index < pager.count" >
+
+<br>
 <div class="progress progress-easy">
   <div class="progress-bar " role="progressbar" aria-valuenow="40"
   aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width':(pager.index/pager.count)*100 + '%'}"
   [ngClass]="getStyleClass(pager.index/pager.count)"> Attempted {{(pager.index/pager.count)*100 | number}} %
   </div>
 </div>
-<div id="quiz"> 
-  <div class="container" id="question" >
+<div > 
+  <div class="container">
     <div class="row">
       <div class="col-12">
         <div *ngIf="mode=='quiz' && quiz">
-          <div *ngFor="let question of filteredQuestions;" >
+          <div *ngFor="let question of filteredQuestions;">
             <div class="badge badge-danger">
               Question {{pager.index + 1}} of {{pager.count}}.
             </div>   
             <h3 class="font-weight-normal">{{pager.index + 1}}.
               <span [innerHTML]="question.question"></span>
             </h3>
-            <div class="row text-left" >
+            <div class="row text-left">
               <div class="col-12">
-                <div class=" col-6" *ngIf="question.quesType=='Single Correct'">
-                  <label class="font-weight-normal" id="option1">
-                    (A)<input type="radio" name="optradio"  (change)="onSelect(question,question.option1,'A');" /> {{question.option1}}
+                <div class=" col-10" *ngIf="question.quesType=='Single Correct'">
+                  <label id="lb" class="font-weight-normal">
+                    <input type="radio" name="optradio"  (change)="onSelect(question,question.option1,'A');" /> {{question.option1}}
                   </label><br>
-                  <label class="font-weight-normal">
-                    (B)<input type="radio" name="optradio" (change)="onSelect(question,question.option2,'B');" /> {{question.option2}}
+                  <label id="lb" class="font-weight-normal">
+                    <input type="radio" name="optradio" (change)="onSelect(question,question.option2,'B');" /> {{question.option2}}
                   </label><br>
-                  <label class="font-weight-normal">
-                    (C)<input type="radio" name="optradio" (change)="onSelect(question,question.option3,'C');" /> {{question.option3}}
+                  <label id="lb" class="font-weight-normal">
+                    <input type="radio" name="optradio" (change)="onSelect(question,question.option3,'C');" /> {{question.option3}}
                   </label><br>
-                  <label class="font-weight-normal">
-                    (D)<input type="radio" name="optradio" (change)="onSelect(question,question.option4,'D');" /> {{question.option4}}
+                  <label id="lb" class="font-weight-normal">
+                    <input type="radio" name="optradio" (change)="onSelect(question,question.option4,'D');" /> {{question.option4}}
                   </label>
                 </div>
-              <div class=" col-6" *ngIf="question.quesType=='Multiple Correct'">
-                <label class="font-weight-normal">
+              <div class=" col-10" *ngIf="question.quesType=='Multiple Correct'">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option1,'A');" /> {{question.option1}}
                 </label><br>
-                <label class="font-weight-normal">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option2,'B');" /> {{question.option2}}
                 </label><br>
-                <label class="font-weight-normal">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option3,'C');" /> {{question.option3}}
                 </label><br>
-                <label class="font-weight-normal">
+                <label id="lb" class="font-weight-normal">
                   <input type="checkbox" (change)="onSelectMulti(question,question.option4,'D');" /> {{question.option4}}
                 </label>
               </div>
-              <div class="col-6" *ngIf="question.quesType=='Textual'">
+              <div class="col-10" *ngIf="question.quesType=='Textual'">
                 <div class="form-group">
-                  <label for="comment">Answer:</label>
+                  <label id="lb" for="comment">Answer:</label>
                   <textarea class="form-control" 
                   rows="5" id="textAnswer" [(ngModel)]="textAnswer" 
-                  (change)="onWritingText(question);">
+                  (ngModelChange)="onWritingText(question);">
                   </textarea>
                 </div>
               </div>
             </div>
           </div>
           <hr/>
-          <div class="pull-right">
-            <button class="btn btn-primary" (click)="goTo(question,pager.index + 1);">Next</button>
+          <div class="pull-right" *ngIf="answered==1 && !last">
+            <button class="btn btn-primary" (click)="moveToNextQuestion(question,pager.index + 1);" >Skip</button>
+          </div>
+          <div class="pull-right" *ngIf="answered==2 && !last">
+            <button class="btn btn-primary" (click)="moveToNextQuestion(question,pager.index + 1);" >Save & Next</button>
+          </div>
+          <div class="pull-right" *ngIf="last">
+            <button class="btn btn-primary" (click)="moveToNextQuestion(question,pager.index + 1);" >Save & Submit</button>
           </div>
         </div>
       </div>
@@ -88,7 +129,8 @@
 
 </div>
 </ng-template>
-<ng-template #elsepart>
+</div>
+<!-- <ng-template #elsepart>
   <hr>
   <div class="progress progress-easy">
     <div class="progress-bar " role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
@@ -105,4 +147,4 @@
   </div>
 
   
-</ng-template>
+</ng-template> -->

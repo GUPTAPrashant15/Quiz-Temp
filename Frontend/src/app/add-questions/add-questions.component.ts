@@ -197,6 +197,30 @@ export class AddQuestionsComponent implements OnInit {
         tempObj.correct2 = c2;
         tempObj.correct3 = c3;
         tempObj.correct4 = c4;
+
+        if (c1 == null || c1 == "") {​​​​
+
+          tempObj.correct1 = false;
+
+        }​​​​
+
+        if (c2 == null || c2 == "") {​​​​
+
+          tempObj.correct2 = false;
+
+        }​​​​
+
+        if (c3 == null || c3 == "") {​​​​
+
+          tempObj.correct3 = false;
+
+        }​​​​
+
+        if (c4 == null || c4 == "") {​​​​
+
+          tempObj.correct4 = false;
+
+        }​​​​
       }
     }
     else {

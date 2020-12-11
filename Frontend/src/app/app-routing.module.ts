@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { RegisterQuizComponent } from './register-quiz/register-quiz.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import {LeaderBoardComponent} from './leader-board/leader-board.component'
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
 import { DisplaySuccessComponent } from './display-success/display-success.component';
 import {QuizListComponent} from 'src/app/quiz-list/quiz-list.component';
@@ -23,6 +23,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ResetSuccessComponent } from './reset-success/reset-success.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { UrlComponent } from './url/url.component';
+import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
 const routes: Routes = [
   {path:"",redirectTo:"/login",pathMatch:"full"},
   // {path:"add",redirectTo:"addQuiz",pathMatch:"full"},
@@ -37,8 +38,10 @@ const routes: Routes = [
   {path:"registration",component:RegistrationComponent},
   {path:"login",component:LoginComponent},
   {path:"forgotten-password",component:ForgotPasswordComponent},
-  // {path:"**", component:LoginComponent},
-  { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] }
+  {path:'leaderboard/:id', component:LeaderBoardComponent},
+  { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] },
+  { path: "preview-quiz/:id", component:PreviewQuizComponent, canActivate: [AuthGuard] }
+  
 
    //,{path: "home", component:HomeComponent}
   
@@ -51,5 +54,5 @@ const routes: Routes = [
 //export class AppRoutingModule { }
 
 export class AppRoutingModule { }
-export const routingComponents=[RegistrationComponent,ForgotPasswordComponent,LoginComponent, HomeComponent]
+export const routingComponents=[RegistrationComponent,ForgotPasswordComponent,LoginComponent, HomeComponent,LeaderBoardComponent, PreviewQuizComponent]
 

@@ -19,6 +19,7 @@ export class QuizStartPageComponent implements OnInit {
   quiz: Quiz = new Quiz(null);
   
   @Input() username: string;
+  showShortDesciption = true;
 
   constructor(private quizService: QuizService, private cookie: CookieService, private fb: FormBuilder, private participantService: ParticipantService, private route: ActivatedRoute, private router: Router) { }
   form: FormGroup = new FormGroup({});
@@ -41,6 +42,11 @@ export class QuizStartPageComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
+  
+
+ alterDescriptionText() {
+    this.showShortDesciption = !this.showShortDesciption;
+ }
 
   loadQuiz(id: number) {
     this.quizService.get(id).subscribe(res => {
@@ -50,7 +56,7 @@ export class QuizStartPageComponent implements OnInit {
   index: any=0;
   userForm(userInformation) {
 
-    if (this.cookie.get(this.Username.value) != "") {
+    if (this.cookie.get(this.quiz.quizId+this.Username.value) != "") {
       
       this.username = this.Username.value;
       this.front = false;
@@ -65,7 +71,7 @@ export class QuizStartPageComponent implements OnInit {
             this.front = false;
             const dateNow = new Date();
             dateNow.setHours(dateNow.getHours() + 1);
-            this.cookie.set(this.username, (this.index).toString(), dateNow);
+            this.cookie.set(this.quiz.quizId+this.username, (this.index).toString(), dateNow);
 
            
           }
@@ -79,5 +85,8 @@ export class QuizStartPageComponent implements OnInit {
   }
   get Username() {
     return this.form.get('username');
+  }
+  leaderboard(){
+    this.router.navigate(['leaderboard',this.quiz.quizId]);
   }
 }

@@ -34,6 +34,10 @@ export class ResultComponent implements OnInit {
       dashboard.textContent = "";
     }
 
+
+  }
+  leaderboard(){
+    this.route.navigate(['/leaderboard',this.quiz.quizId]);
   }
 
 }

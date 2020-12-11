@@ -216,11 +216,10 @@ public class ParticipationController {
 
 		logger.info("----- Inside Get Result API -----");
 
-		ScoreModel quiz = scoreRepo.findByQuizId(quizId);
+		ScoreModel finalData = scoreService.getParticipants(scoreRepo.findByQuizId(quizId));
+		System.out.println("From inside getResultById() Function : " + finalData);
 
-		System.out.println("From inside getResultById() Function : " + quiz.getAnswerData());
-
-		return quiz;
+		return finalData;
 
 	}
 
@@ -228,12 +227,13 @@ public class ParticipationController {
 	public int userScore(
 		@PathVariable(value = "userName") String userName,
 		@PathVariable(value = "quizId") long quizId,
-		@PathVariable(value = "remTime") long remTime) {
+		@PathVariable(value = "remTime") float remTime) {
 
 		logger.info("----- Inside Get User Score API -----");
 
 		int totalQues = quizRepo.findByQuizId(quizId).getQuestions().size();
 
+		float totalTime=quizRepo.findByQuizId(quizId).getQuizTime();
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
@@ -242,12 +242,14 @@ public class ParticipationController {
 		if (user != null) {
 
 			if (!user.isCompleted()) {
+				System.out.println(user.getUserScore());
+				System.out.println(remTime);
 
 				user.setCompleted(true);
-
-				user.setUserScore(Math.round(user.getUserScore() * (1 + (remTime / (totalQues * 600.0F))) * 100.0F));
-
+				
+				user.setUserScore(Math.round(user.getUserScore() * (float)(1 + (float)(remTime / (totalQues * totalTime*60))) * 100.0F));
 				scoreRepo.save(quizData);
+				System.out.println(user.getUserScore());
 			}
 
 			return user.getUserScore();

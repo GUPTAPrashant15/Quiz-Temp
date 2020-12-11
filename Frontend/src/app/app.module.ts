@@ -63,6 +63,10 @@ import { QuizNotFoundComponent } from './quiz-not-found/quiz-not-found.component
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider} from "angularx-social-login";
+import { LeaderBoardComponent } from './leader-board/leader-board.component';
+import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
+import {​​​​​​​​ DatePipe }​​​​​​​​ from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -86,7 +90,7 @@ import { GoogleLoginProvider} from "angularx-social-login";
     ResultComponent,
     AddParticipantToQuizComponent,
     QuizStartPageComponent,
-    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent
+    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent, LeaderBoardComponent, PreviewQuizComponent
 
 
   ],
@@ -142,7 +146,7 @@ import { GoogleLoginProvider} from "angularx-social-login";
     ]),
     AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule, CountdownModule, HttpModule],
   providers: [
-  SocialMediaAuthService,
+  SocialMediaAuthService,DatePipe,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -159,6 +163,7 @@ import { GoogleLoginProvider} from "angularx-social-login";
     },
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  
     ForgotPwdService, CreateQuizService, AnlysisResultService, RealtimeresultService,
     // provider used to create fake backend
     fakeBackendProvider, ParticipantService, CookieService

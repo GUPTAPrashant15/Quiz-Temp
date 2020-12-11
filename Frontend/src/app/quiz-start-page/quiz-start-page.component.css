@@ -1,11 +1,17 @@
 .container1{
     margin-top: 5px;
     box-shadow: 0 0 10px rgba(75, 16, 212, 0.39);
-    padding: 15px 15px 15px 15px;
+    padding: 15px 15px 15px 5px;
     width: 450px;
-    height: 450px;
     align-content: center;
+    border-radius: 20px;
 
+}
+
+.show-less {
+    height: 4rem;
+    overflow: hidden;
+    
 }
 #container2{
     margin-top: 50px;
@@ -20,3 +26,20 @@
     padding-left: 85px;
     
 }
+
+.leaderboard{
+    padding-left: 103px;
+} 
+
+hr{
+    width: 60%;
+    height: 3px;
+}
+
+a{
+    cursor: pointer;
+    padding-left: 350px;
+}
+
+
+

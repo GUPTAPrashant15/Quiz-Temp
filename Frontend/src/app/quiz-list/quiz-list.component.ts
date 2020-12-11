@@ -47,6 +47,11 @@ export class QuizListComponent implements OnInit {
   share(quiz) {
     this.route.navigate(['/shareQuiz', quiz.quizId])
   }
+
+  previewQuiz(quiz) {
+    this.route.navigate(['/preview-quiz', quiz.quizId]);
+  }
+  
   public quizStatus
   statusQuiz(quiz) {
     this.service.changeQuizStatus(quiz).subscribe(

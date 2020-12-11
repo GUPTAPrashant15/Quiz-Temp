@@ -88,8 +88,8 @@ export class PerformanceChartComponent implements OnInit {​​​​
   */
   sampleData(result,quiz)
   { 
-     var max_score = this.quiz.questions.length;
-     let arr = new Array<number>(max_score+1);
+     var max_score = (this.quiz.questions.length*100)+200;
+     let arr = new Array<number>(max_score);
 
      for(var i=0; i<=max_score;i++)
      {

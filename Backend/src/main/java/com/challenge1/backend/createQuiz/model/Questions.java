@@ -17,6 +17,8 @@ public class Questions {
 	
 	private String question;
 	private String quesType;
+	
+	private String quesImage;
 	private String option1;
 	private String option2;
 	private String option3;
@@ -38,6 +40,28 @@ public class Questions {
 		super();
 		this.question = question;
 		this.quesType = quesType;
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+		this.correct = correct;
+		this.correct1 = correct1;
+		this.correct2 = correct2;
+		this.correct3 = correct3;
+		this.correct4 = correct4;
+		this.textAnswer = textAnswer;
+	}
+	
+	//with quesImage
+
+	public Questions(long quesId, String question, String quesType, String quesImage, String option1, String option2,
+			String option3, String option4, Integer correct, boolean correct1, boolean correct2, boolean correct3,
+			boolean correct4, String textAnswer) {
+		super();
+		this.quesId = quesId;
+		this.question = question;
+		this.quesType = quesType;
+		this.quesImage = quesImage;
 		this.option1 = option1;
 		this.option2 = option2;
 		this.option3 = option3;
@@ -152,6 +176,16 @@ public class Questions {
 
 	public void setTextAnswer(String textAnswer) {
 		this.textAnswer = textAnswer;
+	}
+	
+	
+
+	public String getQuesImage() {
+		return quesImage;
+	}
+
+	public void setQuesImage(String quesImage) {
+		this.quesImage = quesImage;
 	}
 
 	@Override

@@ -48,6 +48,12 @@ export class QuizListComponent implements OnInit {
     this.route.navigate(['/shareQuiz', quiz.quizId])
   }
 
+  deleteQuiz(quizId : any){
+    this.service.deleteQuiz(quizId).subscribe(data=>{},error=>{console.log(error)});
+    window.location.reload();
+     
+   }  
+   
   previewQuiz(quiz) {
     this.route.navigate(['/preview-quiz', quiz.quizId]);
   }

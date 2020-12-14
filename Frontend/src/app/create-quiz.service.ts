@@ -55,4 +55,23 @@ export class CreateQuizService {
     }
     ))
   }
+
+  public deleteQuiz(quizId){
+    return this.http.delete('http://localhost:8080/deleteQuiz/'+quizId);
+  }
+  
+  public getQuestion(quiz_ques_id)
+  {
+    return this.http.get('http://localhost:8080/getQuestion/'+quiz_ques_id);
+  }
+
+  public updateQuestion(questions, quiz_ques_id)
+  {
+      return this.http.put("http://localhost:8080/updateQuestion/"+quiz_ques_id, questions,{ responseType: 'text' as 'json'});
+  }
+
+  public deleteQuestion(quiz_ques_id)
+  {
+    return this.http.delete('http://localhost:8080//deleteQuestion/'+quiz_ques_id);
+  }
 }

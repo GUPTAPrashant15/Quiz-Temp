@@ -24,6 +24,7 @@ import { ResetSuccessComponent } from './reset-success/reset-success.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { UrlComponent } from './url/url.component';
 import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
+import { UpdateEditComponent } from './update-edit/update-edit.component';
 const routes: Routes = [
   {path:"",redirectTo:"/login",pathMatch:"full"},
   // {path:"add",redirectTo:"addQuiz",pathMatch:"full"},
@@ -40,7 +41,8 @@ const routes: Routes = [
   {path:"forgotten-password",component:ForgotPasswordComponent},
   {path:'leaderboard/:id', component:LeaderBoardComponent},
   { path: "shareQuiz/:id", component:UrlComponent, canActivate: [AuthGuard] },
-  { path: "preview-quiz/:id", component:PreviewQuizComponent, canActivate: [AuthGuard] }
+  { path: "preview-quiz/:id", component:PreviewQuizComponent, canActivate: [AuthGuard] },
+  {path: "update-edit", component:UpdateEditComponent, canActivate: [AuthGuard]},
   
 
    //,{path: "home", component:HomeComponent}

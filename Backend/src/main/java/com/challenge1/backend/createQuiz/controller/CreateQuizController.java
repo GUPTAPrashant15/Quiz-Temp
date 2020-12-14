@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -226,6 +228,127 @@ public class CreateQuizController {
 
 		return quizRepo.findByQuizId(quizId).getIsLiveStatus();
 
+	}
+	/**
+	 * This deleteQuiz method is used to delete the already created quiz.
+	 *
+	 * @param id : This is the unique id of the quiz.
+	 */
+	@DeleteMapping("/deleteQuiz/{id}")
+	public void deleteQuiz(@PathVariable(value="id") Long id){
+		logger.info("in delete quiz by id : "+ id);
+		quizRepo.deleteById(id);
+
+	}
+
+
+	@GetMapping(value="/getQuestion/{id}")
+	public Questions getQuestion(@PathVariable(value = "id") String id)
+	{
+		String[] arr = id.split("_");
+		long qId = Long.parseLong(arr[0]);
+		int quesId = Integer.parseInt(arr[1]);
+		Quiz quiz = getQuizById(qId);
+
+		int s = quiz.getQuestions().size();
+
+		for (int i=0;i<s;i++) {
+			Questions ques = quiz.getQuestions().get(i);
+			if (ques.getQuesId() == quesId) {
+
+				logger.info("return question "+ques);
+				return ques;
+			}
+
+		}
+
+		return null;
+
+	}
+
+
+//	@PutMapping(value = "/updateQuestion/{id}")
+//	public String updateQuestion(@PathVariable(value = "id") String id,@RequestBody Questions questions)
+//	{
+//		String[] arr = id.split("_");
+//		long qId = Long.parseLong(arr[0]);
+//		int quesId = Integer.parseInt(arr[1]);
+//		Quiz quiz = getQuizById(qId);
+//
+//		Questions ques = quiz.getQuestions().get(quesId-1);
+//
+//		ques.setQuestion(questions.getQuestion());
+//		ques.setQuesType(questions.getQuesType());
+//		ques.setOption1(questions.getOption1());
+//		ques.setOption2(questions.getOption2());
+//		ques.setOption3(questions.getOption3());
+//		ques.setOption4(questions.getOption4());
+//		ques.setCorrect(questions.getCorrect());
+//		ques.setCorrect1(questions.isCorrect1());
+//		ques.setCorrect2(questions.isCorrect2());
+//		ques.setCorrect3(questions.isCorrect3());
+//		ques.setCorrect4(questions.isCorrect4());
+//		ques.setTextAnswer(questions.getTextAnswer());
+//		quiz.getQuestions().set(quesId-1,ques);
+//		quizRepo.save(quiz);
+//
+//		return "update question";
+//	}
+
+	@PutMapping(value = "/updateQuestion/{id}")
+	public void updateQuestion(@PathVariable(value = "id") String id,@RequestBody Questions questions)
+	{
+		String[] arr = id.split("_");
+		long qId = Long.parseLong(arr[0]);
+		long quesId = Long.parseLong(arr[1]);
+		Quiz quiz = getQuizById(qId);
+		int s = quiz.getQuestions().size();
+		for (int i=0;i<s;i++) {
+			Questions ques = quiz.getQuestions().get(i);
+			if (ques.getQuesId() == quesId)
+			{
+				ques.setQuestion(questions.getQuestion());
+				ques.setQuesType(questions.getQuesType());
+				ques.setOption1(questions.getOption1());
+				ques.setOption2(questions.getOption2());
+				ques.setOption3(questions.getOption3());
+				ques.setOption4(questions.getOption4());
+				ques.setCorrect(questions.getCorrect());
+				ques.setCorrect1(questions.isCorrect1());
+				ques.setCorrect2(questions.isCorrect2());
+				ques.setCorrect3(questions.isCorrect3());
+				ques.setCorrect4(questions.isCorrect4());
+				ques.setTextAnswer(questions.getTextAnswer());
+				quiz.getQuestions().set(i,ques);
+				quizRepo.save(quiz);
+				break;
+
+			}
+		}
+
+	}
+
+	@DeleteMapping(value= "/deleteQuestion/{id}")
+	public void deleteQuestion(@PathVariable(value="id") String id)
+	{
+		String[] arr = id.split("_");
+		long qId = Long.parseLong(arr[0]);
+		long quesId = Long.parseLong(arr[1]);
+		Quiz quiz = getQuizById(qId);
+
+		int s = quiz.getQuestions().size();
+
+		for (int i=0;i<s;i++) {
+			Questions ques = quiz.getQuestions().get(i);
+			if (ques.getQuesId() == quesId) {
+
+
+				quiz.getQuestions().remove(i);
+				break;
+			}
+
+		}
+		quizRepo.save(quiz);
 	}
 
 }

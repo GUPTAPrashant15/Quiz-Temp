@@ -66,6 +66,7 @@ import { GoogleLoginProvider} from "angularx-social-login";
 import { LeaderBoardComponent } from './leader-board/leader-board.component';
 import { PreviewQuizComponent } from './preview-quiz/preview-quiz.component';
 import {​​​​​​​​ DatePipe }​​​​​​​​ from '@angular/common';
+import { UpdateEditComponent } from './update-edit/update-edit.component';
 
 
 @NgModule({
@@ -90,7 +91,7 @@ import {​​​​​​​​ DatePipe }​​​​​​​​ from '@angul
     ResultComponent,
     AddParticipantToQuizComponent,
     QuizStartPageComponent,
-    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent, LeaderBoardComponent, PreviewQuizComponent
+    ForgotPasswordComponent, PasswordStrengthComponent, ResetPasswordComponent, LoginComponent, HomeComponent, QuizNotFoundComponent, PageNotFoundComponent, LeaderBoardComponent, PreviewQuizComponent, UpdateEditComponent
 
 
   ],

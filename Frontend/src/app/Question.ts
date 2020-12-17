@@ -9,6 +9,10 @@ export class Question {
     option2: any;
     option3: any;
     option4: any;
+    option1Image: any;
+    option2Image: any;
+    option3Image: any;
+    option4Image: any;
     correct: number;
     correct1: boolean;
     correct2: boolean;

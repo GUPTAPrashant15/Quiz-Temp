@@ -38,14 +38,21 @@
                         <mat-label>Option 1</mat-label>
                         <input matInput type="text" formControlName="option1">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option1Img ng2FileSelect type="file" (change)="onOption1FileSelected($event)">
+                    <button type="button" class="photo" (click)="option1Img.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option1_Image" height="125" width="125" *ngIf="this.question_form.value.option1_Image">
+                
                     <mat-radio-button ngDefaultControl formControlName="correct" value="1" class="correct">Correct</mat-radio-button>
           
                     <mat-form-field>
                         <mat-label>Option 2</mat-label>
                         <input matInput type="text" formControlName="option2">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option2Img ng2FileSelect type="file" (change)="onOption2FileSelected($event)">
+                    <button type="button" class="photo" (click)="option2Img.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option2_Image" height="125" width="125" *ngIf="this.question_form.value.option2_Image">
                     <mat-radio-button ngDefaultControl formControlName="correct" value="2" class="correct">Correct</mat-radio-button>
                     
                     
@@ -53,7 +60,10 @@
                         <mat-label>Option 3</mat-label>
                         <input matInput type="text" formControlName="option3">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option3Img ng2FileSelect type="file" (change)="onOption3FileSelected($event)">
+                    <button type="button" class="photo" (click)="option3Img.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option3_Image" height="125" width="125" *ngIf="this.question_form.value.option3_Image">
                     <mat-radio-button ngDefaultControl formControlName="correct" value="3" class="correct">Correct</mat-radio-button>
                     
                     
@@ -61,7 +71,10 @@
                         <mat-label>Option 4</mat-label>
                         <input matInput type="text" formControlName="option4">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option4Img ng2FileSelect type="file" (change)="onOption4FileSelected($event)">
+                    <button type="button" class="photo" (click)="option4Img.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option4_Image" height="125" width="125" *ngIf="this.question_form.value.option4_Image">
                     <mat-radio-button ngDefaultControl formControlName="correct" value="4" class="correct">Correct</mat-radio-button>
                     
                 </div>
@@ -74,28 +87,40 @@
                         <mat-label>Option 1</mat-label>
                         <input matInput type="text" formControlName="option1">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option1Image ng2FileSelect type="file" (change)="onOption1FileSelected($event)">
+                    <button type="button" class="photo" (click)="option1Image.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option1_Image" height="125" width="125" *ngIf="this.question_form.value.option1_Image">
                     <mat-checkbox ngDefaultControl formControlName="correct1" value="1" class="correct">Correct</mat-checkbox>
         
                     <mat-form-field>
                         <mat-label>Option 2</mat-label>
                         <input matInput type="text" formControlName="option2">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option2Image ng2FileSelect type="file" (change)="onOption2FileSelected($event)">
+                    <button type="button" class="photo" (click)="option2Image.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option2_Image" height="125" width="125" *ngIf="this.question_form.value.option2_Image">
                     <mat-checkbox ngDefaultControl formControlName="correct2" value="2" class="correct">Correct</mat-checkbox>
         
                     <mat-form-field>
                         <mat-label>Option 3</mat-label>
                         <input matInput type="text" formControlName="option3">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option3Image ng2FileSelect type="file" (change)="onOption3FileSelected($event)">
+                    <button type="button" class="photo" (click)="option3Image.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option3_Image" height="125" width="125" *ngIf="this.question_form.value.option3_Image">
                     <mat-checkbox ngDefaultControl formControlName="correct3" value="3" class="correct">Correct</mat-checkbox>
         
                     <mat-form-field>
                         <mat-label>Option 4</mat-label>
                         <input matInput type="text" formControlName="option4">
                     </mat-form-field>
-                    <button class="photo"><mat-icon>photo</mat-icon></button>
+                    <input style="display:none;" #option4Image ng2FileSelect type="file" (change)="onOption4FileSelected($event)">
+                    <button type="button" class="photo" (click)="option4Image.click()"><mat-icon>photo</mat-icon></button>
+                
+                    <img [src]="this.question_form.value.option4_Image" height="125" width="125" *ngIf="this.question_form.value.option4_Image">
                     <mat-checkbox ngDefaultControl formControlName="correct4" value="4" class="correct">Correct</mat-checkbox>
                 </div>
             </ng-container>
@@ -133,9 +158,21 @@
                             <div>
                                 <ol>
                                     <li>{{ q.option1 }}</li>
+                                    <div>
+                                        <img [src]="q.option1Image" height="125" width="125" *ngIf="q.option1Image">
+                                    </div>
                                     <li>{{ q.option2 }}</li>
+                                    <div>
+                                        <img [src]="q.option2Image" height="125" width="125" *ngIf="q.option2Image">
+                                    </div>
                                     <li>{{ q.option3 }}</li>
+                                    <div>
+                                        <img [src]="q.option3Image" height="125" width="125" *ngIf="q.option3Image">
+                                    </div>
                                     <li>{{ q.option4 }}</li>
+                                    <div>
+                                        <img [src]="q.option4Image" height="125" width="125" *ngIf="q.option4Image">
+                                    </div>
                                     Correct Answer: {{q.correct}}
                                 </ol>  
                             </div>
@@ -145,9 +182,15 @@
                                 <div>
                                     <ol>
                                         <li>{{ q.option1 }} </li>
+                                        
+                                            <img [src]="q.option1Image" height="125" width="125" *ngIf="q.option1Image">
+                                       
                                         <li>{{ q.option2 }} </li>
+                                        <img [src]="q.option2Image" height="125" width="125" *ngIf="q.option2Image">
                                         <li>{{ q.option3 }} </li>
+                                        <img [src]="q.option3Image" height="125" width="125" *ngIf="q.option3Image">
                                         <li>{{ q.option4 }} </li>
+                                        <img [src]="q.option4Image" height="125" width="125" *ngIf="q.option4Image">
                                     </ol>
                                 </div>
 

@@ -20,7 +20,7 @@ export class RegisterQuizComponent implements OnInit {
    * It is a variable of type CreateQuiz.
    * @see src/app/CreateQuiz
    */
-  quiz: CreateQuiz = new CreateQuiz(null, '', '',true, '',null,null,null,null);
+  quiz: CreateQuiz = new CreateQuiz(null, '', '',true, '',null,null,null,null,null);
 
   /**
    * @ignore

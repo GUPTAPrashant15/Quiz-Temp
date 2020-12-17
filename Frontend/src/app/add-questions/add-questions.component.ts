@@ -39,6 +39,10 @@ export class AddQuestionsComponent implements OnInit {
     option2: [''],
     option3: [''],
     option4: [''],
+    option1_Image: [''],
+    option2_Image: [''],
+    option3_Image: [''],
+    option4_Image: [''],
     correct: [''],
     correct1: [''],
     correct2: [''],
@@ -65,33 +69,90 @@ export class AddQuestionsComponent implements OnInit {
     })
   }
 
-  selectedFile: File = null ; 
-  retrievedImage: any;
-  base64Data: any;
+  // selectedFile: File = null ; 
+  // retrievedImage: any;
+  // base64Data: any;
 
-  public imagePath;
-  imgURL: any;
-  event1 : any;
+  // public imagePath;
+  // imgURL: any;
+  option1URL: any;
+  option2URL: any;
+  option3URL: any;
+  option4URL: any;
+
+  // event1 : any;
 
   onFileSelected(event){
     //this.event = event1;
     //this.event1 = event;
     console.log(event);
-    this.selectedFile = <File>event.target.files[0];
+    // this.selectedFile = <File>event.target.files[0];
     var reader = new FileReader();
-    this.imagePath = event.target.files;
+    // this.imagePath = event.target.files;
     if(event.target.files[0]){
       reader.readAsDataURL(event.target.files[0]);
     }
     //reader.readAsDataURL(event.target.files[0]); 
     //reader.readAsDataURL(this.event1.target.files[0]); 
     reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
+      // this.imgURL = reader.result; 
       this.question_form.patchValue({
-        ques_Image : this.imgURL
+        // ques_Image : this.imgURL
+        ques_Image : reader.result
       });
     }
-    
+  }
+
+  onOption1FileSelected(event){
+    var reader = new FileReader();
+    if(event.target.files[0]){
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    reader.onload = (_event) => {
+      this.option1URL = reader.result;
+      this.question_form.patchValue({
+        option1_Image : this.option1URL 
+      });
+    }
+  }
+
+  onOption2FileSelected(event){
+    var reader = new FileReader();
+    if(event.target.files[0]){
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    reader.onload = (_event) => {
+      this.option2URL = reader.result;
+      this.question_form.patchValue({
+        option2_Image : this.option2URL 
+      });
+    }
+  } 
+
+  onOption3FileSelected(event){
+    var reader = new FileReader();
+    if(event.target.files[0]){
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    reader.onload = (_event) => {
+      this.option3URL = reader.result;
+      this.question_form.patchValue({
+        option3_Image : this.option3URL 
+      });
+    }
+  }
+
+  onOption4FileSelected(event){
+    var reader = new FileReader();
+    if(event.target.files[0]){
+      reader.readAsDataURL(event.target.files[0]);
+    }
+    reader.onload = (_event) => {
+      this.option4URL = reader.result;
+      this.question_form.patchValue({
+        option4_Image : this.option4URL 
+      });
+    }
   }
 /**
  * This method deletes the selected question.
@@ -123,17 +184,11 @@ export class AddQuestionsComponent implements OnInit {
     let ta = this.question_form.value.text_answer;
     let ty = this.question_form.value.type;
 
-    let quesImg = this.selectedFile;
-    // let quesImg = this.question_form.value.ques_Image;
-     //this.selectedFile = null;
-     //this.imgURL = null;
-    // console.log(quesImg);
-    //  var reader = new FileReader();
-    //  //this.imagePath = event.target.files;
-    //  reader.readAsDataURL(quesImg); 
-    //  reader.onload = (_event) => { 
-    //    this.imgURL = reader.result; 
-    //  }
+    let qI = this.question_form.value.ques_Image;
+    let op1I = this.question_form.value.option1_Image;
+    let op2I = this.question_form.value.option2_Image;
+    let op3I = this.question_form.value.option3_Image;
+    let op4I = this.question_form.value.option4_Image;
 
 
     let message: string;
@@ -160,13 +215,27 @@ export class AddQuestionsComponent implements OnInit {
     // tempObj.quesImage = binary;
     // tempObj.quesImage = quesImg;
     tempObj.quesImage =this.question_form.value.ques_Image;
+    tempObj.option1Image = this.question_form.value.option1_Image;
+    tempObj.option2Image = this.question_form.value.option2_Image;
+    tempObj.option3Image = this.question_form.value.option3_Image;
+    tempObj.option4Image = this.question_form.value.option4_Image;
+
+    tempObj.quesImage = qI;
+    tempObj.option1Image = op1I;
+    tempObj.option2Image = op2I;
+    tempObj.option3Image = op3I;
+    tempObj.option4Image = op4I;
 
     if (tempObj.quesType != 'Textual') {
-      if (o1 == "" || o2 == "" || o3 == "" || o4 == "" || o1 == null || o2 == null || o3 == null || o4 == null) {
+      // if (o1 == "" || o2 == "" || o3 == "" || o4 == "" || o1 == null || o2 == null || o3 == null || o4 == null) {
+      //   this.dialog.open(AlertDialog, { data: { message: 'Options cannot be empty!' } });
+      //   return;
+      // }
+      if (((o1 == "" || o1 == null ) && (op1I == "" || op1I == null)) || ((o2 == "" || o2 == null ) && (op2I == "" || op2I == null)) || ((o3 == "" || o3 == null ) && (op3I == "" || op3I == null)) || ((o4 == "" || o4 == null ) && (op4I == "" || op4I == null)) ) {
         this.dialog.open(AlertDialog, { data: { message: 'Options cannot be empty!' } });
         return;
       }
-
+    
       if (tempObj.quesType == 'Single Correct') {
         if (c == "" || c == null) {
           this.dialog.open(AlertDialog, { data: { message: 'Select the correct answer!' } });

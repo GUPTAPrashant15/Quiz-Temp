@@ -1,3 +1,5 @@
+import { Question } from './Question';
+
 export class CreateQuiz {
 
     constructor(
@@ -9,6 +11,7 @@ export class CreateQuiz {
         public quizTime: number,
         public startDate: Date,
         public endDate: Date,
-        public createdDate: Date
+        public createdDate: Date,
+        public questions: Question[]
     ){}
 }

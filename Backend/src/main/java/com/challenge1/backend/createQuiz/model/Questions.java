@@ -23,6 +23,12 @@ public class Questions {
 	private String option2;
 	private String option3;
 	private String option4;
+	
+	private String option1Image;
+	private String option2Image;
+	private String option3Image;
+	private String option4Image;
+	
 	private Integer correct;
 	private boolean correct1;
 	private boolean correct2;
@@ -54,8 +60,34 @@ public class Questions {
 	
 	//with quesImage
 
+//	public Questions(long quesId, String question, String quesType, String quesImage, String option1, String option2,
+//			String option3, String option4, Integer correct, boolean correct1, boolean correct2, boolean correct3,
+//			boolean correct4, String textAnswer) {
+//		super();
+//		this.quesId = quesId;
+//		this.question = question;
+//		this.quesType = quesType;
+//		this.quesImage = quesImage;
+//		this.option1 = option1;
+//		this.option2 = option2;
+//		this.option3 = option3;
+//		this.option4 = option4;
+//		this.correct = correct;
+//		this.correct1 = correct1;
+//		this.correct2 = correct2;
+//		this.correct3 = correct3;
+//		this.correct4 = correct4;
+//		this.textAnswer = textAnswer;
+//	}
+
+	
+	public long getQuesId() {
+		return quesId;
+	}
+
 	public Questions(long quesId, String question, String quesType, String quesImage, String option1, String option2,
-			String option3, String option4, Integer correct, boolean correct1, boolean correct2, boolean correct3,
+			String option3, String option4, String option1Image, String option2Image, String option3Image,
+			String option4Image, Integer correct, boolean correct1, boolean correct2, boolean correct3,
 			boolean correct4, String textAnswer) {
 		super();
 		this.quesId = quesId;
@@ -66,6 +98,10 @@ public class Questions {
 		this.option2 = option2;
 		this.option3 = option3;
 		this.option4 = option4;
+		this.option1Image = option1Image;
+		this.option2Image = option2Image;
+		this.option3Image = option3Image;
+		this.option4Image = option4Image;
 		this.correct = correct;
 		this.correct1 = correct1;
 		this.correct2 = correct2;
@@ -74,8 +110,36 @@ public class Questions {
 		this.textAnswer = textAnswer;
 	}
 
-	public long getQuesId() {
-		return quesId;
+	public String getOption1Image() {
+		return option1Image;
+	}
+
+	public void setOption1Image(String option1Image) {
+		this.option1Image = option1Image;
+	}
+
+	public String getOption2Image() {
+		return option2Image;
+	}
+
+	public void setOption2Image(String option2Image) {
+		this.option2Image = option2Image;
+	}
+
+	public String getOption3Image() {
+		return option3Image;
+	}
+
+	public void setOption3Image(String option3Image) {
+		this.option3Image = option3Image;
+	}
+
+	public String getOption4Image() {
+		return option4Image;
+	}
+
+	public void setOption4Image(String option4Image) {
+		this.option4Image = option4Image;
 	}
 
 	public void setQuesId(long id) {

@@ -127,6 +127,16 @@ it('should have onDelete function', () => {
   
   });
 
+
+  it('should have onDelete function', () => {
+    var dummyElement = document.createElement('logout');
+    document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyElement);
+    fixture.detectChanges();
+    expect(document.getElementById).toBeTruthy;
+  
+  });
+  
+
   
 
 

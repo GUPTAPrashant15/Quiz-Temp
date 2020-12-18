@@ -8,7 +8,15 @@ import org.springframework.stereotype.Component;
 import com.challenge1.backend.createQuiz.model.Quiz;
 import com.challenge1.backend.createQuiz.service.SequenceGeneratorService;
 
-
+/**
+ * <h1>User Model Listener</h1>
+ * The UserModelListener class is used to set the quiz id field every time we create 
+ * a new instance of our Quiz model.
+ * <p> UserModelListener extends AbstractMongoEventListener<Quiz> and 
+ * override the onBeforeConvert()
+ * </p>
+ *
+ */
 
 @Component
 public class UserModelListener extends AbstractMongoEventListener<Quiz> {

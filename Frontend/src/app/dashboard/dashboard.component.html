@@ -1,17 +1,18 @@
 <div id="dashboard">
   <mat-card id="main_card">
-      <span class="create">
-        
-        <button id="c1" mat-button (click)="createQuiz()"><img src="assets/image/create-quiz.png" width="130" height="135"></button>
-      </span>
-      
-      <span class="created">
-        <button id= "c2" mat-button (click)="createdQuiz()"><img src="assets/image/created-1.png" width="130" height="130"></button>
-      </span>
+    <div class="row">
+      <div class="col-md-3 offset-md-2">
+        <span class="create">
+          <button id="c1" mat-button (click)="createQuiz()"><img src="assets/image/pencil.svg" width="100" height="100"><br> Add Quiz</button>
+        </span><br>
+      </div>
+        <div class="col-md-3 offset-md-1">
+        <span class="created">
+          <button id= "c2" mat-button (click)="createdQuiz()"><img src="assets/image/files.svg" width="100" height="100"><br>Created Quizes</button>
+        </span>
+      </div>
+    </div>
   </mat-card>
 </div>
 
-   
- 
-  
   

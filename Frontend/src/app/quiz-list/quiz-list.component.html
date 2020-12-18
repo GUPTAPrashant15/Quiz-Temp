@@ -1,38 +1,57 @@
-<div class="main">
-    <input type="text" class="form-control" placeholder="Enter Keyword for Search" [(ngModel)]="searchValue"
-        id="search" />
+<br>
+<div class="row heading" >
+    <div class="column">
+            <h1>Your Quizzes</h1>
+    </div>
+    <div class="main column">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchValue"
+        id="search"/>
+    </div>
+    
 </div>
 
-<br>
-<br>
+
+<hr>
 
 
-<div id="quizList">
-    <table border="1" class="content-table" cellspacing="0" width="100%">
+<div id="quizList" >
+    <table border="1" class="content-table" cellspacing="0" width="85%" >
         <thead>
-            <tr>
-                <th width="50px">ID</th>
-                <th width="350px">Quiz Name</th>
+            <tr style="background-color:#a0a1d1">
+                <th width="40px">S.No.</th>
+                <th width="250px">Quiz Name</th>
+                <th width="160px"> Quiz Status</th> 
+                <th width="600px">Quiz Actions</th>
                 
-                <th></th>
-                <th></th>
+                
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let quiz of quizzes |async |filter:searchValue">
-                <td>{{quiz.quizId}}</td>
-                <td>{{quiz.quizName}}</td>
-                
-                <td><button mat-raised-button color="primary" style="margin-left: 80px"
+            <tr *ngFor="let quiz of quizzes |async |filter:searchValue; let i = index" >
+                <td>{{i+1}}</td>
+                <td><a class="btn btn-link" (click)="previewQuiz(quiz)">{{quiz.quizName}}</a></td>
+                <!-- <td>{{quiz.isLiveStatus}}</td> -->
+                <td>
+                <button  style="margin-left: 30px" *ngIf="!quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
+                    Activate
+                </button>
+                 <button  style="margin-left: 30px" *ngIf="quiz.isLiveStatus" class="btn btn-success" (click)="active(quiz.quizId,quiz.isLiveStatus);" id="course_status_btn_{{quiz.quizId}}" >
+                    Inactivate
+                </button>
+            </td>
+                <td><button mat-raised-button color="primary" style="margin-left: 30px"
                         (click)="realTimeAnalysis(quiz)">Analysis</button>
-                    <button mat-raised-button color="accent" style="margin-left: 80px"
+                    <button mat-raised-button color="accent" style="margin-left: 30px"
                         (click)="exportToCsv(quiz)">Download</button>
                     <button mat-raised-button color="warn" (click)="share(quiz)"
-                        style="margin-left: 80px">Share</button>
+                        style="margin-left: 30px">Share</button>
+                        <button mat-raised-button color="danger" (click)="deleteQuiz(quiz.quizId)"
+                        style="margin-left: 30px">Delete</button>
                 </td>
-                <td><button style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success"
+                <!-- <td><button *ngIf="status" style='margin-right:16px' (click)="statusQuiz(quiz.quizId)" class="btn btn-success"
                         style="margin-left: 10px">{{Status}}</button>
-                </td>
+                </td> -->
+                
             </tr>
         </tbody>
     </table>

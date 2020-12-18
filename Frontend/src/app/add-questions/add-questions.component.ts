@@ -5,7 +5,10 @@ import { Question } from '../Question'
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ImplicitReceiver } from '@angular/compiler';
+/** 
+ * This component enables the user to go on the add question page, where user can add questions of single correct , multiple correct type ,and textual type question.
+ */
 @Component({
   selector: 'app-add-questions',
   templateUrl: './add-questions.component.html',
@@ -15,6 +18,11 @@ export class AddQuestionsComponent implements OnInit {
 
   'typeValue';
 
+  /**
+   * question is a variable of type Question
+   * 
+   * @see src/app/Question
+   */
   questions: Question[];
 
   constructor(private fb: FormBuilder,
@@ -37,21 +45,39 @@ export class AddQuestionsComponent implements OnInit {
     correct4: [''],
     text_answer: ['']
   });
-
+  /**
+   * @ignore
+   */
   message: any;
+  /**
+   * @ignore
+   */
   quizId: any;
 
+  /**
+   *  It takes quiz id from URL and initializes it in quizId variable.
+   */
   ngOnInit(): void {
     this.questions = [];
     this._activatedRoute.queryParams.subscribe((param) => {
       this.quizId = param.quizId;
     })
   }
-
+/**
+ * This method deletes the selected question.
+ * This method will call when user clicking on delete icon in Added Question .
+ * @param q is a object of Question type.
+ * 
+ */
   onDelete(q) {
     this.questions = this.questions.filter(t => t.quesID != q.quesID);
   }
 
+  /**
+   * This method is used to save the question in a list of type Question.
+   * It checks question is either a single type or multiple choice or textual type and saves data according to that.
+   * It also check all validation, if an undesirable thing happens, it generates an alert.
+   */
   onSubmit() {
     let ques = this.question_form.value.question_text;
     let o1 = this.question_form.value.option1;
@@ -121,6 +147,30 @@ export class AddQuestionsComponent implements OnInit {
         tempObj.correct2 = c2;
         tempObj.correct3 = c3;
         tempObj.correct4 = c4;
+
+        if (c1 == null || c1 == "") {​​​​
+
+          tempObj.correct1 = false;
+
+        }​​​​
+
+        if (c2 == null || c2 == "") {​​​​
+
+          tempObj.correct2 = false;
+
+        }​​​​
+
+        if (c3 == null || c3 == "") {​​​​
+
+          tempObj.correct3 = false;
+
+        }​​​​
+
+        if (c4 == null || c4 == "") {​​​​
+
+          tempObj.correct4 = false;
+
+        }​​​​
       }
     }
     else {
@@ -135,7 +185,12 @@ export class AddQuestionsComponent implements OnInit {
     this.question_form.reset();
 
   }
-
+  /**
+   * This method is used to save the quiz data / quiz question into database.
+   * If User tries to create quiz without any question , it will generate alert.
+   * 
+   * After storing the quiz, control will shift to shareQuiz page, where user can share the quiz URL.
+   */
   saveQuestions() {
 
     if (this.questions.length == 0) {
@@ -156,6 +211,9 @@ export class AddQuestionsComponent implements OnInit {
   selector: 'alert-dialog',
   templateUrl: 'alert-dialog.html',
 })
+/**
+ * This is for generating the alert when an undesirable thing happens.
+ */
 export class AlertDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string }) { }
 }

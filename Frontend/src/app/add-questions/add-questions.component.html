@@ -3,8 +3,9 @@
 <div id="add_main">
 
     <mat-card>
+        <mat-card-title style="background-color:#a0a1d1">Add Questions</mat-card-title>
 
-        <h2 class="heading">Add Questions</h2>        
+        <!-- <h2 class="heading">Add Questions</h2>         -->
 
         <form [formGroup]="question_form" class="form" (ngSubmit)="onSubmit()">
             <mat-form-field class="full-width">
@@ -21,7 +22,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <button mat-raised-button type="submit" color="primary">Add Question</button>
+            <button mat-raised-button type="submit" color="primary" class="pull-right">Add Question</button>
     
             <ng-container *ngIf="typeValue=='Single Correct'">
                 <div class="single form-group" >
@@ -98,14 +99,16 @@
     
 
     <mat-card id="card">
+        <mat-card-title style="background-color:#a0a1d1">Added Questions</mat-card-title>
         <div id="addedQuestions">
-            <h2 class="heading">Added Questions</h2>
+            
+            <!-- <h2 class="heading">Added Questions</h2> -->
             <ol>
                 <li *ngFor="let q of questions" >
                     <div class="ques" >
                         {{ q.question }}
                         Type : {{ q.quesType }}
-                        <button mat-mini-fab color="warn" aria-label="Delete" (click)="onDelete(q)">
+                        <button mat-mini-fab color="warn" class="pull-right" aria-label="Delete" (click)="onDelete(q)">
                             <mat-icon>delete</mat-icon>
                         </button>
                         <ng-container *ngIf="q.quesType =='Single Correct'">
@@ -149,8 +152,9 @@
                     </div>
                 </li>
             </ol>
-            <button mat-raised-button color="primary" id="create" (click)="saveQuestions()">Create Quiz</button>
+            <button mat-raised-button color="primary" id="create" (click)="saveQuestions()">Create Quiz</button><br>
         </div>
+        <br>
     </mat-card>
     
 

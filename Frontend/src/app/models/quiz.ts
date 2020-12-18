@@ -1,4 +1,4 @@
-import { QuizConfig } from './quiz-config';
+
 import { Question } from './question';
 
 export class Quiz {
@@ -7,15 +7,22 @@ export class Quiz {
     description: string;
     username:string;
     createdDate: Date;
-   
     questions: Question[];
+    descriptionLength: number;
     l: number;
+    startDate: Date;
+    endDate: Date;
+    time: number;
     constructor(data: any) {
         if (data) {
             this.quizId = data.quizId;
             this.quizName = data.quizName;
             this.description = data.description;
-           this.l=0;
+            this.descriptionLength=this.description.length;
+            this.time=data.quizTime;
+            this.startDate=data.startDate;
+            this.endDate=data.endDate;
+            this.l=0;
             this.questions = [];
             data.questions.forEach(q => {
                 this.questions.push(new Question(q));

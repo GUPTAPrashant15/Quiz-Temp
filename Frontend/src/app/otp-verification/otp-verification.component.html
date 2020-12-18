@@ -24,14 +24,14 @@
   <!--<p *ngIf="allowResendOTP">Please Generate new OTP your previous OTP is expired.</p>-->
   <br>
   <button class="btn btn-md btn-success btn-style pull-right" [disabled]="!form.valid">Submit</button>
-  <button class="btn btn-primary btn-style pull-left" (click)="onCancel()">Cancel</button>
+  <button class="btn btn-primary btn-style pull-left" id="bn" (click)="onCancel()">Cancel</button>
   <br> <br> 
   <div *ngIf="errorOTP" class="alert alert-danger mt-3 mb-0">Wrong OTP</div>
   <hr>
   
   <button class="btn btn-primary btn-style pull-right" 
          
-         (click)="onResend()">Resend OTP</button>
+         (click)="onResend()" [disabled]="!allowResendOTP">Resend OTP</button>
 
 </div>
   </div>

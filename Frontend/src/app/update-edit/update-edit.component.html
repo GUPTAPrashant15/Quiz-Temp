@@ -1,0 +1,111 @@
+
+<div id="add_main">
+    <mat-card>
+        <mat-card-title style="background-color:#a0a1d1">Edit Questions</mat-card-title>
+
+
+        <form [formGroup]="question_form" class="form" (ngSubmit)="onSubmit()">
+            
+            <mat-form-field class="full-width">
+                <mat-label>Question</mat-label>
+                <input matInput formControlName="question_text">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" id="type">
+                <mat-label>Type of Question</mat-label>
+                <mat-select [(ngModel)]="typeValue" formControlName="type">
+                    <mat-option value="Single Correct">Single Correct</mat-option>
+                    <mat-option value="Multiple Correct">Multiple Correct</mat-option>
+                    <mat-option value="Textual">Textual Questions</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <button mat-raised-button type="submit" color="primary" class="pull-right">Update Question</button>
+            <ng-container *ngIf="typeValue=='Single Correct'">
+                <div class="single form-group">
+
+                    <mat-form-field>
+                        <mat-label>Option 1</mat-label>
+                        <input matInput type="text" formControlName="option1">
+                    </mat-form-field>
+                    <mat-radio-button ngDefaultControl formControlName="correct" [value]="1" class="correct" [checked]="correct == '1'" [(ngModel)]="correct">Correct
+                    </mat-radio-button>
+
+                    <mat-form-field>
+                        <mat-label>Option 2</mat-label>
+                        <input matInput type="text" formControlName="option2">
+                    </mat-form-field>
+                    <mat-radio-button ngDefaultControl formControlName="correct" [value]="2" class="correct" [checked]="correct == '2'" [(ngModel)]="correct">Correct
+                    </mat-radio-button>
+
+
+                    <mat-form-field>
+                        <mat-label>Option 3</mat-label>
+                        <input matInput type="text" formControlName="option3">
+                    </mat-form-field>
+                    <mat-radio-button  ngDefaultControl formControlName="correct" [value]="3" class="correct" [checked]="correct == '3'" [(ngModel)]="correct">Correct
+                    </mat-radio-button>
+
+
+                    <mat-form-field>
+                        <mat-label>Option 4</mat-label>
+                        <input matInput type="text" formControlName="option4">
+                    </mat-form-field>
+                    <mat-radio-button ngDefaultControl formControlName="correct" [value]="4" class="correct" [checked]="correct == '4'" [(ngModel)]="correct">Correct
+                    </mat-radio-button>
+
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="typeValue=='Multiple Correct'">
+                <div class="multiple form-group">
+
+                    <mat-form-field>
+                        <mat-label>Option 1</mat-label>
+                        <input matInput type="text" formControlName="option1">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct1" value="1" class="correct">Correct
+                    </mat-checkbox>
+
+                    <mat-form-field>
+                        <mat-label>Option 2</mat-label>
+                        <input matInput type="text" formControlName="option2">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct2" value="2" class="correct">Correct
+                    </mat-checkbox>
+
+                    <mat-form-field>
+                        <mat-label>Option 3</mat-label>
+                        <input matInput type="text" formControlName="option3">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct3" value="3" class="correct">Correct
+                    </mat-checkbox>
+
+                    <mat-form-field>
+                        <mat-label>Option 4</mat-label>
+                        <input matInput type="text" formControlName="option4">
+                    </mat-form-field>
+                    <mat-checkbox ngDefaultControl formControlName="correct4" value="4" class="correct">Correct
+                    </mat-checkbox>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="typeValue=='Textual'" class="textual">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>Answer Text</mat-label>
+                        <textarea matInput formControlName="text_answer"></textarea>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+
+        </form>
+    </mat-card>
+
+
+
+
+</div>
+
+<router-outlet></router-outlet>

@@ -57,7 +57,7 @@ public class ResetPasswordController {
         // Check if the Email is valid or not
         try {
 
-            existingUser = userRepo.findByEmailId(resetUser.getEmailId());
+            existingUser = userRepo.findByEmailId(resetUser.getEmailId().toLowerCase());
 
         } catch (Exception exc) {
 
@@ -73,7 +73,7 @@ public class ResetPasswordController {
 
             String otp = String.valueOf(generateOTP(6));
 
-            ResetPasswordModel otpUser = resetRepo.findByEmailId(resetUser.getEmailId());
+            ResetPasswordModel otpUser = resetRepo.findByEmailId(resetUser.getEmailId().toLowerCase());
 
             if (otpUser == null) otpUser = resetUser;
 
@@ -82,9 +82,9 @@ public class ResetPasswordController {
             try {
 
                 resetRepo.save(otpUser);
-                emailSender.sendEmail(otpUser.getEmailId(), String.valueOf(otp));
+                emailSender.sendEmail(otpUser.getEmailId().toLowerCase(), String.valueOf(otp));
 
-                logger.info("Email has been sent successfully to the : " + otpUser.getEmailId());
+                logger.info("Email has been sent successfully to the : " + otpUser.getEmailId().toLowerCase());
 
             } catch (Exception exc) {
 
@@ -124,7 +124,7 @@ public class ResetPasswordController {
 
         try {
 
-            existingUser = resetRepo.findByEmailIdAndOtp(resetUser.getEmailId(), resetUser.getOtp());
+            existingUser = resetRepo.findByEmailIdAndOtp(resetUser.getEmailId().toLowerCase(), resetUser.getOtp());
 
         } catch (Exception exc) {
 
@@ -141,7 +141,7 @@ public class ResetPasswordController {
             System.out.println(message);
 
             resetRepo.delete(existingUser);
-            logger.info("Otp has been verified successfully for : " + existingUser.getEmailId());
+            logger.info("Otp has been verified successfully for : " + existingUser.getEmailId().toLowerCase());
 
         } else {
 
@@ -171,7 +171,7 @@ public class ResetPasswordController {
 
         try {
 
-            recentUser = userRepo.findByEmailId(resetPasswordUser.getEmailId());
+            recentUser = userRepo.findByEmailId(resetPasswordUser.getEmailId().toLowerCase());
             recentUser.setPassword(resetPasswordUser.getPassword());
 
             userRepo.save(recentUser);
@@ -179,7 +179,7 @@ public class ResetPasswordController {
             message = "SUCCESS";
             resModel.setMessage(message);
 
-            logger.info("Password has been Reset successfully for : " + resetPasswordUser.getEmailId());
+            logger.info("Password has been Reset successfully for : " + resetPasswordUser.getEmailId().toLowerCase());
 
             // return new ResponseEntity<>(message, HttpStatus.OK);
 

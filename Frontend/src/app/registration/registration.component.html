@@ -5,7 +5,7 @@
       <div class="card">
         <h4 class="card-header" style="background-color:rgb(189, 178, 240)"><b>Welcome to SBSI Quiz Portal</b></h4>
         <div class="card-body">  
-        <form  [formGroup] = "form" (ngSubmit)="onSubmit()" #f="ngForm">
+        <form  [formGroup] = "form"  #f="ngForm">
           <div id="user-data">
             <div class="form-group">
               <label for="firstName">First Name</label>
@@ -27,7 +27,7 @@
               </div>
             <div class="form-group">
               <label for="emailId">Email</label>
-              <input type="text" placeholder="xyz@abc.com"
+              <input type="text" placeholder="john@abc.com"
                id="emailId" 
                class="form-control"
                formControlName="emailId"
@@ -39,14 +39,14 @@
             </div>
             <div class="form-group">
                 <label for="number">Phone Number</label>
-                <input type="text" placeholder="1234567890"
+                <input type="text" placeholder="9876543210"
                  id="number" 
                  class="form-control"
                  formControlName="number"
                  required >
                  <div *ngIf="form.get('number').invalid && form.get('number').touched">
                   <small CLASS="text-danger" *ngIf="form.get('number').errors?.required">Please enter Phone Number</small>
-                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.minlength">Please provide a valid Phone Number</small>  
+                  <small CLASS="text-danger" *ngIf="form.get('number').errors?.pattern">Please provide a valid Phone Number</small>  
                 </div>
               </div>
               <div class="form-group">
@@ -70,8 +70,9 @@
                 </div>
               </div>
           </div>
-          <button class="btn btn-success" [disabled]="!form.valid" type="submit">Register</button>
-          
+          <button class="btn btn-success" (click)="onSubmit()" [disabled]="!form.valid" type="submit">Register</button>
+          <!-- <button class="btn btn-primary pull-right" (click)="googleSignUp()">Signup with Google</button> -->
+        
           <div *ngIf="regErrorEmail" class="alert alert-danger mt-3 mb-0">Email already exists</div>
           <hr>
           <h5>Already have an account?</h5>

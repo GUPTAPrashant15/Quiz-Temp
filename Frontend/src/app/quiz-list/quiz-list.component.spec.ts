@@ -55,9 +55,9 @@ describe('QuizListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have statusQuiz() function', () => {
-    expect(component.statusQuiz(quiz)).toBeTruthy();
-  });
+  // it('should have statusQuiz() function', () => {
+  //   expect(component.statusQuiz(quiz)).toBeTruthy();
+  // });
 
   it('should have exportToCsv() function', () => {
     expect(component.exportToCsv(quiz)).toBeTruthy();

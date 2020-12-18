@@ -93,7 +93,7 @@ public class ParticipationController {
 		existingGraph = graphRepo.findByGraphId(graphId);
 		//Only for testing
 		if(existingGraph == null)
-			existingGraph = getDummyDataForTesting();			
+			existingGraph = getDummyDataForTesting();
 
 		Integer answerScore = 0;
 
@@ -166,8 +166,17 @@ public class ParticipationController {
 
 		GraphModel graph = graphRepo.findByGraphId(new GraphId(quizId, quesId));
 		//Only for testing
-		if(graph == null)
-			graph = getDummyDataForTesting();	
+		if(graph == null){
+			GraphModel graphModel=new GraphModel();
+        	graphModel.setGraphId(new GraphId(quizId, quesId));
+        	graphModel.setOptionA(0);
+        	graphModel.setOptionB(0);
+        	graphModel.setOptionC(0);
+			graphModel.setOptionD(0);
+			graphRepo.save(graphModel);
+			return graphModel;
+		}
+			//graph = getDummyDataForTesting();
 		return graph;
 
 	}
@@ -180,9 +189,10 @@ public class ParticipationController {
 		logger.info("----- Inside Check Unique User API -----");
 
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
+
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
-		if (user == null){ 
+		if (user == null) {
 			List<AnswerData> answerDatas = quizData.getAnswerData();
 			if(answerDatas == null){
 				List<AnswerData> newAnswerDatasList = new ArrayList<AnswerData>();
@@ -196,7 +206,7 @@ public class ParticipationController {
 			scoreRepo.save(quizData);
 			return true;
 		}
-		
+
 		return false;
 
 	}
@@ -206,26 +216,46 @@ public class ParticipationController {
 
 		logger.info("----- Inside Get Result API -----");
 
-		ScoreModel quiz = scoreRepo.findByQuizId(quizId);
+		ScoreModel finalData = scoreService.getParticipants(scoreRepo.findByQuizId(quizId));
+		System.out.println("From inside getResultById() Function : " + finalData);
 
-		System.out.println("From inside getResultById() Function : " + quiz.getAnswerData());
-
-		return quiz;
+		return finalData;
 
 	}
 
-	@GetMapping(value = "/getUserScore/{userName}/{quizId}")
+	@GetMapping(value = "/getUserScore/{userName}/{quizId}/{remTime}")
 	public int userScore(
 		@PathVariable(value = "userName") String userName,
-		@PathVariable(value = "quizId") long quizId) {
+		@PathVariable(value = "quizId") long quizId,
+		@PathVariable(value = "remTime") float remTime) {
 
 		logger.info("----- Inside Get User Score API -----");
 
+		int totalQues = quizRepo.findByQuizId(quizId).getQuestions().size();
+
+		float totalTime=quizRepo.findByQuizId(quizId).getQuizTime();
 		ScoreModel quizData = scoreRepo.findByQuizId(quizId);
 		AnswerData user = scoreService.getAnswerDataModel(quizData, userName);
 
-		if (user != null) return user.getUserScore();
-		
+		// { ​​correct questions + [( correct questions x remaining time per question ) / ( total questions x 600 ) ] }​​ x 100
+
+		if (user != null) {
+
+			if (!user.isCompleted()) {
+				System.out.println(user.getUserScore());
+				System.out.println(remTime);
+
+				user.setCompleted(true);
+				
+				user.setUserScore(Math.round(user.getUserScore() * (float)(1 + (float)(remTime / (totalQues * totalTime*60))) * 100.0F));
+				scoreRepo.save(quizData);
+				System.out.println(user.getUserScore());
+			}
+
+			return user.getUserScore();
+
+		}
+
 		return 0;
 
 	}

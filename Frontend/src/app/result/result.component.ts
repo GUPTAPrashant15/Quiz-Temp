@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Quiz } from '../models';
+import { Router } from '@angular/router';
+import { Quiz } from '../models/quiz';
+
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
@@ -10,18 +12,20 @@ export class ResultComponent implements OnInit {
   username = "";
   score = 0;
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit() {
 
-    let logout = document.getElementById('logout');
-    logout.style.display = "none";
-    let dashboard = document.querySelector('.navButton');
-    dashboard.textContent = "";
-    this.quiz = history.state.quiz;
-    this.username = history.state.username;;
-    this.score = history.state.score;
+    if(history.state.quiz){
+      this.quiz = history.state.quiz;
+      this.username = history.state.username;;
+      this.score = history.state.score;
 
+    }
+    else{
+      this.route.navigate(['/page-not-found']);
+    }
+    
     if(document.getElementById('logout')){
       let logout = document.getElementById('logout');
         logout.style.display = "none";
@@ -31,6 +35,10 @@ export class ResultComponent implements OnInit {
       dashboard.textContent = "";
     }
 
+
+  }
+  leaderboard(){
+    this.route.navigate(['/leaderboard',this.quiz.quizId]);
   }
 
 }

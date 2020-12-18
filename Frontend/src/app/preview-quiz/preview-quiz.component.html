@@ -1,0 +1,45 @@
+<div class="secondnav" style="background-color: lightcyan;">
+    <table ><tr><td style="padding: 10px; "><b>Quiz:</b> {{quiz.quizName }}</td>
+        <td ><b>Status:</b> {{(quiz.isLiveStatus)?'Active':'Inactive'}}</td><td></td><td></td>
+        <td> <button id="back" mat-raised-button color="primary" (click)="backClicked()" style="margin-right: 50px;">Back</button>
+        </td></tr></table>
+</div>
+
+<div *ngFor="let QuesNo of quiz.questions ; let i=index" class="list-group" style="max-width:700px; margin: auto; padding:.25%;">
+    <div *ngIf="QuesNo.quesType == 'Single Correct'" class="list-group-item"><b>Question {{i+1}}:</b> {{QuesNo.question}}<br>
+        Type : {{QuesNo.quesType}}
+        <button style="margin-left:410px" mat-icon-button color="Black" (click)="UpdateQuiz(QuesNo)">
+            <mat-icon> border_color</mat-icon>
+        </button>
+        <button style="margin-left:15px" mat-icon-button color="Black" (click)="deleteQuestion(QuesNo)">
+            <mat-icon>delete</mat-icon>
+        </button><br>Option 1 : {{QuesNo.option1}}<br>Option 2 : {{QuesNo.option2}}<br>
+        Option 3 : {{QuesNo.option3}}<br>Option 4 : {{QuesNo.option4}}<br>
+        Correct : Option {{QuesNo.correct}}
+    </div>
+
+    <div *ngIf="QuesNo.quesType == 'Textual'" class="list-group-item"><b>Question {{i+1}}:</b> {{QuesNo.question}}
+        <br>
+        Type : {{QuesNo.quesType}}
+        <button style="margin-left:450px" mat-icon-button color="Black" (click)="UpdateQuiz(QuesNo)">
+            <mat-icon> border_color</mat-icon>
+        </button>
+        <button style="margin-left:15px" mat-icon-button color="Black" (click)="deleteQuestion(QuesNo)">
+            <mat-icon>delete</mat-icon>
+        </button><br>Correct Answer : {{QuesNo.textAnswer}}
+    </div>
+
+    <div *ngIf="QuesNo.quesType == 'Multiple Correct'" class="list-group-item"><b>Question {{i+1}}:</b> {{QuesNo.question}}<br>
+        Type : {{QuesNo.quesType}}
+        <button style="margin-left:400px" mat-icon-button color="Black" (click)="UpdateQuiz(QuesNo)">
+            <mat-icon> border_color</mat-icon>
+        </button>
+        <button style="margin-left:15px" mat-icon-button color="Black" (click)="deleteQuestion(QuesNo)">
+            <mat-icon>delete</mat-icon>
+        </button><br>Option 1 : {{QuesNo.option1}}
+        <br>Option 2 : {{QuesNo.option2}}<br>
+        Option 3 : {{QuesNo.option3}}<br>Option 4 : {{QuesNo.option4}}<br>
+        Correct Option are : <div *ngIf="QuesNo.correct1">Option 1</div><div *ngIf="QuesNo.correct2">Option 2</div>
+        <div *ngIf="QuesNo.correct3">Option 3</div><div *ngIf="QuesNo.correct4">Option 4</div>
+    </div>
+</div>
